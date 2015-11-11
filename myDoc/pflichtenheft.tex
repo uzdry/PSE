@@ -1,0 +1,37 @@
+% Version 0.01
+\documentclass[a4paper]{scrreprt}
+
+\usepackage{subfiles}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{mathtools}
+
+\pagenumbering{roman}
+
+\begin{document}
+
+\title{Pflichtenheft PSE DataDealer}
+\author{Vladimir Bykovski 
+			\and Jonas Haas 
+			\and David Grajzel 
+			\and Nicolas Schreibner
+			\and Valentin Springsklee
+			\and Yimeng Zhu}
+
+\maketitle
+
+\newpage
+
+\setcounter{page}{1} %Seitennummer des Inhaltsverzeichnis
+
+\tableofcontents
+
+\subfile{Intro}
+\pagenumbering{arabic}
+
+\subfile{Produkt}
+
+
+
+\end{document}
