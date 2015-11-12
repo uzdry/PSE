@@ -4,14 +4,12 @@
 \usepackage{subfiles}
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
-
-\usepackage{mathtools}
+\usepackage{hyperref}
 
 \pagenumbering{roman}
-
 \begin{document}
 
-\title{Pflichtenheft PSE DataDealer}
+\title{Pflichtenheft PSE - Automotive Remote Sensor Data Management (aRSDM)}
 \author{Vladimir Bykovski 
 			\and Jonas Haas 
 			\and David Grajzel 
@@ -25,13 +23,24 @@
 
 \setcounter{page}{1} %Seitennummer des Inhaltsverzeichnis
 
+
 \tableofcontents
 
-\subfile{Intro}
+\newpage
 \pagenumbering{arabic}
 
-\subfile{Produkt}
+\subfile{Intro}
 
+\subfile{ProduktEU}
 
+\subfile{Produktfunktionen}
+
+\subfile{ProduktDL}
+
+\subfile{UI}
+
+\subfile{GlobalTest}
+
+\subfile{Qualitaet}
 
 \end{document}
