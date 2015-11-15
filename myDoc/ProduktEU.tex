@@ -2,12 +2,76 @@
 
 \begin{document}
 
-
+%-------------- PRODUKTEINSATZ ---------------------
 \chapter{Produkteinsatz}
-\section{Software}
+Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter Sensoren eines Autos. Dies beinhaltet z.B. Informationen wie die Geschwindigkeit, Motortemperatur, Raddrehzahl oder ähnliches. Damit bietet es einerseits einem Endnutzer den Zugriff auf aktuelle und gespeicherte Zustände des Automobils, außerdem würde es z.B. ermöglichen, dass bei einer Reparatur diese Daten zur Fehleranalyse genutzt werden können.
 
+
+\section{Anwendungsbereiche}
+\begin{itemize}
+\item
+Privater oder geschäftlicher Anwendungsbereich
+\item
+Automobil Anwendungsbereich
+\end{itemize}
+
+
+\section{Zielgruppen}
+\begin{itemize}
+\item
+Private sowie geschäftliche Autobesitzer mit oder ohne tiefere technische Kenntnisse
+\item
+Mitarbeiter in einer Autowerkstatt
+\item
+Automobil-Entwickler
+\end{itemize}
+
+
+\section{Betriebsbedingungen}
+\begin{itemize}
+\item
+Einsatz im üblichen Aufgabengebiet eines Autos
+\item
+Einsatz beim Entwickeln oder Testen neuer Automobiltechnologien
+\end{itemize}
+
+
+%--------------- Produktumgebung -------------
 \chapter{Produktumgebung}
+\begin{itemize}
+\item
+Eine Client-Server Architektur mit dem ``Thin Client`` Konzept
+\item
+Auf dem Server läuft hauptsächlich unsere Anwendung und das Einlesen der Sensordaten.
+\item
+Auf der Userseite laufen einige verschiedene Applikationen neben Unserer. Diese sollen sich jedoch gegenseitig nicht beeinflussen.
+\end{itemize}
 
 
+\section{Software}
+\begin{itemize}
+\item
+Serverseite\\
+Datenbank auf Unix, läuft lokal im Auto\\
+Webserver: tomcat oder apache
+\item
+Clientseite\\
+Betriebssystem: Windows 7, 8, 10, Verschiedene Linux Distributionen, Mac OS X, Android 4 und später\\
+Web Browser, Referenz Google Chrome Version 46
+\end{itemize}
 
+
+\section{Hardware}
+\begin{itemize}
+\item
+Serverseite\\
+Raspberry Pi
+\item
+Clientseite\\
+Standardrechner (min. 1 GHz und 2 GB Ram)\\
+Android Phone (min. 1 GHz und 1 GB Ram)
+\end{itemize}
 \end{document}
+
+
+
