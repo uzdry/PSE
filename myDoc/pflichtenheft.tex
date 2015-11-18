@@ -4,7 +4,26 @@
 \usepackage{subfiles}
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{hyperref}
+\usepackage[bookmarks=true,hidelinks]{hyperref}
+
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
+%% counters
+\newcounter{FA}
+\newcommand{\itemFA}[2]{\refstepcounter{FA}\label{fa:#1}\item[/FA\theFA0/]}
+\newcommand{\refFA}[1]{/FA\ref{fa:#1}0/}
+\newcommand{\itemFAW}[1]{\refstepcounter{FA}\label{fa:#1}\item[/FA\theFA0W/]}
+\newcommand{\refFAW}[1]{/FA\ref{fa:#1}0W/}
+
+\newcounter{MK}
+\newcommand{\itemMK}[1]{\refstepcounter{MK}\label{mk:#1}\item[/MK\theMK0/\textbf{#1}]}
+\newcommand{\refMK}[1]{/MK\ref{mk:#1}0/}
+\newcommand{\itemWK}[1]{\refstepcounter{MK}\label{mk:#1}\item[/MK\theMK0W/\textbf{#1}]}
+\newcommand{\refFWK}[1]{/MK\ref{mk:#1}0W/}
+
+\makeatletter 
+\newcommand\functionnumber{/MK\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
 
 \pagenumbering{roman}
 \begin{document}
@@ -13,7 +32,7 @@
 \author{Vladimir Bykovski 
 			\and Jonas Haas 
 			\and David Grajzel 
-			\and Nicolas Schreibner
+			\and Nicolas Schreiber
 			\and Valentin Springsklee
 			\and Yimeng Zhu}
 
