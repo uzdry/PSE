@@ -22,7 +22,11 @@
 \newcommand{\refFWK}[1]{/MK\ref{mk:#1}0W/}
 
 \makeatletter 
-\newcommand\functionnumber{/MK\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\newcommand\mknr{/MK\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\aknr{/AK\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
 \makeatother
 
 \pagenumbering{roman}

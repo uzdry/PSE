@@ -25,53 +25,47 @@ Es soll die Darstellung im Browser Google Chrome\textsuperscript{TM} auf Endger�
 
 \myparagraph{Allgemeine Funktionen}
 
-\subsubsection{\functionnumber Protokollierung} Kontinuierliche Speicherung der Sensordaten auch zur späteren Auswertung und Betrachtung
+\subsection{\mknr Protokollierung} Der Nutzer soll Daten aus der Vergangenheit zu jeder Zeit abrufen können.
 
-\subsubsection{\functionnumber Erweiterbarkeit} Drittentwickler sollen die Schnittstelle der Software für weitere Anwenugsfälle veerwenden können.
 
-\subsection{\functionnumber Datenstrom} Enwickler von Anwendungsmodulen können verschiedene Sensordaten priorisieren für Anzeige, Speicherung und untereinander.
+\subsection{\mknr Erweiterbarkeit} Drittentwickler können Module für die Verarbeitung und Auswertung weiterer Sensordaren schreiben.
 
-\subsection{\functionnumber RemoteAcces} Der Nutzer soll Daten auch angezeigt bekommen, wenn er nicht im Auto sitzt. Beispielsweise wenn er das Auto verleiht.
+
+\subsection{\mknr RemoteAcces} Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
+
+\subsection{\mknr Anzeigeelemente} Der Nutzer kann Anzeigeelemente ein- und ausblenden.
+
+\subsection{\mknr Statistiken} Der Benutzer kann sich Statistiken der gespeicherten Sensorwerte anzeigen lassen.
 
 \myparagraph{Automotive Kontext}
-\begin{itemize}
-\item Die Geschwindigkeit des Autos soll die ganze Zeit protokolliert werden
-\item Die Anzeige der aktuellen Geschwindigkeit soll zuverlässig auf einem Endgerät im Auto angezeigt werden können.
-\item Mit den auf dem CAN Bus verfügbaren Daten soll eine Verbrauchsanzeige realisiert werden.
-\item Es soll eine auf Ultraschallsensoren basierende Einparkhilfe realisiert werden.
-\item Navigationfeatures mittels Google\textsuperscript{TM} Maps.
-\begin{itemize}
-	\item Falls wenig Tankfüllstand oder kritischer Ölstand Einblenden der nächsten Tankstellen.
-\end{itemize}
-\item Warnen vor (kritischen) Abfahrten.
-\end{itemize}
+
+\subsection{\mknr Fahrinformation} Der Benutzer bekommt Fahrinformation (Glossar) angezeigt.
+
+\subsection{\mknr Durschnitssverbrauch} Die Software zeigt den Durschnittsverbrauch des Fahrzeugs an. 
+
+\subsection{\mknr Restkilometer} Die Software zeigt die verfügbaren Restkilometer bis zur nächsten Tankfüllung an. Diese werden aufgrungd des Fahrverhaltens berechnet.
+
+\subsection{\mknr Einparkhile} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality Features zur Verfügung.
+
+\subsection{\mknr POI} Bei bestimmten Sensorwerten (Tank/Motor) kann der sich Nutzer die nächsten Tankstellen / Werstätten einbleden.
 
 
 \section{Wunschkriterien}
 
 
-\begin{itemize}
-\item Durch GPRS im Auto soll mehr flächendeckende Netzwerkverbindung realisiert werden, um entferntes Monitoring sinnvoller Nutzbar zu machen.
-\item Neben den (vom Endgerät) entfernten Sensoren, sollen auch die Daten der Sensoren im Endgerät verwendet werden. deren Werte stellen auch sinnvolle Fahrinformationen bereit.
-\begin{itemize}
-\item Beschleunigungssensor
-\item Gyroskop
-\end{itemize}
-\item Zugang auf eine Kamera für Augmented Reality. In jedem Fall mit einer Nachgerüsteten Kamera. Falls Zugriff möglich auch mit der im Auto verbauten. AR Features gedacht für
-\begin{itemize}
-	\item Einparkhilfe
-	\item Fahrbahnerkennung
-	\item Endgerät Sensordaten.
-\end{itemize}
-\item Die Verbrauchsanzeige soll aufgrund von Erfahrungswerten und der aktuellen Situation eine optimale Geschwindigkeit vorschlagen.
-\end{itemize}
+\subsection{\mknr Smartphone Utilization} Die Software verwendet auch Sensordaten aus dem Endgerät.
+
+\subsection{\mknr Personalisierung} Aggregierte Funktionen sind personalisiert verfügbar.
 
 \section{Abgrenzungskriterien}
 
-\begin{itemize}
-\item Daten können nur empfangen werden. Von aRSDM können keine daten an die Sensorik. Im Automotive Kontext insbesondere keinerlei Steuerbefehle.
-\item Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
-\end{itemize}
+\subsection{\mknr Erweiterung} Für andere Sensorquellen werden keine Treiber bereitgestellt.
+
+\subsection{\mknr Unidirektional} Die Software liest und interpretiert Daten, sendet keine Daten an Quellen zurück.
+
+\subsection{\mknr Bildauswertung} Karabilder werden von der Software nicht interpretiert.
+
+\subsection{\mknr Android} Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
 
 
 \end{document}
