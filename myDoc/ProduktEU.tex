@@ -4,35 +4,31 @@
 
 %-------------- PRODUKTEINSATZ ---------------------
 \chapter{Produkteinsatz}
-Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter Sensoren eines Autos. Dies beinhaltet z.B. Informationen wie die Geschwindigkeit, Motortemperatur, Raddrehzahl oder ähnliches. Damit bietet es einerseits einem Endnutzer den Zugriff auf aktuelle und gespeicherte Zustände des Automobils, außerdem würde es z.B. ermöglichen, dass bei einer Reparatur diese Daten zur Fehleranalyse genutzt werden können.
+Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter Sensoren eines Autos. Dies beinhaltet z.B. Informationen wie die Geschwindigkeit, Motortemperatur, Raddrehzahl oder ähnliches. Damit bietet es die Möglichkeit diese Daten z.B. auf einem Handydisplay oder einem Dashboard anzuzeigen
 
 
 \section{Anwendungsbereiche}
 \begin{itemize}
 \item
-Privater oder geschäftlicher Anwendungsbereich
-\item
-Automobil Anwendungsbereich
+Dieses Produkt dient zum Speichern und Anzeigen von Sensordaten
 \end{itemize}
 
 
 \section{Zielgruppen}
 \begin{itemize}
 \item
-Private sowie geschäftliche Autobesitzer mit oder ohne tiefere technische Kenntnisse
-\item
-Mitarbeiter in einer Autowerkstatt
-\item
-Automobil-Entwickler
+Private Autobesitzer mit oder ohne tiefere technische Kenntnisse
 \end{itemize}
 
 
 \section{Betriebsbedingungen}
 \begin{itemize}
 \item
-Einsatz im üblichen Aufgabengebiet eines Autos
+Modul muss unter dem Lenkrad angebracht werden.
 \item
-Einsatz beim Entwickeln oder Testen neuer Automobiltechnologien
+Es wird über den Autostrom laufen.
+\item
+Es darf für den Fahrer nicht störend sein.
 \end{itemize}
 
 
@@ -52,12 +48,30 @@ Auf der Userseite laufen einige verschiedene Applikationen neben Unserer. Diese 
 \begin{itemize}
 \item
 Serverseite\\
-Datenbank auf Unix, läuft lokal im Auto\\
-Webserver: tomcat oder apache
+Ein Webserver mit einer Datenbank\\
+Aufgebaut auf einer Linux-Distribution
 \item
 Clientseite\\
-Betriebssystem: Windows 7, 8, 10, Verschiedene Linux Distributionen, Mac OS X, Android 4 und später\\
-Web Browser, Referenz Google Chrome Version 46
+Web Browser:
+\begin{itemize}
+\item
+Google Chrome Version 46
+\item
+Safari Version 9
+\item
+Firefox Version 42
+\item
+Google Chrome Android Version 14.10
+\end{itemize}
+Getestet mit:
+\begin{itemize}
+\item
+Mac OS X
+\item
+Fedora 22
+\item
+Windows 7
+\end{itemize}
 \end{itemize}
 
 
@@ -65,7 +79,16 @@ Web Browser, Referenz Google Chrome Version 46
 \begin{itemize}
 \item
 Serverseite\\
-Raspberry Pi
+Kleincomputer mit:
+\begin{itemize}
+\item
+Broadcom BCM2836 Arm7 Quad Core Processor (900MHz)
+\item
+1GB RAM
+\item
+4 x USB 2 ports
+\end{itemize}
+Can-Modul
 \item
 Clientseite\\
 Standardrechner (min. 1 GHz und 2 GB Ram)\\
