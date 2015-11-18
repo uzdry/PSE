@@ -6,21 +6,72 @@
 
 \chapter{Einleitung}
 
-In diesem Dokument wird die Software für das PSE DataDealer in Form eines Pflichtenheftes 
-spezifiziert.
+In der modernen Informationsgesellschafft fallen immer mehr nutzbare Daten an. Seien es Daten von sozialen Netzwerken und Daten von Personen über Nutzung und Gewohnheiten allgemein, oder Daten technischer Art, wie Sensordaten in Anlagen oder Automobilen. Mehr und mehr Sensorik findet Einsatz. Oft ist es sehr interessant diese Daten auszuwerten und visuell zu repräsentieren. Tablets und Smartphones sind omnipräsent. Jeder hat dauerhaft Zugriff auf einen leistungsfähigen Rechner mit hochauflösendem Display. Diese Geräte eignen sich also prima zur Anzeige von Daten. Unabhängig von der Art der Daten, müssen sie gesammelt, evtl. vorverarbeitet und bereitgestellt werden. Dazu bedarf es einer generischen Schnittstelle. In dem Rahmen von aRSDM sollen Sensordaten gesammelt und verteilt werden. Genauer gesagt, die über den OBD2 Anschluss verfügbare Daten in einem PKW. Es ist eine (abstrakte) Komponente zwischen Sensoren und Endgerät gefragt, die sich für beliebige, nicht unbedingt schon bekannte Anwendungsszenarien erweitern lässt. Ein Rahmenwerk, das Daten sammelt, speichert und verteilt.
 
 \section{Aufgabenstellung}
 
-Es geht darum, Daten von entfernten Sensoren zu übertragen, um sie sowohl 
-sinnvoll abzulegen, als auch für mehrere Benutzer darzustellen. Im Vordergrund steht hierbei
-also eine N:M erweiterbare Middleware.
+Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erfolgt eine Grafische Dartstellung von Sensordaten. Die Quelle der Daten ist entfernt und die Daten werden gelangen über Netzwerk auf das Smartphone. RSDM bietet eine API, die von Dritten für weitere Szenarien genutzt werden kann. Als Anwendung liefern wir ein automotive Modul, welches Sensordaten, die über den CAN Bus eine PKW verfügbar sind, vearbeitet.
+
 
 \chapter{Zielbestimmung}
 
+Die Software aRSDM soll Sensordaten von einem Auto sammeln, die über den CAN Bus auszulesen sind speichern und Endgeräten zur Darstellung zur Verfügung stellen. Dabei soll eine API implementiert und genutzt werden, die auch auf weitere Anwendungen erweiterbar ist.
+
+Es soll die Darstellung im Browser Google Chrome\textsuperscript{TM} auf Endgeräten erfolgen. 
+
 \section{Musskriterien}
+
+%%Frage Lizensierung...
+
+\myparagraph{Allgemeine Funktionen}
+
+\subsubsection{\functionnumber Protokollierung} Kontinuierliche Speicherung der Sensordaten auch zur späteren Auswertung und Betrachtung
+
+\subsubsection{\functionnumber Erweiterbarkeit} Drittentwickler sollen die Schnittstelle der Software für weitere Anwenugsfälle veerwenden können.
+
+\subsection{\functionnumber Datenstrom} Enwickler von Anwendungsmodulen können verschiedene Sensordaten priorisieren für Anzeige, Speicherung und untereinander.
+
+\subsection{\functionnumber RemoteAcces} Der Nutzer soll Daten auch angezeigt bekommen, wenn er nicht im Auto sitzt. Beispielsweise wenn er das Auto verleiht.
+
+\myparagraph{Automotive Kontext}
+\begin{itemize}
+\item Die Geschwindigkeit des Autos soll die ganze Zeit protokolliert werden
+\item Die Anzeige der aktuellen Geschwindigkeit soll zuverlässig auf einem Endgerät im Auto angezeigt werden können.
+\item Mit den auf dem CAN Bus verfügbaren Daten soll eine Verbrauchsanzeige realisiert werden.
+\item Es soll eine auf Ultraschallsensoren basierende Einparkhilfe realisiert werden.
+\item Navigationfeatures mittels Google\textsuperscript{TM} Maps.
+\begin{itemize}
+	\item Falls wenig Tankfüllstand oder kritischer Ölstand Einblenden der nächsten Tankstellen.
+\end{itemize}
+\item Warnen vor (kritischen) Abfahrten.
+\end{itemize}
+
 
 \section{Wunschkriterien}
 
+
+\begin{itemize}
+\item Durch GPRS im Auto soll mehr flächendeckende Netzwerkverbindung realisiert werden, um entferntes Monitoring sinnvoller Nutzbar zu machen.
+\item Neben den (vom Endgerät) entfernten Sensoren, sollen auch die Daten der Sensoren im Endgerät verwendet werden. deren Werte stellen auch sinnvolle Fahrinformationen bereit.
+\begin{itemize}
+\item Beschleunigungssensor
+\item Gyroskop
+\end{itemize}
+\item Zugang auf eine Kamera für Augmented Reality. In jedem Fall mit einer Nachgerüsteten Kamera. Falls Zugriff möglich auch mit der im Auto verbauten. AR Features gedacht für
+\begin{itemize}
+	\item Einparkhilfe
+	\item Fahrbahnerkennung
+	\item Endgerät Sensordaten.
+\end{itemize}
+\item Die Verbrauchsanzeige soll aufgrund von Erfahrungswerten und der aktuellen Situation eine optimale Geschwindigkeit vorschlagen.
+\end{itemize}
+
 \section{Abgrenzungskriterien}
+
+\begin{itemize}
+\item Daten können nur empfangen werden. Von aRSDM können keine daten an die Sensorik. Im Automotive Kontext insbesondere keinerlei Steuerbefehle.
+\item Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
+\end{itemize}
+
 
 \end{document}
