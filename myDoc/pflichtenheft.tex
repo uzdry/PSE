@@ -5,6 +5,7 @@
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[bookmarks=true,hidelinks]{hyperref}
+\usepackage{blindtext}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 
@@ -22,11 +23,15 @@
 \newcommand{\refFWK}[1]{/MK\ref{mk:#1}0W/}
 
 \makeatletter 
-\newcommand\mknr{/MK\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\newcommand\mknr{/MK\the\numexpr\c@section\relax\ifnum\c@subsection<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
 \makeatother
 
 \makeatletter 
-\newcommand\aknr{/AK\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\newcommand\mkfa{/FA\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\aknr{/AK\the\numexpr\c@subsection-1\relax\ifnum\c@ssubection<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
 \makeatother
 
 \pagenumbering{roman}
@@ -43,7 +48,7 @@
 \maketitle
 
 \newpage
-
+%%\setcounter{secnumdepth}{-1} 
 \setcounter{page}{1} %Seitennummer des Inhaltsverzeichnis
 
 

@@ -10,37 +10,50 @@ Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter
 \section{Anwendungsbereiche}
 \begin{itemize}
 \item
-Dieses Produkt dient zum Speichern und Anzeigen von Sensordaten
+Dieses Produkt dient zum Speichern und Anzeigen von Sensordaten, die im Auto verfügbar sind.
 \end{itemize}
 
 
 \section{Zielgruppen}
 \begin{itemize}
 \item
-Private Autobesitzer mit oder ohne tiefere technische Kenntnisse
+Private Autofahrer mit oder ohne tiefere technische Kenntnisse. Firmen mit Automobilflotten. 
 \end{itemize}
 
 
 \section{Betriebsbedingungen}
 \begin{itemize}
 \item
-Modul muss unter dem Lenkrad angebracht werden.
+Auto muss über OBD2 Anschluss verfügen.
 \item
 Es wird über den Autostrom laufen.
 \item
-Es darf für den Fahrer nicht störend sein.
+Für Remote Zugriff muss Netzwerkverbindung vorhanden sein.
 \end{itemize}
 
 
 %--------------- Produktumgebung -------------
 \chapter{Produktumgebung}
+Das Rahmenwerk und die Module werden in TypeScript programmiert. Der Server, in node.js. Als Datenbanksystem wird LevelUp verwendet.
+
 \begin{itemize}
+
 \item
-Eine Client-Server Architektur mit dem ``Thin Client`` Konzept
+Eine Client-Server Architektur mit dem Thin Client Konzept
 \item
-Auf dem Server läuft hauptsächlich unsere Anwendung und das Einlesen der Sensordaten.
+Auf dem Server läuft der Teil der Software, der die Sensordaten empfängt, einpflegt und über WebRTC an die Endgeräte versendet.
 \item
 Auf der Userseite laufen einige verschiedene Applikationen neben Unserer. Diese sollen sich jedoch gegenseitig nicht beeinflussen.
+\end{itemize}
+
+%%%%Fragen
+\section*{Testumgebung}
+\begin{itemize}
+\item
+Testfahrzeug: Opel Astra H 1.6 Bj 2005 %%Genauer
+\item
+Modellauto Nicolas\\
+Ein Modellauto der Firma ITK-Engineering AG, angetrieben über einen Elektromotor. Jegliche Daten, unter anderem von Ultraschallsensoren, liegen über CAN an
 \end{itemize}
 
 
