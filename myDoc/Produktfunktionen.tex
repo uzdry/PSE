@@ -3,10 +3,52 @@
 \begin{document}
 
 \chapter{Produktfunktionen}
+
+\subsection{Allgemeine Funktionen}
+
+\begin{enumerate}
+	\item{Protokoll} 
+
+	\item{Datenhaltung} Die definierte maximale Kapazität der Datenbank ist erreicht. Die ältesten Daten werden nach erreichen der maximalen Kapazität der Datenbank gelöscht.
+	Nachbedingung: Datenbank hat weniger Einträge als ihre maximale Kapazität. Die ältesten Einträge wurden gelöscht.
+	\begin{enumerate}
+		\item cc
+	\end{enumerate} 
+	\begin{enumerate}
+		\item Der Nutzer stellt maximalen Wert einstellen.
+	\end{enumerate}
+
+\end{enumerate}
+
+\subsection{\mkfa Protokoll} Der Nutzer soll Daten aus der Vergangenheit zu jeder Zeit abrufen können.
+
+\subsection{\mkfa Statistiken} Der Benutzer kann sich Statistiken der gespeicherten Sensorwerte anzeigen lassen.
+
+\subsection{\mkfa Erweiterbarkeit} Drittentwickler können Module für die Verarbeitung und Auswertung weiterer Sensordaren schreiben.
+
+\subsection{\mkfa RemoteAcces} Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
+
+\subsection{\mkfa Anzeigeelemente} Der Nutzer kann Anzeigeelemente für jeden der Sensorwerte ein- und ausblenden.
+
+\subsection{Automotive Kontext}
+
+\subsection{\mkfa Fahrinformation} Der Benutzer bekommt Fahrinformation (Glossar) angezeigt.
+
+\subsection{\mkfa Boardcomputer} Die Software zeigt berechnet anhand der Sensorwerte aggregierte Funktionen. Wie Durchschnittsverbrauch.
+
+\subsubsection{\mkfa Restkilometer} Die Software zeigt die verfügbaren Restkilometer bis zur nächsten Tankfüllung an. Diese werden aufgrungd des Fahrverhaltens berechnet.
+
+\subsection{\mkfa Einparkhile} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality Features zur Verfügung.
+
+\subsection{\mkfa POI} Bei bestimmten Sensorwerten (Tank/Motor) kann der sich Nutzer die nächsten Tankstellen oder Werstätten einbleden.
+
 \subsection{\mkfa Dateninput}
 Wenn Daten über Bluetooth ankommen pflegt die Software diese Daten in eine Datenbank ein. 
 \subsection{\mkfa Vergangene-Daten}
 Wenn der Nutzer es wünscht zeigt die Software ihm die gespeicherten Daten an.
+\subsection{\mkfa Zustandswarnungen}
+Das System überwacht und reagiert auf kritische Sensorwerte und Warnungen.
+
 \subsection{\mkfa Karte}
 Der Benutzer kann sich vom System einen aktuellen Kartenausschnitt der Umgebung anzeigen lassen.
 \subsubsection{\mkfa Werkstatt/Tankstellen}
@@ -15,13 +57,15 @@ Die Software kann auf dieser Karte auch Werkstätte, Tankstellen und Restaurants
 Bei niedrigem Tankfüllstand werden beim öffnen dieser Karte automatisch die Tankstellen in der Nähe angezeigt.
 \subsubsection{\mkfa Weitere Probleme} % oder zu heißem Öl 
 Bei weiteren Problemen wie einer Kontrollleuchte werden beim öffnen dieser Karte die Werkstätten in der Nähe angezeigt.
-\subsection{\mkfa Zustandswarnungen}
-Das System überwacht und reagiert auf kritische Sensorwerte und Warnungen.
 \subsection{\mkfa Einparkhilfe}
 Beim rückwärts Einparken aktiviert die Software eine Rückfahrkamera und indiziert die aktuelle Fahrbahn.
 \subsubsection{\mkfa Ultraschallsensoren}
 Außerdem werden die Ultraschallsensordaten angezeigt.
-\section{Autos}
 
+\section{Wunsch}
 
+\subsection{\mkfaw Smartphone Utilization} Die Software verwendet auch Sensordaten aus dem Endgerät.
+\subsection{\mkfaw Personalisierung} Aggregierte Funktionen werden aufgrund der vorhandenen Daten des aktuell als Fahrer angemeldeten Nutzers bereitgestellt.
+
+\subsubsection{\mkfaw Fahrer} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren (/FA0070/, /FA1020W/).
 \end{document}
