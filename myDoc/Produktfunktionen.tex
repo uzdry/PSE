@@ -7,16 +7,61 @@
 \subsection{Allgemeine Funktionen}
 
 \begin{enumerate}
-	\item{Protokoll} 
+	
+	\item{GUI Instrumemte auswählen} /
+
+	\item{Instrumente anzeigen} Vorbedingung Server läuft. Es sind Endgeräte mit ihm vebunden. Auslösendes Ereignis: Der Nutzer wählt in den Einstellungen auf dem Endgerät ein Instrument für eine Größe aus. Nachbedingung: Das Instrument wird auf dem Screen angezeigt und liefert die aktuellen Daten. Falls keine aktuellen Daten vorhanden sind, steht es in neutraler Position (0).
+
+
 
 	\item{Datenhaltung} Die definierte maximale Kapazität der Datenbank ist erreicht. Die ältesten Daten werden nach erreichen der maximalen Kapazität der Datenbank gelöscht.
 	Nachbedingung: Datenbank hat weniger Einträge als ihre maximale Kapazität. Die ältesten Einträge wurden gelöscht.
+
 	\begin{enumerate}
-		\item cc
+		\item{Protokoll führen} Vorbedingung: Server läuft. BT Verbindung mit OBD2 Adapter ist hergestellt.
+		\\Auslösendes Ereignis: Ereignis von Bluetooth Schnittstelle über eintreffendes Ereignis. %%TODO: Check BT API Node.js server 
+		\\Nachbedingung: Die Daten, die von der BT Schnittstelle kommen, befinden sich in der Datenbank und kommen über das Netzwerk auf Endgeräten an.
+		\item{Vergangene Daten aufrufen} Vorbedingung: Es wurde bereits eine Fahrt getätigt. Der Server läuft. Auslösendes Ereignis: Der Nutzer vordert ein Anzeigeelemt für Daten über die Zeit an. Nachbedingung: 
 	\end{enumerate} 
 	\begin{enumerate}
 		\item Der Nutzer stellt maximalen Wert einstellen.
 	\end{enumerate}
+
+	\item{Remote Access}
+		Ziel: Der Benutzer kann die Software auf einem entfernten Endystem benutzen.
+
+		Vorbedingungen: Das System läuft und es kommen Daten über den OBD2-Adapter an. Das System hat eine Verbindung zum Internet.
+
+		Ablauf: Der Benutzer verbindet ein entferntes Endgerät über Eingabe einer URL im Browser mit dem Server.
+
+		Nachbedingung (Erfolg): Die Funktionen GUI-Konfiguration, Fahrinformation, Vergangene Daten, Karte und Einparkhilfe stehen auf dem Endsystem zur Verfügung.
+
+		Nachbedingung (Fehlschlag): Das Endsystem zeigt an, dass die Verbindung zum Server fehlgeschlagen ist.
+
+	\item{Fahrinformationen}
+	\begin{enumerate}
+		\item Vorbedingung: Das System läuft und es werden durchgängig neue Daten zur Datenbank hinzugefügt.\\ Es existiert eine Verbindung mit mindestens einem Endgerät.\\ Dieses Gerät besitzt eine Konfiguration des GUI.
+		\item 1. Das Endgerät empfängt die Daten der Datenbank.\\
+		2. Es zeigt diese Daten entsprechend der aktuellen GUI-Konfiguration an.
+		\item Nachbedingung: Die Datenbank bleibt unverändert.
+	\end{enumerate}
+
+	\item{Boardcomputer} 
+	\begin{enumerate} 
+		\item Vorbedingung: FA/Fahrinformationen funktioniert. Gewünschte aggregierte Funktionen angegeben.
+		\item 1. Die Software berechnet die gewünschten aggregierten Funktionen.\\
+		2. Sie schickt die Informationen an das Endgerät.\\
+		3. Das Endgerät zeigt die berechneten Daten entsprechend der GUI-Konfiguration an.
+		\begin{enumerate}
+			\item Restkilometer: Als weitere aggregierte Funktion berechnet die Software eine Schätzung der Restkilometer abhängig vom aktuellen Treibstoffverbrauch.
+		\end{enumerate}
+		\item Nachbedingung: Die Datenbank ist unverändert.
+	\end{enumerate}
+
+	\item{Smartphone UtilizationW}\\ Vorbedingung: Es existiert eine Verbindung mit einem Endgerät. Die Sensoren des Endgeräts sind aktiviert. \\ \\
+		Nachbedingung (Erfolg): Die Sensordaten vom Endgerät werden nach Pi übertragen. Die Daten werden auf dem Server gespeichert und von Software bearbeitet. \\ \\
+		Nachbedingung (Fehlschlag): Daten werden nicht übertragen. \\ \\
+		Auslöndendes Ereignis: Es wird eine Request-Anfrage vom Server nach Endgerät gesendet.
 
 \end{enumerate}
 
