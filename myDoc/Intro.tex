@@ -6,18 +6,18 @@
 
 \chapter{Einleitung}
 
-In der modernen Informationsgesellschafft fallen immer mehr nutzbare Daten an. Seien es Daten von sozialen Netzwerken und Daten von Personen über Nutzung und Gewohnheiten allgemein, oder Daten technischer Art, wie Sensordaten in Anlagen oder Automobilen. Mehr und mehr Sensorik findet Einsatz. Oft ist es sehr interessant diese Daten auszuwerten und visuell zu repräsentieren. Tablets und Smartphones sind omnipräsent. Jeder hat dauerhaft Zugriff auf einen leistungsfähigen Rechner mit hochauflösendem Display. Diese Geräte eignen sich also prima zur Anzeige von Daten. Unabhängig von der Art der Daten, müssen sie gesammelt, evtl. vorverarbeitet und bereitgestellt werden. Dazu bedarf es einer generischen Schnittstelle. In dem Rahmen von aRSDM sollen Sensordaten gesammelt und verteilt werden. Genauer gesagt, die über den OBD2 Anschluss verfügbare Daten in einem PKW. Es ist eine (abstrakte) Komponente zwischen Sensoren und Endgerät gefragt, die sich für beliebige, nicht unbedingt schon bekannte Anwendungsszenarien erweitern lässt. Ein Rahmenwerk, das Daten sammelt, speichert und verteilt.
+In der modernen Informationsgesellschafft fallen immer mehr nutzbare Daten an. Seien es Daten von sozialen Netzwerken und Daten von Personen über Nutzung und Gewohnheiten allgemein, oder Daten technischer Art, wie Sensordaten in Anlagen oder Automobilen. Mehr und mehr Sensorik findet Einsatz. Oft ist es sehr interessant diese Daten auszuwerten und visuell zu repräsentieren. Tablets und Smartphones sind omnipräsent. Jeder hat dauerhaft Zugriff auf einen leistungsfähigen Rechner mit hochauflösendem Display. Diese Geräte sind also optimal zur Anzeige von Daten geeignet. Unabhängig von der Art der Daten müssen diese gesammelt, gegebenenfalls vorverarbeitet und bereitgestellt werden. Dazu bedarf es einer generischen Schnittstelle. In dem Rahmen von aRSDM sollen Sensordaten gesammelt, gespeichert und weiterverteilt werden. Die Quelle dieser Daten ist der mittlerweile in fast jedem PKW verfügbare OBD2 Anschluss. Es ist eine (abstrakte) Komponente zwischen Sensoren und Endgerät gefragt, die sich für beliebige, nicht unbedingt schon bekannte Anwendungsszenarien erweitern lässt. Ein Rahmenwerk, das Daten sammelt, speichert und verteilt.
 
 \section{Aufgabenstellung}
 
-Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erfolgt eine Grafische Dartstellung von Sensordaten. Die Quelle der Daten ist entfernt und die Daten werden gelangen über Netzwerk auf das Smartphone. RSDM bietet eine API, die von Dritten für weitere Szenarien genutzt werden kann. Als Anwendung liefern wir ein automotive Modul, welches Sensordaten, die über den CAN Bus eine PKW verfügbar sind, vearbeitet.
+Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erfolgt eine Grafische Darstellung von Sensordaten. Die Quelle der Daten ist befindet sich in lokaler Distanz, die Daten gelangen über ein Netzwerk auf das Endgerät. aRSDM bietet eine API, die von Dritten für weitere Anwendungsfälle genutzt werden kann. Als Anwendung liefern wir ein Automotive-Modul, welches die Sensordaten, die über den CAN-Bus eines PKW verfügbar sind, vearbeitet und darstellt.
 
 
 \chapter{Zielbestimmung}
 
-Die Software aRSDM soll Sensordaten von einem Auto sammeln, die über den CAN Bus auszulesen sind speichern und Endgeräten zur Darstellung zur Verfügung stellen. Dabei soll eine API implementiert und genutzt werden, die auch auf weitere Anwendungen erweiterbar ist.
+Die Software aRSDM soll diejenigenl Sensordaten von einem Auto sammeln, die über den OBD2-Adapter verfügbar sind. aRSDM soll diese Daten speichern und Endgeräten zur Darstellung zur Verfügung stellen. Dabei soll eine API implementiert und genutzt werden, die auch auf weitere Anwendungen erweiterbar ist.
 
-Es soll die Darstellung im Browser Google Chrome\textsuperscript{TM} auf Endgeräten erfolgen. 
+Die Darstellung soll in verschiedenen Internet-Browsern auf Endgeräten erfolgen. 
 
 \section{Musskriterien}
 
@@ -25,29 +25,28 @@ Es soll die Darstellung im Browser Google Chrome\textsuperscript{TM} auf Endger�
 
 \myparagraph{Allgemeine Funktionen}
 
-\subsection{\mknr Protokollierung} Der Nutzer soll Daten aus der Vergangenheit zu jeder Zeit abrufen können.
+\subsection{\mknr Anzeigeelemente} Der Nutzer kann Anzeigeelemente ein- und ausblenden.
 
+\subsection{\mknr Remote Acces} Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
+
+\subsection{\mknr Protokollierung} Der Nutzer soll jederzeit in der Lage sein, Daten von vergangenen Zeitpunkten abzurufen.
+
+\subsection{\mknr Statistiken} Der Benutzer kann sich Statistiken der gespeicherten Sensorwerte anzeigen lassen.
 
 \subsection{\mknr Erweiterbarkeit} Drittentwickler können Module für die Verarbeitung und Auswertung weiterer Sensordaren schreiben.
 
 
-\subsection{\mknr RemoteAcces} Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
-
-\subsection{\mknr Anzeigeelemente} Der Nutzer kann Anzeigeelemente ein- und ausblenden.
-
-\subsection{\mknr Statistiken} Der Benutzer kann sich Statistiken der gespeicherten Sensorwerte anzeigen lassen.
-
 \myparagraph{Automotive Kontext}
 
-\subsection{\mknr Fahrinformation} Der Benutzer bekommt Fahrinformation (Glossar) angezeigt.
+\subsection{\mknr Fahrinformation} Der Benutzer bekommt Fahrinformationen angezeigt.
 
 \subsection{\mknr Durschnitssverbrauch} Die Software zeigt den Durschnittsverbrauch des Fahrzeugs an. 
 
-\subsection{\mknr Restkilometer} Die Software zeigt die verfügbaren Restkilometer bis zur nächsten Tankfüllung an. Diese werden aufgrungd des Fahrverhaltens berechnet.
+\subsection{\mknr Restkilometer} Die Software zeigt die verfügbaren Restkilometer bis zur nächsten Tankfüllung an. Diese werden anhand des Fahrverhaltens berechnet.
 
-\subsection{\mknr Einparkhile} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality Features zur Verfügung.
+\subsection{\mknr Einparkhile} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality-Features zur Verfügung.
 
-\subsection{\mknr POI} Bei bestimmten Sensorwerten (Tank/Motor) kann der sich Nutzer die nächsten Tankstellen / Werstätten einbleden.
+\subsection{\mknr POI} Bei kritischen Sensorwerten kann der Nutzer die nächsten Tankstellen / Werstätten einbleden.
 
 
 \section{Wunschkriterien}
@@ -57,23 +56,23 @@ Es soll die Darstellung im Browser Google Chrome\textsuperscript{TM} auf Endger�
 
 \subsection{\mknr Personalisierung} Aggregierte Funktionen sind personalisiert verfügbar.
 
-\subsubsection{\mknr Fahrer} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren.
+\subsection{\mknr Fahrer} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren.
 
 \section{Abgrenzungskriterien}
 
 \subsection{\mknr Erweiterung} Für andere Sensorquellen werden keine Treiber bereitgestellt.
 
-\subsection{\mknr Unidirektional} Die Software liest und interpretiert Daten, sendet keine Daten an Quellen zurück.
+\subsection{\mknr Unidirektional} Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
 
-\subsection{\mknr Bildauswertung} Karabilder werden von der Software nicht interpretiert.
+\subsection{\mknr Bildauswertung} Kamerabilder werden von der Software nicht interpretiert.
 
 \subsection{\mknr Android} Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
 
-\subsection{\mknr Flotte} Der Zugriff auf verschiedene Fahrzeuge wird verwaltet.
+\subsection{\mknr Flotte} Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
 
 \subsection{\mknr Navigation} Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
 
-\subsection{\mknr Diagnose} Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
+\subsection{\mknr Diagnose} Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
 
 \subsection{\mknr RemoteAcces} Für entferntes Monitoring wird keine maximale Latenz garantiert 
 

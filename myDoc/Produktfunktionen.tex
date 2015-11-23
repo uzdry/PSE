@@ -4,207 +4,87 @@
 
 \chapter{Produktfunktionen}
 
-\subsection{Allgemeine Funktionen}
+\section{Allgemeine Funktionen}
 
 \begin{enumerate}
+
+	%GUI-Elemente einblenden:
 	
-	\item{GUI Instrumemte auswählen} /
-
-	\item{Instrumente anzeigen} Vorbedingung Server läuft. Es sind Endgeräte mit ihm vebunden. Auslösendes Ereignis: Der Nutzer wählt in den Einstellungen auf dem Endgerät ein Instrument für eine Größe aus. Nachbedingung: Das Instrument wird auf dem Screen angezeigt und liefert die aktuellen Daten. Falls keine aktuellen Daten vorhanden sind, steht es in neutraler Position (0).
-
-
-
-	\item{Datenhaltung} Die definierte maximale Kapazität der Datenbank ist erreicht. Die ältesten Daten werden nach erreichen der maximalen Kapazität der Datenbank gelöscht.
-	Nachbedingung: Datenbank hat weniger Einträge als ihre maximale Kapazität. Die ältesten Einträge wurden gelöscht.
-
+	\item{\textbf{GUI-Instrumemte auswählen}}
+	
 	\begin{enumerate}
-		\item{Protokoll führen} Vorbedingung: Server läuft. BT Verbindung mit OBD2 Adapter ist hergestellt.
-		\\Auslösendes Ereignis: Ereignis von Bluetooth Schnittstelle über eintreffendes Ereignis. %%TODO: Check BT API Node.js server 
-		\\Nachbedingung: Die Daten, die von der BT Schnittstelle kommen, befinden sich in der Datenbank und kommen über das Netzwerk auf Endgeräten an.
-		\item{Vergangene Daten aufrufen} Vorbedingung: Es wurde bereits eine Fahrt getätigt. Der Server läuft. Auslösendes Ereignis: Der Nutzer vordert ein Anzeigeelemt für Daten über die Zeit an. Nachbedingung: 
+	\item{\textbf{Instrumente anzeigen:}} \\ Vorbedingung: Server läuft. Es sind Endgeräte mit ihm vebunden.\\ Auslösendes Ereignis: Der Nutzer wählt in den Einstellungen auf dem Endgerät ein Instrument aus.\\ Nachbedingung: Das Instrument wird auf dem Screen angezeigt und zeigt die aktuellen Daten an. Falls keine aktuellen Daten vorhanden sind, steht es in neutraler Position (0).
 	\end{enumerate} 
+	
+	%Datenhaltung:
+	
+	\item{\textbf{Datenhaltung}}
+
 	\begin{enumerate}
-		\item Der Nutzer stellt maximalen Wert einstellen.
-	\end{enumerate}
+	
+		\item{\textbf{Protokoll führen}} \\ Ziel: Es werden eingehende Daten gespeichert. \\ Vorbedingung: Server läuft. Bluetooth-Verbindung mit OBD2 Adapter ist hergestellt. \\ Auslösendes Ereignis: Von der Bluetooth-Schnittstelle treffen Daten ein. %%TODO: Check BT API Node.js server 
+		Nachbedingung: Die Daten, die von der Bluetooth-Schnittstelle kommen, befinden sich in der Datenbank und kommen über das Netzwerk auf Endgeräten an.
+		
+		\item{\textbf{Vergangene Daten aufrufen}} \\ Ziel: Es werden Daten von vergangenen Zeitpunkten dargestellt. \\ Vorbedingung: Es wurde bereits eine Fahrt getätigt. Der Server läuft.\\ Auslösendes Ereignis: Der Nutzer fordert Daten aus der Vergangenheit an. \\ Nachbedingung: Die Daten werden auf dem Endgerät angezeigt.
+	
+		\item{\textbf{Maximale Kapazität einstellen}} \\ Ziel: Es soll eine neue maximale Kapazität der Datenbank gesetzt werden. \\ Vorbedingung: Der Server läuft. \\ Auslösendes Ereignis: Der Benutzer versucht, eine neue maximale Kapazität der Datenbank zu setzen. \\ Nachbedingung: Die neue gespeicherte maximale Kapazität der Datenbank ist der vom Nutzer eingegebene Wert.
+		
+		\item{\textbf{Daten automatisch löschen}} \\ Ziel: Um Überfüllung der Datenbank zu vermeiden werden Daten gelöscht. \\ Vorbedingung: Der Server läuft. \\ Auslösendes Ereignis: Die definierte maximale Kapazität der Datenbank ist erreicht. \\ Nachbedingung: Die Datenbank hat weniger Einträge als ihre maximale Kapazität. Die ältesten Einträge wurden gelöscht.
+		
+	\end{enumerate} 
 
-	\item{Remote Access}
-		Ziel: Der Benutzer kann die Software auf einem entfernten Endystem benutzen.
+	\item{\textbf{Remote Access erzeugen}} \\ Ziel: Der Benutzer kann die Software auf einem entfernten Endystem benutzen.\\ Vorbedingungen: Das System läuft und es kommen Daten über den OBD2-Adapter an. Das System hat eine Verbindung zum Internet. \\ Ablauf: Der Benutzer verbindet ein entferntes Endgerät über Eingabe einer URL im Browser mit dem Server.\\ Nachbedingung (Erfolg): Die Funktionen GUI-Konfiguration, Fahrinformation, Vergangene Daten, Karte und Einparkhilfe stehen auf dem Endsystem zur Verfügung. \\ Nachbedingung (Fehlschlag): Das Endsystem zeigt an, dass die Verbindung zum Server fehlgeschlagen ist.
 
-		Vorbedingungen: Das System läuft und es kommen Daten über den OBD2-Adapter an. Das System hat eine Verbindung zum Internet.
+	\item{\textbf{Fahrinformationen darstellen}} \\ Ziel: Darstellung der aktuellen Sensorwerte auf dem Endgerät \\ Vorbedingung: Das System läuft und es werden durchgängig neue Daten zur Datenbank hinzugefügt. Es existiert eine Verbindung mit mindestens einem Endgerät. Dieses Gerät besitzt eine Konfiguration des GUI. \\ Auslösendes Ereignis: Das Endgerät empfängt Sensordaten vom Server.\\ Nachbedingung: Das Endgerät zeigt diese Daten entsprechend der aktuellen GUI-Konfiguration an. Die Datenbank bleibt unverändert.
 
-		Ablauf: Der Benutzer verbindet ein entferntes Endgerät über Eingabe einer URL im Browser mit dem Server.
+	\item{\textbf{Aggregierte Funktionen berechnen}} \\ Ziel: Berechnung der aggregierten Funktionen. \\ Vorbedingung: FA/Fahrinformationen funktioniert. Gewünschte aggregierte Funktionen sind angegeben. \\ Auslösendes Ereignis: Es kommen zur Berechnung der aggregierten Funktionen benötigte Sensorwerte am Server an. \\ Ablauf: Die Software berechnet die gewünschten aggregierten Funktionen. Sie schickt die Informationen an das Endgerät. Das Endgerät zeigt die berechneten Daten entsprechend der GUI-Konfiguration an. \\ Nachbedingungen: Das Endgerät zeigt die Daten im UI an.  \\ Aggregierte Funktionen sind:
+		\begin{itemize}
+			\item Restkilometer: Die Software berechnet eine Schätzung der Restkilometer abhängig vom aktuellen Treibstoffverbrauch.
+		\end{itemize}
 
-		Nachbedingung (Erfolg): Die Funktionen GUI-Konfiguration, Fahrinformation, Vergangene Daten, Karte und Einparkhilfe stehen auf dem Endsystem zur Verfügung.
+	\item{\textbf{Smartphone Utilization}}\\ Vorbedingung: Es existiert eine Verbindung mit einem Endgerät. Die Sensoren des Endgeräts sind aktiviert.\\ Auslösendes Ereignis: Auf dem Endgerät sind neue Sensordaten verfügbar. \\ Nachbedingung (Erfolg): Die Sensordaten vom Endgerät werden auf den Server übertragen. Die Daten werden auf dem Server gespeichert und von Software bearbeitet.\\  Nachbedingung (Fehlschlag): Die Sensoraten werden nicht übertragen. \\
 
-		Nachbedingung (Fehlschlag): Das Endsystem zeigt an, dass die Verbindung zum Server fehlgeschlagen ist.
+	\item{\textbf{Ultraschallsensoren visualisieren}} \\ Ziel: Die Distanzwerte von den Ultraschallsensoren visualisieren. \\ Vorbedingung: Eine Kamera ist vorhanden und eingeschaltet. Der Server läuft. \\ Auslösendes Ereignis: Der Fahrer schaltet in den Rückwärtsgang. /*GUI-DX01: Knopf anzeigen, wenn man drauf drückt, dann werden die Messwerte angezeigt. //*NA-DX01: Reaktionszeit? 100ms?/. Alternativ: Der Benutzer möchte die Messwerte anzeigen.\\ Nachbedingung (Erfolg): Die tatsächliche Messwerte werden ausreichend schnell /*NA-DX01/ angezeigt. \\ Nachbedingung (Fehlschlag): Es werden keine oder falsche Messwerte angezeigt.
 
-	\item{Fahrinformationen}
+	\item{\textbf{Einparkhilfe}}
+	
 	\begin{enumerate}
-		\item Vorbedingung: Das System läuft und es werden durchgängig neue Daten zur Datenbank hinzugefügt.\\ Es existiert eine Verbindung mit mindestens einem Endgerät.\\ Dieses Gerät besitzt eine Konfiguration des GUI.
-		\item 1. Das Endgerät empfängt die Daten der Datenbank.\\
-		2. Es zeigt diese Daten entsprechend der aktuellen GUI-Konfiguration an.
-		\item Nachbedingung: Die Datenbank bleibt unverändert.
-	\end{enumerate}
-
-	\item{Boardcomputer} 
-	\begin{enumerate} 
-		\item Vorbedingung: FA/Fahrinformationen funktioniert. Gewünschte aggregierte Funktionen angegeben.
-		\item 1. Die Software berechnet die gewünschten aggregierten Funktionen.\\
-		2. Sie schickt die Informationen an das Endgerät.\\
-		3. Das Endgerät zeigt die berechneten Daten entsprechend der GUI-Konfiguration an.
-		\begin{enumerate}
-			\item Restkilometer: Als weitere aggregierte Funktion berechnet die Software eine Schätzung der Restkilometer abhängig vom aktuellen Treibstoffverbrauch.
-		\end{enumerate}
-		\item Nachbedingung: Die Datenbank ist unverändert.
-	\end{enumerate}
-
-	\item{Smartphone UtilizationW}\\ Vorbedingung: Es existiert eine Verbindung mit einem Endgerät. Die Sensoren des Endgeräts sind aktiviert. \\ \\
-		Nachbedingung (Erfolg): Die Sensordaten vom Endgerät werden nach Pi übertragen. Die Daten werden auf dem Server gespeichert und von Software bearbeitet. \\ \\
-		Nachbedingung (Fehlschlag): Daten werden nicht übertragen. \\ \\
-		Auslöndendes Ereignis: Es wird eine Request-Anfrage vom Server nach Endgerät gesendet.
-
-		\item{Ultraschallsensoren}
-	Funktion: Ultraschallsensor-Visualisierung
-	Ziel: Die Distanzwerte von den Ultraschallsensoren zu visualisieren.
-	Vorbedingung:
-		\begin{enumerate}
-			\item Kamera ist vorhanden und eingeschaltet.
-			\item Der Server läuft.
-		\end{enumerate}
-	Nachbedingung (Erfolg): Die tatsächliche Messwerte werden ausreichend schnell /*NA-DX01/
-	Nachbedingung (Fehlschlag): Es werden keine oder falsche Messwerte angezeigt.
-	Auslösendes Ereignis:
-		\begin{enumerate}
-			\item Der Fahrer schaltet ins Rückwärtsgang. /*GUI-DX01: Knopf anzeigen, wenn man drauf drückt, dann werden die Messwerte angezeigt./ /*NA-DX01: Reaktionszeit? 100ms?/
-			\item Der Benutzer fordert das System auf die Messwerte anzuzeigen.
-		\end{enumerate}
-	Beschreibung:
-		\begin{enumerate} 
-			\item Die Messwerte werden dargestellt. /*GUI-DX02: Die Messwerte werden so dargestellt./ /*NA-DX02: Aktualisierungszeit, aka Refresh? 10fps ~= 100ms/
-			\item Der Fahrer parkt ein.
-		\end{enumerate}
-	Referenzen:
-		\begin{enumerate}
-			\item Einparkmodusdeaktivierung
-		\end{enumerate}
-
-	\item{Einparkhilfe}
-	Funktion: Rückfahrkamera mit Fahrbahnanzeige.
-	Ziel: Das rückwärts Einparken für den Autofahrer zu vereinfachen mit Hilfe einer Rückfahrkamera und die visualisierung der Fahrbahn.
-	Vorbedingung: 
-	Nachbedingung (Erfolg):
-		\begin{enumerate}
-			\item Das Bild der Rückfahrkamera wird angezeigt und regelmäßig aktualisiert /*NA-DX20: Aktualisierungszeit? 100ms?/.
-			\item Die Visualisierung der Fahrbahn wird korrekt dargestellt und regelmäßig aktualisiert /*NA-DX21: Aktualisierungszeit? 100ms?/.
-		\end{enumerate}
-	Nachbedingung (Fehlschlag):
-		\begin{enumerate}
-			\item Das Bild der Rückfahrkamera wird nicht angezeigt, ist fehlerbehaftet oder wird nicht aktualisiert /*NA-DX20/.
-			\item Die Visualisierung der Fahrbahn wird nicht dargestellt, ist nicht korrekt oder wird nicht aktualisiert /*NA-DX21/.
-		\end{enumerate}
-	Auslösendes Ereignis:
-		\begin{enumerate}
-			\item Der Fahrer schaltet ins Rückwärtsgang.
-			\item Der Benutzer fordert das System auf die Kamera einzuschalten. 
-		\end{enumerate}
-	Beschreibung:
-		\begin{enumerate}
+	
+	\item{\textbf{Einparken vereinfachen}} \\ Ziel: Vereinfachen des rückwärts beziehungsweise rückwärts-Seitwärts Einparkens durch Anzeige einer Rückfahrkamera und Einblenden einer Visualisierung der möglichen Fahrstrecke. \\ Vorbedingung: Server läuft. \\ Auslösendes Ereignis:  Der Fahrer schaltet ins Rückwärtsgang. Alternativ: Der Benutzer fordert das System auf die Kamera einzuschalten. \\ Ablauf:
+	\begin{itemize}
 			\item Der Fahrer dreht das Lenkrad.
 			\item Die Fahrbahn auf dem Bildschirm wird aktualisiert.
 			\item Der Fahrer versucht einzuparken und fährt rückwärts.
 			\item Das Kamerabild wird regelmäßig aktualisiert.
-		\end{enumerate}
-	Referenzen:
-		\begin{enumerate}
-			\item Einparkmodusdeaktivierung
-		\end{enumerate}
-		
-	\item{Einparkmodusdeaktivierung}
-	Funktion: Einparkmodus wird deaktiviert
-	Ziel: Das System soll die Darstellung der Einparkshilfe automatisch von dem Bildschirm entfernen, wenn die Daten nicht mehr sinnvoll dargestellt werden können.
-	Vorbedingung: Auf dem Bildschirm wird die Einparkshilfe angezeigt (Kamerabild und die Messwerte von den Ultraschallsensoren).
-	Nachbedingung (Erfolg): Die Einparkhilfe verschwindet von dem Bildschirm.
-	Nachbedingung (Fehlschlag): Die Einparkhilfe verschwindet nicht von dem Bildschirm.
-	Auslösendes Ereignis:
-		\begin{enumerate}
-			\item Der Benutzer fordert das System auf den Einparkhilfemodus zu beenden.
-			\item Das Fahrzeug fährt vorwärts mit einer Geschwindigkeit von mehr als /*NA-DX40: z.B. 20 km/h./
-		\end{enumerate}
-	Beschreibung:
-		\begin{enumerate}
-			\item Den Einparkhilfemodus wird beendet, die Darstellung der Einparkhilfe verschwindet von dem Bildschirm des Endgeräts.
-		\end{enumerate}
+	\end{itemize}
+Nachbedingung (Erfolg): Das Bild der Rückfahrkamera wird angezeigt und regelmäßig aktualisiert /*NA-DX20: Aktualisierungszeit? 100ms?/. Die Visualisierung der Fahrbahn wird korrekt dargestellt und regelmäßig aktualisiert /*NA-DX21: Aktualisierungszeit? 100ms?/. \\ Nachbedingung (Fehlschlag): Das Bild der Rückfahrkamera wird nicht angezeigt, ist fehlerbehaftet oder wird nicht aktualisiert /*NA-DX20/. Die Visualisierung der Fahrbahn wird nicht dargestellt, ist nicht korrekt oder wird nicht aktualisiert /*NA-DX21/. 
 
-		  \item{Karte Anzeigen}
-  \\Vorbedingung: Der Fahrer fährt gerade mit dem Auto. Die Lokalisierungssignal ist vorhanden.
-  \\Auslösungsereignis: Der Benutzer fordert die Karte an.
-  \\Nachbedingung: Die Karte von Umgebung wird angezeigt.
+	\item{\textbf{Einparkhilfe beenden}} \\ Ziel: Das System soll die Darstellung der Einparkshilfe automatisch vom Bildschirm entfernen, wenn die Daten nicht mehr sinnvoll dargestellt werden können. \\ Vorbedingung: Auf dem Bildschirm wird die Einparkhilfe angezeigt. \\ Nachbedingung (Erfolg): Die Einparkhilfe verschwindet von dem Bildschirm. \\ Auslösendes Ereignis: Der Benutzer fordert das System auf, die Einparkhilfe zu beenden. Alternativ: Das Fahrzeug fährt vorwärts mit einer Geschwindigkeit von mehr als /*NA-DX40: z.B. 20 km/h./ \\  Nachbedingung (Fehlschlag): Die Einparkhilfe verschwindet nicht von dem Bildschirm.
+	
+	\end{enumerate}
+	
+	\item{\textbf{Karte und POI}
+	
+	\begin{enumerate}
+	
+	\item{\textbf{Karte anzeigen}} \\Vorbedingung: Der Fahrer fährt gerade mit dem Auto. Ein Lokalisierungssignal ist vorhanden. \\ Auslösendes Ereignis: Der Benutzer fordert die Karte an. \\Nachbedingung: Eine Karte der Umgebung wird angezeigt.
   
-  \item {Tankstelle auflisten}
-  \\Vorbedingung: Das Lokalisierungssingnal ist vorhanden.
-  \\Auslösungsereignis: Der Fahrer fordert die Tankstellen in der Nähe an.
-  \\Nachbedingung: Eine List von Tankstellen in der Nähe mit jeweiligem Preis
-  bzw. Entfernung werden angezeigt.
+  	\item {\textbf{Tankstellen auflisten}} \\ Vorbedingung: Das Lokalisierungssingnal ist vorhanden. \\ Auslösendes Ereignis: Der Fahrer fordert die Tankstellen in der Nähe an. Alternativ: Der Tankfüllstand ist kritisch und der Benutzer öffnet die Karte.\\ Nachbedingung: Eine List von Tankstellen in der Nähe mit jeweiligem Preis bzw. deren Entfernung und eine Visualisierung auf der Karte werden angezeigt.
+  	
+  	\item {\textbf{Route zur gewünschten Tankstelle berechnen}} \\Vorbedingung: Die Tankstelle in der Nähe sind angezeigt. Das
+  Lokalisierungssignal ist vorhanden. \\ Auslösendes Ereignis: Der Benutzer wählt eine Tankstelle aus. \\Nachbedingung: Die Route zu der gewünschten Tankstelle wird berechnet und auf der Karte angezeigt.
   
-  \item {Route zur gewünschten Tankstelle}
-  \\Vorbedingung: Die Tankstelle in der Nähe sind angezeigt. Das
-  Lokalisierungssignal ist vorhanden.
-  \\Auslösungsereignis: Der Benutzer wählt eine Tankstelle aus.
-  \\Nachbedingung: Die Route nach der gewünschten Tankstelle wird berechnet
-  bzw. auf der Karte angezeigt .
-  
-  \item{kritische Sensorwerte} 
-  \\Vorbedingung: Eine oder mehrere Warnungslampe leuchtet.
-  \\Nachbedingung: Die Karte zeigt die Werkstätten in der Nähe.
+	\item{\textbf{Werkstätten anzeigen}} \\ Vorbedingung: Eine oder mehrere Warnlampen des Autos leuchtet. \\ Auslösendes Ereignis: Der Nutzer öffnet die Karte. \\ Nachbedingung: Die Karte zeigt Werkstätten in der Nähe an.
+
+	\end{enumerate}
 
 \end{enumerate}
 
-\subsection{\mkfa Protokoll} Der Nutzer soll Daten aus der Vergangenheit zu jeder Zeit abrufen können.
+%noch nicht verarbeitetes:
 
 \subsection{\mkfa Statistiken} Der Benutzer kann sich Statistiken der gespeicherten Sensorwerte anzeigen lassen.
 
 \subsection{\mkfa Erweiterbarkeit} Drittentwickler können Module für die Verarbeitung und Auswertung weiterer Sensordaren schreiben.
-
-\subsection{\mkfa RemoteAcces} Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
-
-\subsection{\mkfa Anzeigeelemente} Der Nutzer kann Anzeigeelemente für jeden der Sensorwerte ein- und ausblenden.
-
-\subsection{Automotive Kontext}
-
-\subsection{\mkfa Fahrinformation} Der Benutzer bekommt Fahrinformation (Glossar) angezeigt.
-
-\subsection{\mkfa Boardcomputer} Die Software zeigt berechnet anhand der Sensorwerte aggregierte Funktionen. Wie Durchschnittsverbrauch.
-
-\subsubsection{\mkfa Restkilometer} Die Software zeigt die verfügbaren Restkilometer bis zur nächsten Tankfüllung an. Diese werden aufgrungd des Fahrverhaltens berechnet.
-
-\subsection{\mkfa Einparkhile} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality Features zur Verfügung.
-
-\subsection{\mkfa POI} Bei bestimmten Sensorwerten (Tank/Motor) kann der sich Nutzer die nächsten Tankstellen oder Werstätten einbleden.
-
-\subsection{\mkfa Dateninput}
-Wenn Daten über Bluetooth ankommen pflegt die Software diese Daten in eine Datenbank ein. 
-\subsection{\mkfa Vergangene-Daten}
-Wenn der Nutzer es wünscht zeigt die Software ihm die gespeicherten Daten an.
-\subsection{\mkfa Zustandswarnungen}
-Das System überwacht und reagiert auf kritische Sensorwerte und Warnungen.
-
-\subsection{\mkfa Karte}
-Der Benutzer kann sich vom System einen aktuellen Kartenausschnitt der Umgebung anzeigen lassen.
-\subsubsection{\mkfa Werkstatt/Tankstellen}
-Die Software kann auf dieser Karte auch Werkstätte, Tankstellen und Restaurants anzeigen.
-\subsubsection{\mkfa Niedriger Tankfüllstand}
-Bei niedrigem Tankfüllstand werden beim öffnen dieser Karte automatisch die Tankstellen in der Nähe angezeigt.
-\subsubsection{\mkfa Weitere Probleme} % oder zu heißem Öl 
-Bei weiteren Problemen wie einer Kontrollleuchte werden beim öffnen dieser Karte die Werkstätten in der Nähe angezeigt.
-\subsection{\mkfa Einparkhilfe}
-Beim rückwärts Einparken aktiviert die Software eine Rückfahrkamera und indiziert die aktuelle Fahrbahn.
-\subsubsection{\mkfa Ultraschallsensoren}
-Außerdem werden die Ultraschallsensordaten angezeigt.
-
-\section{Wunsch}
-
-\subsection{\mkfaw Smartphone Utilization} Die Software verwendet auch Sensordaten aus dem Endgerät.
-\subsection{\mkfaw Personalisierung} Aggregierte Funktionen werden aufgrund der vorhandenen Daten des aktuell als Fahrer angemeldeten Nutzers bereitgestellt.
 
 \subsubsection{\mkfaw Fahrer} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren (/FA0070/, /FA1020W/).
 \end{document}
