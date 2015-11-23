@@ -6,33 +6,54 @@
 \usepackage[utf8]{inputenc}
 \usepackage[bookmarks=true,hidelinks]{hyperref}
 \usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{enumerate}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 
 %% counters
-\newcounter{FA}
-\newcommand{\itemFA}[2]{\refstepcounter{FA}\label{fa:#1}\item[/FA\theFA0/]}
-\newcommand{\refFA}[1]{/FA\ref{fa:#1}0/}
+
 \newcommand{\itemFAW}[1]{\refstepcounter{FA}\label{fa:#1}\item[/FA\theFA0W/]}
 \newcommand{\refFAW}[1]{/FA\ref{fa:#1}0W/}
 
-\newcounter{MK}
-\newcommand{\itemMK}[1]{\refstepcounter{MK}\label{mk:#1}\item[/MK\theMK0/\textbf{#1}]}
-\newcommand{\refMK}[1]{/MK\ref{mk:#1}0/}
-\newcommand{\itemWK}[1]{\refstepcounter{MK}\label{mk:#1}\item[/MK\theMK0W/\textbf{#1}]}
-\newcommand{\refFWK}[1]{/MK\ref{mk:#1}0W/}
+
+
+\newcounter{FA}
+\newcommand{\itemFA}[1]{/FA\item}
+\newcommand{\refFA}[1]{/FA\ref{}}
+\renewcommand{\theenumi}{\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{\theenumi}
 
 \makeatletter 
-\newcommand\mknr{/MK\the\numexpr\c@section\relax\ifnum\c@subsection<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\newcommand\mknr{/MK\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
 \makeatother
 
 \makeatletter 
-\newcommand\mkfa{/FA\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\newcommand\mkfa{/FA\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkfaw{/FA\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}W/} 
 \makeatother
 
 \makeatletter 
 \newcommand\mkt{/T\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
 \makeatother
+
+\makeatletter 
+\newcommand\mka{/AK\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkd{/PD\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkl{/PL\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
 
 \makeatletter 
 \newcommand\aknr{/AK\the\numexpr\c@subsection-1\relax\ifnum\c@ssubection<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
