@@ -63,6 +63,100 @@
 		Nachbedingung (Fehlschlag): Daten werden nicht übertragen. \\ \\
 		Auslöndendes Ereignis: Es wird eine Request-Anfrage vom Server nach Endgerät gesendet.
 
+		\item{Ultraschallsensoren}
+	Funktion: Ultraschallsensor-Visualisierung
+	Ziel: Die Distanzwerte von den Ultraschallsensoren zu visualisieren.
+	Vorbedingung:
+		\begin{enumerate}
+			\item Kamera ist vorhanden und eingeschaltet.
+			\item Der Server läuft.
+		\end{enumerate}
+	Nachbedingung (Erfolg): Die tatsächliche Messwerte werden ausreichend schnell /*NA-DX01/
+	Nachbedingung (Fehlschlag): Es werden keine oder falsche Messwerte angezeigt.
+	Auslösendes Ereignis:
+		\begin{enumerate}
+			\item Der Fahrer schaltet ins Rückwärtsgang. /*GUI-DX01: Knopf anzeigen, wenn man drauf drückt, dann werden die Messwerte angezeigt./ /*NA-DX01: Reaktionszeit? 100ms?/
+			\item Der Benutzer fordert das System auf die Messwerte anzuzeigen.
+		\end{enumerate}
+	Beschreibung:
+		\begin{enumerate} 
+			\item Die Messwerte werden dargestellt. /*GUI-DX02: Die Messwerte werden so dargestellt./ /*NA-DX02: Aktualisierungszeit, aka Refresh? 10fps ~= 100ms/
+			\item Der Fahrer parkt ein.
+		\end{enumerate}
+	Referenzen:
+		\begin{enumerate}
+			\item Einparkmodusdeaktivierung
+		\end{enumerate}
+
+	\item{Einparkhilfe}
+	Funktion: Rückfahrkamera mit Fahrbahnanzeige.
+	Ziel: Das rückwärts Einparken für den Autofahrer zu vereinfachen mit Hilfe einer Rückfahrkamera und die visualisierung der Fahrbahn.
+	Vorbedingung: 
+	Nachbedingung (Erfolg):
+		\begin{enumerate}
+			\item Das Bild der Rückfahrkamera wird angezeigt und regelmäßig aktualisiert /*NA-DX20: Aktualisierungszeit? 100ms?/.
+			\item Die Visualisierung der Fahrbahn wird korrekt dargestellt und regelmäßig aktualisiert /*NA-DX21: Aktualisierungszeit? 100ms?/.
+		\end{enumerate}
+	Nachbedingung (Fehlschlag):
+		\begin{enumerate}
+			\item Das Bild der Rückfahrkamera wird nicht angezeigt, ist fehlerbehaftet oder wird nicht aktualisiert /*NA-DX20/.
+			\item Die Visualisierung der Fahrbahn wird nicht dargestellt, ist nicht korrekt oder wird nicht aktualisiert /*NA-DX21/.
+		\end{enumerate}
+	Auslösendes Ereignis:
+		\begin{enumerate}
+			\item Der Fahrer schaltet ins Rückwärtsgang.
+			\item Der Benutzer fordert das System auf die Kamera einzuschalten. 
+		\end{enumerate}
+	Beschreibung:
+		\begin{enumerate}
+			\item Der Fahrer dreht das Lenkrad.
+			\item Die Fahrbahn auf dem Bildschirm wird aktualisiert.
+			\item Der Fahrer versucht einzuparken und fährt rückwärts.
+			\item Das Kamerabild wird regelmäßig aktualisiert.
+		\end{enumerate}
+	Referenzen:
+		\begin{enumerate}
+			\item Einparkmodusdeaktivierung
+		\end{enumerate}
+		
+	\item{Einparkmodusdeaktivierung}
+	Funktion: Einparkmodus wird deaktiviert
+	Ziel: Das System soll die Darstellung der Einparkshilfe automatisch von dem Bildschirm entfernen, wenn die Daten nicht mehr sinnvoll dargestellt werden können.
+	Vorbedingung: Auf dem Bildschirm wird die Einparkshilfe angezeigt (Kamerabild und die Messwerte von den Ultraschallsensoren).
+	Nachbedingung (Erfolg): Die Einparkhilfe verschwindet von dem Bildschirm.
+	Nachbedingung (Fehlschlag): Die Einparkhilfe verschwindet nicht von dem Bildschirm.
+	Auslösendes Ereignis:
+		\begin{enumerate}
+			\item Der Benutzer fordert das System auf den Einparkhilfemodus zu beenden.
+			\item Das Fahrzeug fährt vorwärts mit einer Geschwindigkeit von mehr als /*NA-DX40: z.B. 20 km/h./
+		\end{enumerate}
+	Beschreibung:
+		\begin{enumerate}
+			\item Den Einparkhilfemodus wird beendet, die Darstellung der Einparkhilfe verschwindet von dem Bildschirm des Endgeräts.
+		\end{enumerate}
+
+		  \item{Karte Anzeigen}
+  \\Vorbedingung: Der Fahrer fährt gerade mit dem Auto. Die Lokalisierungssignal ist vorhanden.
+  \\Auslösungsereignis: Der Benutzer fordert die Karte an.
+  \\Nachbedingung: Die Karte von Umgebung wird angezeigt.
+  
+  \item {Tankstelle auflisten}
+  \\Vorbedingung: Das Lokalisierungssingnal ist vorhanden.
+  \\Auslösungsereignis: Der Fahrer fordert die Tankstellen in der Nähe an.
+  \\Nachbedingung: Eine List von Tankstellen in der Nähe mit jeweiligem Preis
+  bzw. Entfernung werden angezeigt.
+  
+  \item {Route zur gewünschten Tankstelle}
+  \\Vorbedingung: Die Tankstelle in der Nähe sind angezeigt. Das
+  Lokalisierungssignal ist vorhanden.
+  \\Auslösungsereignis: Der Benutzer wählt eine Tankstelle aus.
+  \\Nachbedingung: Die Route nach der gewünschten Tankstelle wird berechnet
+  bzw. auf der Karte angezeigt .
+  
+  \item{kritische Sensorwerte} 
+  \\Vorbedingung: Eine oder mehrere Warnungslampe leuchtet.
+  \\Nachbedingung: Die Karte zeigt die Werkstätten in der Nähe.
+
 \end{enumerate}
 
 \subsection{\mkfa Protokoll} Der Nutzer soll Daten aus der Vergangenheit zu jeder Zeit abrufen können.
