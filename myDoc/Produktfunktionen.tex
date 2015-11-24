@@ -60,21 +60,84 @@
 
 	\end{enumerate}
 	
+	
 	\item{\textbf{Karte und POI}
 	
 	\begin{enumerate}
 	
-	\item{\textbf{Karte anzeigen}} \\Vorbedingung: Der Fahrer fährt gerade mit dem Auto. Ein Lokalisierungssignal ist vorhanden. \\ Auslösendes Ereignis: Der Benutzer fordert die Karte an. \\Nachbedingung: Eine Karte der Umgebung wird angezeigt.
-  
-  	\item {\textbf{Tankstellen auflisten}} \\ Vorbedingung: Das Lokalisierungssingnal ist vorhanden. \\ Auslösendes Ereignis: Der Fahrer fordert die Tankstellen in der Nähe an. Alternativ: Der Tankfüllstand ist kritisch und der Benutzer öffnet die Karte.\\ Nachbedingung: Eine List von Tankstellen in der Nähe mit jeweiligem Preis bzw. deren Entfernung und eine Visualisierung auf der Karte werden angezeigt.
+	\item{\textbf{Karte anzeigen}}
+	\begin{enumerate}
+		\item 
+		Vorbedingung: Die Endgeräte vom Fahrer haben eine Verbindung zur Netzwerk. Die
+		Lokalisierungsinformationen stehen zur Verfügung.
+		\\Auslösendes Ereignis: Der Benutzer fordert die Karte an.
+	 	\\Nachbedingung:Eine Anfrage nach der Karte in Umgebung mit
+	 	Lokalisierungsinformationen wird am Drittanbietern geschickt, der die
+	 	Kartendienst anbieten kann.
+	 	\item
+		Vorbedingung: Eine Anfrage nach der Karte in Umgebung mit
+		Lokalisierungsinformationen ist am Kartendienstanbietern geschickt. Die
+		Endgeräte vom Fahrer haben eine Verbindung zur Netzwerk.
+		\\Auslösundes Ereignis: Der Drittanbieter antwortet die Anfrage.
+		\\Nachbedingung: Die Karte von Umgebung wird angezeigt.
+  	\end{enumerate}
   	
-  	\item {\textbf{Route zur gewünschten Tankstelle berechnen}} \\Vorbedingung: Die Tankstelle in der Nähe sind angezeigt. Das
-  Lokalisierungssignal ist vorhanden. \\ Auslösendes Ereignis: Der Benutzer wählt eine Tankstelle aus. \\Nachbedingung: Die Route zu der gewünschten Tankstelle wird berechnet und auf der Karte angezeigt.
+  	\item {\textbf{Tankstellen auflisten}}
+  	\begin{enumerate} 
+  		\item 
+		Vorbedingung: Die Endgeräte vom Fahrer haben eine Verbindung zur Netzwerk. Die
+		Lokalisierungsinformationen stehen zur Verfügung.
+		\\Auslösendes Ereignis: Das OBD-system detektiert einen niedrigen
+		Tankfüllstand
+		\\Nachbedingung:Eine Anfrage nach den Tankstellen in der Nähe mit
+	 	Lokalisierungsinformationen wird am Drittanbietern geschickt, der die
+	 	Kartendienst anbieten kann.
+	 	\item
+		Vorbedingung: Eine Anfrage nach den Tankstellen in der Nähe ist am
+		Kartendienstanbietern geschickt. Die Endgeräte vom Fahrer haben eine
+		Verbindung zur Netzwerk.
+		\\Auslösundes Ereignis: Der Drittanbieter antwortet die Anfrage.
+		\\Nachbedingung: Eine Liste, auf der die Tankstellen in der Nähe mit
+		jeweiligen Preis bzw. Entfernung stehen, werden erzeugt und angezeigt. Auf der
+		Karte werden die Tankstellen in der Nähe kenngezeichnet.
+  	\end{enumerate}
+  	
+  	\item {\textbf{Route zur gewünschten Tankstelle berechnen}} 
+  	\begin{enumerate}
+  		\item 
+  		Vorbedingung: Die Tankstellen in der Nähe sind angezeigt. Die Endgeräte vom
+  		Fahrer haben die Verbindung zur Netzwerk.
+  		\\Auslösendes Ereignis: Der Fahrer wählt eine Tankstelle aus.
+  		\\Nachbedingung: Eine Anfrage nach der Route zur vom Fahrer ausgewählten
+  		Tankstelle wird am Kantendienstanbietern geschickt.
+  		\item
+  		Vorbedingung: Eine Anfrage nach der Route zur Tankstelle ist am
+  		Drittanbieter von Kartendienst geschickt. Die Endgeräte vom Fahrer haben die
+  		Verbindung zur Netzwerk.
+  		\\Auslösendes Ereignis: Der Drittanbieter antwortet die Anfrge.
+  		\\Nachbedingung: Die Route zur gewünschten Tankstelle wird auf Karte
+  		angezeigt.
+  		\end{enumerate}
   
-	\item{\textbf{Werkstätten anzeigen}} \\ Vorbedingung: Eine oder mehrere Warnlampen des Autos leuchtet. \\ Auslösendes Ereignis: Der Nutzer öffnet die Karte. \\ Nachbedingung: Die Karte zeigt Werkstätten in der Nähe an.
+	\item{\textbf{Werkstätten anzeigen}} 
+	\begin{enumerate}
+		\item 
+		Vorbedingung: Die Endgeräte vom Fahrer haben eine Verbindung zur Netzwerk.
+		Die Lokalisierungsinformationen stehen zur Verfügung.
+		\\Auslösendes Ereignis: Das OBD-system detektiert einen kritischen Sensorwert.
+		\\Nachbedingung:Eine Anfrage nach der nächsten Werkstatt mit
+	 	Lokalisierungsinformationen wird am Drittanbietern geschickt, der die
+	 	Kartendienst anbieten kann.
+	 	\item
+		Vorbedingung: Eine Anfrage nach der Route zur nächsten Werkstatt ist am
+		Kartendienstanbietern geschickt. Die Endgeräte vom Fahrer haben eine
+		Verbindung zur Netzwerk.
+		\\Auslösundes Ereignis: Der Drittanbieter antwortet die Anfrage.
+		\\Nachbedingung: Auf der Karte wird die Route zur nächsten Werkstatt
+		angezeigt.
+		\end{enumerate}
 
 	\end{enumerate}
-}
 \end{enumerate}
 
 
@@ -86,3 +149,6 @@
 
 \subsubsection{\mkfaw Fahrer} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren (/FA0070/, /FA1020W/).
 \end{document}
+	
+	
+}
