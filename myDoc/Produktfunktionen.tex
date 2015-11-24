@@ -39,7 +39,11 @@
 
 	\item{\textbf{Aggregierte Funktionen berechnen}} \\ Ziel: Berechnung der aggregierten Funktionen. \\ Vorbedingung: FA/Fahrinformationen funktioniert. Gewünschte aggregierte Funktionen sind angegeben. \\ Auslösendes Ereignis: Es kommen zur Berechnung der aggregierten Funktionen benötigte Sensorwerte am Server an. \\ Ablauf: Die Software berechnet die gewünschten aggregierten Funktionen. Sie schickt die Informationen an das Endgerät. Das Endgerät zeigt die berechneten Daten entsprechend der GUI-Konfiguration an. \\ Nachbedingungen: Das Endgerät zeigt die Daten im UI an.  \\ Aggregierte Funktionen sind:
 		\begin{itemize}
+			\item Treibstoffverbrauch: Die Software berechnet über den Tankfüllstand und die Zeit den aktuellen Treibstoffverbrauch.
+			\item Durchschnittsverbrauch: Die Software berechnet über den Tankfüllstand und die Zeit den Durchschnittsverbrauch über die letzten 100km
 			\item Restkilometer: Die Software berechnet eine Schätzung der Restkilometer abhängig vom aktuellen Treibstoffverbrauch.
+			\item Strecke: Die Software berechnet die zurückgelegte Strecke, über die Geschwindigkeit und die Zeit.
+			\item Durchschnittsdauer/strecke: Die Software berechnet die durchschnittliche Strecke einer Fahrt, entweder über die Zeit oder über die Strecke.
 		\end{itemize}
 
 	\item{\textbf{Smartphone Utilization}}\\ Vorbedingung: Es existiert eine Verbindung mit einem Endgerät. Die Sensoren des Endgeräts sind aktiviert.\\ Auslösendes Ereignis: Auf dem Endgerät sind neue Sensordaten verfügbar. \\ Nachbedingung (Erfolg): Die Sensordaten vom Endgerät werden auf den Server übertragen. Die Daten werden auf dem Server gespeichert und von Software bearbeitet.\\  Nachbedingung (Fehlschlag): Die Sensoraten werden nicht übertragen. \\
