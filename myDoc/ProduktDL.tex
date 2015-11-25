@@ -80,25 +80,37 @@ Zur Laufzeit sind weiterhin folgende Daten temporär zu speichern:
 \item Aktuelle Fahrtnummer
 \item Durchschnittsverbrauch
 \item Zurückgelegte Strecke
-\item Durschnittsdauer/strecke
+\item Durschnittsdauer/ Strecke
 
 \end{itemize}
 
-
-% End of new text 1/2.
-
 \chapter{Produktleistungen}
 
-%Start of new text 2/2.
-\subsection{\mkl Einparkhilfe-Verzögerung}
-Die Verzögerung des Informationsflusses darf maximal 100 ms betragen. Dabei sind die Netzwerkverzögerungen (Bluetooth, LAN ,Internet...) zwischen den verschiedenen Geräten nicht berücksichtigt. 
+\renewcommand{\theenumi}{/PL\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{PL\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
-\subsection{\mkl Kamerabildaktualisierung}
-Das Kamerabild sowie die dargestellte Fahrbahn sollen mindestens 10-mal pro Sekunde aktualisiert werden.
-%End of new text 2/2.
+\begin{enumerate}
 
-\subsection{\mkl Multiple Acces} Die Verbindung von bis zu vier Personen gleichzeitig ist möglich.
+\item{\textbf{Latenz von ~\ref{pastData}}} \\
+Die Funktion ~\ref{pastData} soll 300 ms dauern. Wenn die Daten nach dieser Zeit noch nicht angezeigt wurden soll ein Wartesymbol angezeigt werden. 
 
-\subsection{\mkl Cache} Oft abgefragte Daten werden auf dem Server zwischengespeichert.
+\item{\textbf{Auswirkung von ~\ref{deleteData}}} \\
+Die Funktion ~\ref{deleteData} darf keine Auswirkungen auf die sonstige Performanz des Systems haben.
+
+\item{\textbf{Latenz von ~\ref{liveData}}} \\
+Die Funktion ~\ref{liveData} darf höchstens 100 ms benötigen.
+
+\item{\textbf{Bildrate Rückfahrkamera}}} \\
+Das Kamerabild sowie die dargestellte Fahrbahn sollen im Abstand von 100 ms aktualisiert werden.
+
+\item{\textbf{Aktualisierungsrate Ultraschallsensoren}} \\
+Die Aktualisierung von ~\ref{ultrasound} soll im Abstand von 100 ms stattfinden.
+
+\item{\textbf{Multiple Access}} \\
+Die Verbindung von bis zu vier Personen gleichzeitig ist möglich.
+
+\end{enumerate}
 
 \end{document}

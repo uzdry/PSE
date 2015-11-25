@@ -58,11 +58,11 @@
 		\item{\textbf{Protokoll führen}} \\ Ziel: Es werden eingehende Daten gespeichert. \\ Vorbedingung: Server läuft. Bluetooth-Verbindung mit OBD2 Adapter ist hergestellt. \\ Auslösendes Ereignis: Von der Bluetooth-Schnittstelle treffen Daten ein. %%TODO: Check BT API Node.js server 
 		Nachbedingung: Die Daten, die von der Bluetooth-Schnittstelle kommen, befinden sich in der Datenbank.
 		
-		\item{\textbf{Vergangene Daten aufrufen}} \\ Ziel: Es werden Daten von vergangenen Zeitpunkten dargestellt. \\ Vorbedingung: Es wurde bereits eine Fahrt getätigt. Der Server läuft.\\ Auslösendes Ereignis: Der Nutzer fordert Daten aus der Vergangenheit an. \\ Nachbedingung: Die Daten werden auf dem Endgerät angezeigt.
+		\item{\textbf{Vergangene Daten aufrufen}} \label{pastData} \\ Ziel: Es werden Daten von vergangenen Zeitpunkten dargestellt. \\ Vorbedingung: Es wurde bereits eine Fahrt getätigt. Der Server läuft.\\ Auslösendes Ereignis: Der Nutzer fordert Daten aus der Vergangenheit an. \\ Nachbedingung: Die Daten werden auf dem Endgerät angezeigt.
 	
 		\item{\textbf{Maximale Kapazität einstellen}} \\ Ziel: Es soll eine neue maximale Kapazität der Datenbank gesetzt werden. \\ Vorbedingung: Der Server läuft. \\Nachbedingung: Die neue gespeicherte maximale Kapazität der Datenbank ist der vom Nutzer eingegebene Wert. \\Auslösendes Ereignis: Der Benutzer versucht, eine neue maximale Kapazität der Datenbank zu setzen. 
 		
-		\item{\textbf{Daten automatisch löschen}} \\ Ziel: Um Überfüllung der Datenbank zu vermeiden werden Daten gelöscht. \\ Vorbedingung: Der Server läuft. \\ Auslösendes Ereignis: Die definierte maximale Kapazität der Datenbank ist erreicht. \\ Nachbedingung: Die Datenbank hat weniger Einträge als ihre maximale Kapazität. Die ältesten Einträge wurden gelöscht.
+		\item{\textbf{Daten automatisch löschen}} \label{deleteData} \\ Ziel: Um Überfüllung der Datenbank zu vermeiden werden Daten gelöscht. \\ Vorbedingung: Der Server läuft. \\ Auslösendes Ereignis: Die definierte maximale Kapazität der Datenbank ist erreicht. \\ Nachbedingung: Die Datenbank hat weniger Einträge als ihre maximale Kapazität. Die ältesten Einträge wurden gelöscht.
 
 		\renewcommand{\theenumi}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}0W/}
 		\renewcommand{\labelenumi}{\theenumi}
@@ -91,7 +91,7 @@
 	\setcounter{enumi}{\value{enumTemp}}
 
 
-		\item{\textbf{Fahrinformationen darstellen}} \\ Ziel: Darstellung der aktuellen Sensorwerte auf dem Endgerät \\ Vorbedingung: Das System läuft und es werden durchgängig neue Daten zur Datenbank hinzugefügt. Es existiert eine Verbindung mit mindestens einem Endgerät. Dieses Gerät besitzt eine Konfiguration des GUI. \\ Auslösendes Ereignis: Das Endgerät empfängt Sensordaten vom Server.\\ Nachbedingung: Das Endgerät zeigt diese Daten entsprechend der aktuellen GUI-Konfiguration an. Die Datenbank bleibt unverändert.
+		\item{\textbf{Fahrinformationen darstellen}} \label{liveData} \\ Ziel: Darstellung der aktuellen Sensorwerte auf dem Endgerät \\ Vorbedingung: Das System läuft und es werden durchgängig neue Daten zur Datenbank hinzugefügt. Es existiert eine Verbindung mit mindestens einem Endgerät. Dieses Gerät besitzt eine Konfiguration des GUI. \\ Auslösendes Ereignis: Das Endgerät empfängt Sensordaten vom Server.\\ Nachbedingung: Das Endgerät zeigt diese Daten entsprechend der aktuellen GUI-Konfiguration an. Die Datenbank bleibt unverändert.
 
 		\item{\textbf{Aggregierte Funktionen berechnen}} \\ Ziel: Berechnung der aggregierten Funktionen. \\ Vorbedingung: FA/Fahrinformationen funktioniert. Gewünschte aggregierte Funktionen sind angegeben. \\ Auslösendes Ereignis: Es kommen zur Berechnung der aggregierten Funktionen benötigte Sensorwerte am Server an. \\ Ablauf: Die Software berechnet die gewünschten aggregierten Funktionen. Sie schickt die Informationen an das Endgerät. Das Endgerät zeigt die berechneten Daten entsprechend der GUI-Konfiguration an. \\ Nachbedingungen: Das Endgerät zeigt die Daten im UI an.  \\ Aggregierte Funktionen sind:
 		\begin{itemize}
@@ -112,11 +112,11 @@
 	\begin{enumerate}
 	\setcounter{enumi}{\value{enumTemp}}
 
-	\item{\textbf{Einparken vereinfachen}} \\ Ziel: Vereinfachen des rückwärts beziehungsweise rückwärts-Seitwärts Einparkens durch Anzeige einer Rückfahrkamera und Einblenden einer Visualisierung der möglichen Fahrstrecke. \\ Vorbedingung: Server läuft. \\ Auslösendes Ereignis:  Der Fahrer schaltet ins Rückwärtsgang. Alternativ: Der Benutzer fordert das System auf die Kamera einzuschalten. \\ Nachbedingung (Erfolg): Das Bild der Rückfahrkamera wird angezeigt und regelmäßig aktualisiert. Die Visualisierung der Fahrbahn wird korrekt dargestellt und regelmäßig aktualisiert. \\ Nachbedingung (Fehlschlag): Das Bild der Rückfahrkamera wird nicht angezeigt, ist fehlerbehaftet oder wird nicht aktualisiert. Die Visualisierung der Fahrbahn wird nicht dargestellt, ist nicht korrekt oder wird nicht aktualisiert. 
+	\item{\textbf{Einparken vereinfachen}} \\ Ziel: Vereinfachen des rückwärts beziehungsweise rückwärts-Seitwärts Einparkens durch Anzeige einer Rückfahrkamera und Einblenden einer Visualisierung der möglichen Fahrstrecke. \\ Vorbedingung: Server läuft. \\ Auslösendes Ereignis:  Der Benutzer fordert das System auf die Kamera einzuschalten. \\ Nachbedingung (Erfolg): Das Bild der Rückfahrkamera wird angezeigt und regelmäßig aktualisiert. Die Visualisierung der Fahrbahn wird korrekt dargestellt und regelmäßig aktualisiert. \\ Nachbedingung (Fehlschlag): Das Bild der Rückfahrkamera wird nicht angezeigt, ist fehlerbehaftet oder wird nicht aktualisiert. Die Visualisierung der Fahrbahn wird nicht dargestellt, ist nicht korrekt oder wird nicht aktualisiert. 
 
-	\item{\textbf{Ultraschallsensoren visualisieren}} \\ Ziel: Die Distanzwerte der Ultraschallsensoren visualisieren. \\ Vorbedingung: Eine Kamera ist vorhanden und eingeschaltet. Der Server läuft. \\ Auslösendes Ereignis: Der Fahrer schaltet in den Rückwärtsgang. Alternativ: Der Benutzer möchte die Messwerte anzeigen.\\ Nachbedingung (Erfolg): Die korrekten Messwerte werden angezeigt. \\ Nachbedingung (Fehlschlag): Es werden keine oder falsche Messwerte angezeigt.
+	\item{\textbf{Ultraschallsensoren visualisieren}} \label{ultrasound} \\ Ziel: Die Distanzwerte der Ultraschallsensoren visualisieren. \\ Vorbedingung: Eine Kamera ist vorhanden und eingeschaltet. Der Server läuft. \\ Auslösendes Ereignis:  Der Benutzer möchte die Messwerte anzeigen.\\ Nachbedingung (Erfolg): Die korrekten Messwerte werden angezeigt. \\ Nachbedingung (Fehlschlag): Es werden keine oder falsche Messwerte angezeigt.
 
-	\item{\textbf{Einparkhilfe beenden}} \\ Ziel: Das System soll die Darstellung der Einparkhilfe automatisch vom Bildschirm entfernen, wenn die Daten nicht mehr sinnvoll dargestellt werden können. \\ Vorbedingung: Auf dem Bildschirm wird die Einparkhilfe angezeigt. \\ Nachbedingung (Erfolg): Die Einparkhilfe wird nicht mehr angezeigt. \\ Auslösendes Ereignis: Der Benutzer fordert das System auf, die Einparkhilfe zu beenden. Alternativ: Das Fahrzeug fährt schneller als 5 km/h vorwärts. \\  Nachbedingung (Fehlschlag): Die Einparkhilfe verschwindet nicht von dem Bildschirm.
+	\item{\textbf{Einparkhilfe beenden}} \\ Ziel: Das System soll die Darstellung der Einparkhilfe automatisch vom Bildschirm entfernen, wenn die Daten nicht mehr sinnvoll dargestellt werden können. \\ Vorbedingung: Auf dem Bildschirm wird die Einparkhilfe angezeigt. \\ Nachbedingung (Erfolg): Die Einparkhilfe wird nicht mehr angezeigt. \\ Auslösendes Ereignis: Der Benutzer fordert das System auf, die Einparkhilfe zu beenden. Alternativ: Das Fahrzeug fährt schneller als 10 km/h vorwärts. \\  Nachbedingung (Fehlschlag): Die Einparkhilfe verschwindet nicht von dem Bildschirm.
 
 	\setcounter{enumTemp}{\value{enumi}}
 
@@ -128,14 +128,14 @@
 	\begin{enumerate}
 	\setcounter{enumi}{\value{enumTemp}}
 	\item{\textbf{Karte anzeigen}}
-		\\Zie: Die Karte von Umgebung anzeigen
-		\\Vorbedingung: Die Endgeräte vom Fahrer haben eine Verbindung zur Netzwerk.
+		\\Ziel: Die Karte der Umgebung anzeigen
+		\\Vorbedingung: Die Endgeräte des Fahrers haben eine Verbindung zur Netzwerk.
 		Die Lokalisierungsinformationen stehen zur Verfügung.
-		\\Nachbedingung: Die Karte von Umgebung wird angezeigt.
+		\\Nachbedingung: Die Karte der Umgebung wird angezeigt.
   	 	\\Auslösendes Ereignis: Der Benutzer fordert die Karte an.
   	\item {\textbf{Tankstellen auflisten}}
 		\\Ziel: Die Tankstellen in der Nähe finden
-		\\Vorbedingung: Die Endgeräte vom Fahrer haben eine Verbindung zur Netzwerk.
+		\\Vorbedingung: Die Endgeräte des Fahrers haben eine Verbindung zur Netzwerk.
 		Die Lokalisierungsinformationen stehen zur Verfügung.
 		\\Nachbedingung: Eine Liste, auf der die Tankstellen in der Nähe mit
 		jeweiligen Preis bzw. Entfernung stehen, werden erzeugt und angezeigt. Auf der
