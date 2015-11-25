@@ -15,10 +15,6 @@ Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erf
 
 \chapter{Zielbestimmung}
 
-Die Software aRSDM soll diejenigenl Sensordaten von einem Auto sammeln, die über den OBD2-Adapter verfügbar sind. aRSDM soll diese Daten speichern und Endgeräten zur Darstellung zur Verfügung stellen. Dabei soll eine API implementiert und genutzt werden, die auch auf weitere Anwendungen erweiterbar ist.
-
-Die Darstellung soll in verschiedenen Internet-Browsern auf Endgeräten erfolgen. 
-
 \section{Musskriterien}
 
 %%Frage Lizensierung...
@@ -29,28 +25,23 @@ Die Darstellung soll in verschiedenen Internet-Browsern auf Endgeräten erfolgen
 
 \begin{enumerate}
 
-\item{\textbf{}} \\Der Nutzer kann Anzeigeelemente ein- und ausblenden.
+	\item{\textbf{Datenquelle}} \\Die Software soll mit Sensordaten aus einem PKW arbeiten.
+
+	\item{\textbf{Daten verwalten}} \\Die Daten sollen in einer zentralen Datenbank verwaltet werden.
+
+	\item{\textbf{Daten darstellen}} \\Die Daten sollen im Internetbrowser auf einem Endgerät visuell dargestellt werden.
+
+	\item{\textbf{Informationen auswählen}} \\Der Nutzer soll wählen können, welche Informationen dargestellt werden.
+
+	\item{\textbf{Aggregierte Funktionen}} \\Neben den Daten der Sensoren sollen virtuelle Sensoren realisiert und aggregierte Funktionen berechnet und dargestellt werden.
+
+	\item{\textbf{Karte}} \\Der Nutzer kann sich eine Karte der Umgebung anzeigen lassen, auf der ggf. Points of Interest angezeigt werden.
+
+	\item{\textbf{Einparkhilfe}} \\Der Nutzer kann eine Einparkhilfe anzeigen lassen, welche Hindernisse visualisiert und die aktuelle Fahrspur anzeigt.
 
 
 
-\item{\textbf{Erweiterbarkeit}} \\Drittentwickler können Module für die Verarbeitung und Auswertung weiterer Sensordaren schreiben.
 
-\item{\textbf{Verbindung}} \\Der Server soll in der Lage sein, entfernte Sensordaten zu Empfangen. Die Daten können über Bluetooth von einem OBD2 Bluetooth Adapter empfangen werden.
-
-
-
-\item{\textbf{Fahrinformation}} Der Benutzer bekommt Fahrinformationen angezeigt.
-\item{\textbf{Anzeigeelemente}} \\Der Nutzer kann Anzeigeelemente ein- und ausblenden.
-
-\item{\textbf{RemoteAccess}} \\Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
-
-\item{\textbf{Protokollierung}} \\Der Nutzer soll jederzeit in der Lage sein, Daten von vergangenen Zeitpunkten abzurufen.
-
-\item{\textbf{aggregierte Funktionen}} Die Software soll aus verschiedenen Sensordaten aggregierte Funktionen wie Durchschnittsverbrauch und Restkilometer berechnen.
-
-\item{\textbf{Einparkhile}} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality-Features zur Verfügung.
-
-\item{\textbf{POI}} Bei kritischen Sensorwerten kann der Nutzer die nächsten Tankstellen / Werstätten einbleden.
 \end{enumerate}
 
 \renewcommand{\theenumi}{/WK\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
@@ -60,11 +51,14 @@ Die Darstellung soll in verschiedenen Internet-Browsern auf Endgeräten erfolgen
 \section{Wunschkriterien}
 
 \begin{enumerate}
-\item{\textbf{Smartphone Utilization}} Die Software verwendet auch Sensordaten aus dem Endgerät.
+	\item{\textbf{Lokalisierung}} Die Software speichert GPS Daten vom Endgerät.
 
-\item{\textbf{Personalisierung}} Aggregierte Funktionen sind personalisiert verfügbar.
+	\item{\textbf{Navigation}} Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
 
-\item{\textbf{Fahrer}} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren.
+	\item{\textbf{Sensordaten vom Endgerät}} Die Software verwaltet Sensordaten von den verbundenen Endgeräten wie zum Beispiel den Beschleunigungssensor.
+
+	\item{\textbf{Streckenbezug}} Daten und Aggregierte Funktionen sind Streckenbezogen verfügbar.
+
 \end{enumerate}
 
 \renewcommand{\theenumi}{/AK\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
@@ -75,21 +69,20 @@ Die Darstellung soll in verschiedenen Internet-Browsern auf Endgeräten erfolgen
 \section{Abgrenzungskriterien}
 
 \begin{enumerate}
-\item{\textbf{Erweiterung}} Für andere Sensorquellen werden keine Treiber bereitgestellt.
+	\item{\textbf{Erweiterung}} Für andere Sensorquellen werden keine Treiber bereitgestellt.
 
-\item{\textbf{Unidirektional}} Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
+	\item{\textbf{Unidirektional}} Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
 
-\item{\textbf{Bildauswertung}} Kamerabilder werden von der Software nicht interpretiert.
+	\item{\textbf{Bildauswertung}} Kamerabilder werden von der Software nicht interpretiert.
 
-\item{\textbf{Android}} Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
+	\item{\textbf{Android}} Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
 
-\item{\textbf{Flotte}} Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
+	\item{\textbf{Flotte}} Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
 
-\item{\textbf{Navigation}} Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
 
-\item{\textbf{Diagnose}} Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
+	\item{\textbf{Diagnose}} Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
 
-\item{\textbf{RemoteAcces}} Für entferntes Monitoring wird keine maximale Latenz garantiert 
+	\item{\textbf{RemoteAcces}} Für entferntes Monitoring wird keine maximale Latenz garantiert.
 
 \end{enumerate}
 
