@@ -4,10 +4,15 @@
 
 \chapter{Produktdaten}
 
+\renewcommand{\theenumi}{/PD\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{PD\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
+
 % Start of new text 1/2.
 \section{\mkd physische Sensordaten}
 Es sind zeitgestempelte und fahrergestempelte Messwerte der folgenden Sensoren zu speichern:
-\begin{itemize}
+\begin{enumerate}
 \item
 Temperatur der Motorkühlflüssigkeit
 \item
@@ -25,12 +30,11 @@ Laufzeit des Motors seit letztem Start
 \item
 Tankfüllstand
 \item
-Status von
-\begin{itemize}
-\item Abgasrückführung
-\item Kontrollsystem für Einspritzdruck
-\item Kontrollsystem für Kraftstoffdruck
-\end{itemize}
+Status der Abgasrückführung
+\item
+Status des Kontrollsystems für Einspritzdruck
+\item
+Status des Kontrollsystems für Kraftstoffdruck
 \item
 Gasdruck des Verdampfers
 \item
@@ -49,30 +53,34 @@ Abgastemperatur
 Abgasdruck
 \item
 Distanzwerte der Ultraschallsensoren
-
-\end{itemize}
+\setcounter{enumTemp}{\value{enumi}}
+\end{enumerate}
 
 \section{\mkd virtuelle Sensordaten}
 Es sind Werte der folgenden virtuellen Sensoren zu speichern:
-\begin{itemize}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumTemp}}
 \item Anzahl der Einzelfahrten
 \item Aktueller Treibstoffverbrauch
-
-
-\end{itemize}
+\setcounter{enumTemp}{\value{enumi}}
+\end{enumerate}
 
 \section{\mkd Personenbezogene Daten}
 Es sind Profilinformationen der Fahrer zu speichern:
-\begin{itemize}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumTemp}}
 \item Endgerät-Signatur
 \item Anzeigeeinstellungen
 \item Genutzter Kraftstoff
-
-\end{itemize}
+\setcounter{enumTemp}{\value{enumi}}
+\end{enumerate}
 
 \section{\mkd Laufzeitdaten}
 Zur Laufzeit sind weiterhin folgende Daten temporär zu speichern:
-\begin{itemize}
+\begin{enumerate}
+\setcounter{enumi}{\value{enumTemp}}
 \item Bluetooth-Verbindungsdaten mit dem OBD2-Adapter
 \item Netzwerk-Verbindungsdaten aller verbundenen Geräte
 \item Aktuell anzuzeigende Sensordaten auf den Endgeräten
@@ -80,25 +88,38 @@ Zur Laufzeit sind weiterhin folgende Daten temporär zu speichern:
 \item Aktuelle Fahrtnummer
 \item Durchschnittsverbrauch
 \item Zurückgelegte Strecke
-\item Durschnittsdauer/strecke
-
-\end{itemize}
-
-
-% End of new text 1/2.
+\item Durschnittsdauer/ Strecke
+\setcounter{enumTemp}{\value{enumi}}
+\end{enumerate}
 
 \chapter{Produktleistungen}
 
-%Start of new text 2/2.
-\subsection{\mkl Einparkhilfe-Verzögerung}
-Die Verzögerung des Informationsflusses darf maximal 100 ms betragen. Dabei sind die Netzwerkverzögerungen (Bluetooth, LAN ,Internet...) zwischen den verschiedenen Geräten nicht berücksichtigt. 
+\renewcommand{\theenumi}{/PL\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{PL\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
-\subsection{\mkl Kamerabildaktualisierung}
-Das Kamerabild sowie die dargestellte Fahrbahn sollen mindestens 10-mal pro Sekunde aktualisiert werden.
-%End of new text 2/2.
+\begin{enumerate}
 
-\subsection{\mkl Multiple Acces} Die Verbindung von bis zu vier Personen gleichzeitig ist möglich.
+\item{\textbf{Latenz von ~\ref{pastData}}} \\
+Die Funktion ~\ref{pastData} soll 300 ms dauern. Wenn die Daten nach dieser Zeit noch nicht angezeigt wurden soll ein Wartesymbol angezeigt werden. 
 
-\subsection{\mkl Cache} Oft abgefragte Daten werden auf dem Server zwischengespeichert.
+\item{\textbf{Auswirkung von ~\ref{deleteData}}} \\
+Die Funktion ~\ref{deleteData} darf keine Auswirkungen auf die sonstige Performanz des Systems haben.
+
+\item{\textbf{Latenz von ~\ref{liveData}}} \\
+Die Funktion ~\ref{liveData} darf höchstens 100 ms benötigen.
+
+\item{\textbf{Bildrate Rückfahrkamera}} \\
+Das Kamerabild sowie die dargestellte Fahrbahn sollen im Abstand von 100 ms aktualisiert werden.
+
+\item{\textbf{Aktualisierungsrate Ultraschallsensoren}} \\
+Die Aktualisierung von ~\ref{ultrasound} soll im Abstand von 100 ms stattfinden.
+
+\item{\textbf{Multiple Access}} \\
+Die Verbindung von bis zu vier Personen gleichzeitig ist möglich.
+
+
+\end{enumerate}
 
 \end{document}
