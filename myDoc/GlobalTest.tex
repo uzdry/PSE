@@ -41,6 +41,13 @@ Der Server läuft.
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\ 
 \textbf{Ablauf: } Es werden vom Server verschiedene aggregierte Funktionen berechnet. Diese werden dann mit händisch berechneten Werten verglichen.
 
+\item{\textbf{Smartphone Utilization}} \\
+\textbf{Vorbedingung: } Die Sensoren des Endgeräts sind aktiviert. \\
+\textbf{Ablauf: } Es werden die Sensorwerte vom Endgerät auf dem Server gesendet. Dann wird überprüft ob der Server die Daten empfangen und gespeichert hat, und ob diese von Software bearbeitet werden.
+
+\item{\textbf{Fahrinformationen darstellen}} \\
+\textbf{Ablauf: } Es werden neue Sensordaten zur Datenbank hinzugefügt. Dann werden diese auf dem Endgerät angezeigt.
+
 \item{\textbf{Protokoll führen und Daten anzeigen}} \\
 \textbf{Vorbedingung: } Das Auto fährt. \\
 \textbf{Ablauf: } Mit dem Auto fahren und Daten erzeugen. Die Daten im Endgerät auf allen Instrumenten live und auf Abruf anzeigen. Auf Konsistenz und ausreichend kleine Latenz prüfen. Datenausfälle simulieren. Datenbank auf korrekte Einträge überprüfen.
