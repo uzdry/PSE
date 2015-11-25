@@ -9,7 +9,7 @@
 \renewcommand{\theenumii}{\arabic{enumii}}
 \renewcommand{\labelenumii}{GT\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
-\textbf{globale Vorbedingungen:}
+\textbf{Globale Vorbedingungen:}
 \begin{itemize}
 \item
 Die Zündung ist an.
@@ -20,98 +20,74 @@ Der Server läuft.
 \begin{enumerate}
 
 \item{\textbf{Erstanmeldung}} \\
-\textbf{Ablauf: } Ein Endgerät verbindet sich zum ersten Mal mit dem Server. Dann wird überprüft ob die Signatur des Endgeräts in die Datenbank hinzugefügt wurde.
+Ablauf: Ein Endgerät verbindet sich zum ersten Mal mit dem Server. Es wird überprüft ob die Signatur des Endgeräts in die Datenbank hinzugefügt wurde.
 
 \item{\textbf{Erneute Anmeldung}} \\
-\textbf{Vorbedingung: } Das Endgerät hatte sich bereits einmal mit dem Server verbunden ist aktuell jedoch getrennt.
-\textbf{Ablauf: } Das Endgerät verbindet sich mit dem Server. Dann wird überprüft ob automatisch die Daten der passenden Signatur geladen werden.
+Vorbedingung: Das Endgerät hatte sich bereits einmal mit dem Server verbunden, ist aktuell jedoch getrennt.\\
+Ablauf: Das Endgerät verbindet sich mit dem Server. Es wird überprüft ob automatisch die Daten der passenden Signatur geladen werden.
 
 \item{\textbf{Fahreranmeldung}} \\
-\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server und gibt sich als Fahrer aus. Dann wird überprüft ob die aktuell aufgezeichneten Daten mit der Signatur des Endgeräts verbunden werden.
+Ablauf: Ein Endgerät verbindet sich mit dem Server. Es wird als Gerät des Fahrers identifiziert. Es wird überprüft, ob die anschließend gespeicherten Daten mit der Signatur des neuen Fahrers abgelegt werden.
 
-\item{\textbf{Zwei Fahreranmeldungen}} \\
-\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server. Es gibt sich als Fahrer aus. Dann verbindet sich ein zweites Endgerät und will sich als Fahrer ausgeben. Dann wird überprüft ob die neue Fahrersignatur in den darauf folgenden Daten referenziert wird.
+\item{\textbf{Fahrerwechsel}} \\
+Ablauf: Ein Endgerät verbindet sich mit dem Server. Es wird als Gerät des Fahrers identifiziert. Es verbindet sich ein zweites Endgerät und meldet sich als Fahrer an. Es wird überprüft, ob die anschließend gespeicherten Daten mit der Signatur des neuen Fahrers und nur der Signatur des neuen Fahrers abgelegt werden.
 
 
 \item{\textbf{Instrumente anzeigen}} \\
-\textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\
-\textbf{Ablauf: } Alle verfügbaren Instrumente auf dem Endgerät Einblenden, Ausblenden und Kombinieren
+Vorbedingung: Ein Endgerät ist mit dem Server verbunden. \\
+Ablauf: Alle verfügbaren Instrumente werden auf dem Endgerät ein- und ausgeblendet und kombiniert.
 
 \item{\textbf{Aggregierte Funktionen}} \\
-\textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\ 
-\textbf{Ablauf: } Es werden vom Server verschiedene aggregierte Funktionen berechnet. Diese werden dann mit händisch berechneten Werten verglichen.
+Vorbedingung: Ein Endgerät ist mit dem Server verbunden. \\ 
+Ablauf: Es werden vom Server verschiedene aggregierte Funktionen berechnet. Diese werden dann mit händisch berechneten Werten verglichen.
 
 \item{\textbf{Smartphone Utilization}} \\
-\textbf{Vorbedingung: } Die Sensoren des Endgeräts sind aktiviert. \\
-\textbf{Ablauf: } Es werden die Sensorwerte vom Endgerät auf dem Server gesendet. Dann wird überprüft ob der Server die Daten empfangen und gespeichert hat, und ob diese von Software bearbeitet werden.
+Vorbedingung: Die Sensoren des Endgeräts sind aktiviert. \\
+Ablauf: Es werden die Sensorwerte vom Endgerät auf dem Server gesendet. Dann wird überprüft ob der Server die Daten empfangen und gespeichert hat, und ob diese von Software bearbeitet werden.
 
 \item{\textbf{Fahrinformationen darstellen}} \\
-\textbf{Ablauf: } Es werden neue Sensordaten zur Datenbank hinzugefügt. Dann werden diese auf dem Endgerät angezeigt.
+Ablauf: Es werden neue Sensordaten zur Datenbank hinzugefügt. Dann werden diese auf dem Endgerät angezeigt.
 
 \item{\textbf{Protokoll führen und Daten anzeigen}} \\
-\textbf{Vorbedingung: } Das Auto fährt. \\
-\textbf{Ablauf: } Mit dem Auto fahren und Daten erzeugen. Die Daten im Endgerät auf allen Instrumenten live und auf Abruf anzeigen. Auf Konsistenz und ausreichend kleine Latenz prüfen. Datenausfälle simulieren. Datenbank auf korrekte Einträge überprüfen.
+Vorbedingung: Das Auto fährt. \\
+Ablauf: Das Auto fährt und erzeugt Daten. Die Daten werden im Endgerät auf allen Instrumenten live und auf Abruf angezeigt. Es wird auf Konsistenz und ausreichend kleine Latenz geprüft. Datenausfälle werden simuliert. Die Datenbank wird auf korrekte Einträge überprüft.
 
 \item{\textbf{Maximale Kapazität prüfen}} \\
-\textbf{Vorbedingung: } keine weiteren Vorbedingungen erforderlich \\
-\textbf{Ablauf: } Die default-Kapazität auf dem Endgerät prüfen, neue default-Kapazität setzen. Daten mit dem Auto erzeugen, bis die Datenbank bis zum Grenzwert gefüllt ist. Überprüfen, ob das Datenlimit eingehalten wurde und ob nur wie spezifiziert die ältesten Daten gelöscht wurden. Auf Konsistenz und korrektes Löschen aller Daten prüfen.
+Vorbedingung: keine weiteren Vorbedingungen erforderlich \\
+Ablauf: Die Default-Kapazität auf dem Endgerät wird geprüft. Es wird eine neue Default-Kapazität gesetzt. Mit dem Auto werden Daten erzeugt, bis die Datenbank bis zum Grenzwert gefüllt ist. Es wird überprüft, ob das Datenlimit eingehalten wurde und ob, nur wie spezifiziert, die ältesten Daten gelöscht wurden. Die Datenbank wird auf Konsistenz und korrektes Löschen aller Daten geprüft.
 
 \item{\textbf{Remote Access}} \\
-\textbf{Vorbedingung: } keine weiteren Vorbedingungen erforderlich \\
-\textbf{Ablauf: } Mit entferntem Endgerät mit dem Server verbinden. Anzeigen und Ausblenden von Instrumenten und Anzeige von Daten testen. Anmeldung überprüfen.
+Vorbedingung: Keine weiteren Vorbedingungen erforderlich. \\
+Ablauf: Ein entferntes Endgerät wird mit dem Server verbunden. Anzeigen und Ausblenden von Instrumenten und Anzeige von Daten wird getested und die Anmeldung überprüft.
 
 \item{\textbf{Einparken vereinfachen}} \\
-\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
-\textbf{Ablauf: } Das Bild der Rückfahrkamera mit einer kollisionfreien
-Fahrbahn wird angezeigt. Der Fahrer fährt entlang dieser Fahrbahn, dann wird das
-Bild regelmäßig aktualisiert.
+Vorbedingung: Der Nutzer ruft die Einparkhilfe-Funktion auf. \\
+Ablauf: Das Bild der Rückfahrkamera mit der aktuellen Fahrspur wird angezeigt. Der Fahrer bewegt das Auto. Es wird geprüft, ob das Bild regelmäßig aktualisiert wird.
 
 \item{\textbf{Ultraschallsensoren visualisieren}} \\
-\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
-\textbf{Ablauf: } Das Bild der Kamera mit den Distanzwerten vom jeweiligen
-Sensor wird angezeigt.
+Vorbedingung: Der Nutzer ruft die Einparkhilfe-Funktion auf. \\
+Ablauf: Das Bild der Kamera mit den Distanzwerten der Ultraschallsensoren ~\ref{ultrasound} wird angezeigt.
 
 \item{\textbf{Einparkhilfe beenden}} \\
-\textbf{Vorbedingung: } Einparkhilfe ist angezeigt. \\
-\textbf{Ablauf: } Der Fahrer fährt vorwärts und das Fahrzeug bewegt sich
-schneller als 5km/h, dann wird die Einparkhilfe entfernt.
+Vorbedingung: Einparkhilfe ist angezeigt. \\
+Ablauf: Der Fahrer fährt mit entsprechder Geschwindigkeit (~\ref{quit:passist}) vorwärts. Es wird überprüft, ob die Einparkhilfe ausgeblendet wird.
 
 
 \item{\textbf{Karte anzeigen}} \\
-\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformatonen ist mit dem
+Vorbedingung: Ein Endgerät mit Lokalisierungsinformatonen ist mit dem
 Server verbunden.\\
-\textbf{Ablauf: } Der Benutzer fordert den Kartendienst an. Die Karte der
-Umgebung wird dann angezeigt.
+Ablauf: Der Benutzer fordert den Kartendienst an. Es wird überprüft, ob die Umgebungskarte angezeigt wird.
 
 \item{\textbf{Tankstellen auflisten}} \\
-\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformationen ist mit dem
-Server verbunden.\\
-\textbf{Ablauf: } Der Fahrer fährt mit dem Auto mit niedrigem Tankfüllstand.Eine
-Liste der Tankstellen wird erzeugt und solche Tankstellen werden auf der
-Karte markiert. 
-
-\item{\textbf{Route berechnen}} \\
-\textbf{Vorbedingung: } Das Endgerät mit der Liste von Tankstellen in der Nähe
-ist mit dem Server verbunden. Die Lokalisierungsinformationen vom Endgerät
-stehen zur Verfügung.\\
-\textbf{Ablauf: } Der Benutzer wählt eine Tankstelle aus. Die Route zur
-Tankstelle wird auf der Karte angezeigt.
-
-\item{\textbf{Werkstätten}} \\
-\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformationen ist mit dem
-Server verbunden. \\
-\textbf{Ablauf: } Ein Dummysignal, das eine Fehlermeldung simuliert, wird
-an den Server geschickt. Dann wird die Route zur nächsten Werkstatt auf der
-Karte angezeigt.
-
-
+Vorbedingung: Ein Endgerät, das über den aktuellen Standort verfügt, ist mit dem Server verbunden.\\
+Ablauf: Der Fahrer fährt mit dem Auto bei niedrigem Tankfüllstand. Es wird überprüft, ob eine Liste der Tankstellen in der Umgebung angezeigt und die Tankstellen auf der Karte markiert werden. 
 
 \end{enumerate}
 
 \chapter{Testszenarien}
 \section{Allgemeiner Funktionstest}
-Bob, ein Diplominformatiker der Schwäbischen Hochschule für Informationstechnologie setzt sich in sein Mittelklassewagen. Er schaltet die Zündung an und verbindet sich mit seinem Smartphone mit dem WiFi-Netzwerk. Bob öffnet mit dem Browser seines Smartphones zum ersten mal die Seite der Software. Er identifiziert sich als Fahrer und startet sobald die Dashes angezeigt werden den Motor. Anzeigen lässt sich Bob unter anderem die Durchschnittsgeschwindigkeit weil er versucht Spritsparend zu fahren. Während der Fahrt sinkt der Tankfüllstand unter die von Bob eingestellte Grenze und das Karte-Icon ändert sich zu einem Tank-Icon. Darauf öffnet Bob mit dem Druck auf das Tank-Icon die Karte, wählt die nächste Tankstelle aus und bekommt diese dann auf der Karte angezeigt. Er tankt  und setzt sich, nach dem Bezahlen, wieder in das Auto. Bob schaltet die Zündung wieder an, das Smartphone verbindet sich mit dem Netzwerk und der Diplominformatiker öffnet die Website. Da das Auto vor ihm noch nicht fertig mit dem Tanken ist muss Bob erst einmal etwas nach hinten fahren. Dazu wechselt er in den Rückfahrkameramodus der Website und sieht über die Kamera wie weit er noch nach hinten fahren kann. Nachdem er die Tankstelle verlassen hat und wieder schneller fährt beendet sich der Rückwärts-Modus automatisch. Irgendwann kommt Bob dann an seiner Hochschule an, schaltet das Auto aus und verlässt es.
+Bob, ein Diplominformatiker der Schwäbischen Hochschule für Informationstechnologie setzt sich in seinen Mittelklassewagen. Er schaltet die Zündung an und verbindet sich mit seinem Smartphone mit dem Server. Bob öffnet  zum ersten mal die Software mit dem Browser seines Smartphones. Er identifiziert sich als Fahrer und startet den Motor, sobald die Dashes angezeigt werden. Weil Bob versucht spritsparend zu fahren, lässt sich er sich unter anderem die Durchschnittsgeschwindigkeit anzeigen. Während der Fahrt sinkt der Tankfüllstand zu weit und das Karte-Icon ändert sich zu einem Tank-Icon. Darauf öffnet Bob mit dem Druck auf das Tank-Icon die Karte, wählt die nächste Tankstelle aus und bekommt diese dann auf der Karte angezeigt. Er tankt und setzt sich wieder in das Auto. Bob schaltet die Zündung wieder an, das Smartphone verbindet sich mit dem Netzwerk und der Diplominformatiker startet die Software. Da vor ihm noch ein Auto steht, muss Bob erst einmal etwas nach hinten fahren. Dazu wechselt er in den Rückfahrkameramodus der Software und sieht über die Kamera, wie weit er noch nach hinten fahren kann. Nachdem er die Tankstelle verlassen hat und wieder schneller fährt beendet sich die Einparkhilfe automatisch. Irgendwann kommt Bob dann an seiner Hochschule an, schaltet das Auto aus und verlässt es.
 
 \section{Remote Test}
-Alice, Bobs Frau traut ihm nicht ganz und hat sich, nachdem sie von diesem neuen Gerät gehört hat sofort bei Bob's Auto eingeloggt. Während Bob gerade auf dem Weg zu seiner Hochschule ist schaut sich Alice die Daten der vergangenen Fahrt an. Um Bob länger ausspionieren zu können setzt sie die Maximale Kapazität der Aufzeichnungen auf den Höchstwert, die Daten der vorletzten Fahrt bereits gelöscht waren.
+Alice, Bobs Frau traut ihm nicht ganz und hat sich, nachdem sie von diesem neuen Gerät gehört hat, sofort mit Bobs Auto verbunden. Während Bob gerade auf dem Weg zu seiner Hochschule ist, schaut sich Alice die Daten der vergangenen Fahrt an. Um Bob länger ausspionieren zu können, setzt sie die maximale Kapazität der Aufzeichnungen auf den Höchstwert, da die Daten der vorletzten Fahrt bereits gelöscht waren.
 \end{document}
