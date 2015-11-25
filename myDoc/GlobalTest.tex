@@ -30,18 +30,12 @@ Der Server läuft.
 \textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server und gibt sich als Fahrer aus. Dann wird überprüft ob die aktuell aufgezeichneten Daten mit der Signatur des Endgeräts verbunden werden.
 
 \item{\textbf{Zwei Fahreranmeldungen}} \\
-\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server. Es gibt sich als Fahrer aus. Dann verbindet sich ein zweites Endgerät und will sich als Fahrer ausgeben. Dann wird überprüft ob auf dem zweiten Endgerät eine Meldung angezeigt wird laut der es bereits einen Fahrer gibt.
+\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server. Es gibt sich als Fahrer aus. Dann verbindet sich ein zweites Endgerät und will sich als Fahrer ausgeben. Dann wird überprüft ob die neue Fahrersignatur in den darauf folgenden Daten referenziert wird.
+
 
 \item{\textbf{Instrumente anzeigen}} \\
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\
 \textbf{Ablauf: } Alle verfügbaren Instrumente auf dem Endgerät Einblenden, Ausblenden und Kombinieren
-
-\item{\textbf{Smartphone Utilization}}
-\textbf{Vorbedingung: } Die Sensoren des Endgeräts sind aktiviert. \\
-\textbf{Ablauf: } Es werden die Sensorwerte vom Endgerät auf dem Server gesendet. Dann wird überprüft ob der Server die Daten empfangen und gespeichert hat, und ob diese von Software bearbeitet werden.
-
-\item{\textbf{Fahrinformationen darstellen}} \\
-\textbf{Ablauf: } Es werden neue Sensordaten zur Datenbank hinzugefügt. Dann werden diese auf dem Endgerät angezeigt.
 
 \item{\textbf{Aggregierte Funktionen}} \\
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\ 
@@ -60,20 +54,21 @@ Der Server läuft.
 \textbf{Ablauf: } Mit entferntem Endgerät mit dem Server verbinden. Anzeigen und Ausblenden von Instrumenten und Anzeige von Daten testen. Anmeldung überprüfen.
 
 \item{\textbf{Einparken vereinfachen}} \\
-\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
+\textbf{Vorbedingung: } Der Fahrer fordert die Rückwärtshilfe an. \\
 \textbf{Ablauf: } Das Bild der Rückfahrkamera mit einer kollisionfreien
 Fahrbahn wird angezeigt. Der Fahrer fährt entlang dieser Fahrbahn, dann wird das
 Bild regelmäßig aktualisiert.
 
 \item{\textbf{Ultraschallsensoren visualisieren}} \\
-\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
+\textbf{Vorbedingung: } Der Fahrer fordert die Rückwärtshilfe an. \\
 \textbf{Ablauf: } Das Bild der Kamera mit den Distanzwerten vom jeweiligen
 Sensor wird angezeigt.
 
 \item{\textbf{Einparkhilfe beenden}} \\
 \textbf{Vorbedingung: } Einparkhilfe ist angezeigt. \\
 \textbf{Ablauf: } Der Fahrer fährt vorwärts und das Fahrzeug bewegt sich
-schneller als 5km/h, dann wird die Einparkhilfe entfernt.
+schneller als 10km/h, dann wird die Einparkhilfe entfernt.
+
 
 \item{\textbf{Karte anzeigen}} \\
 \textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformatonen ist mit dem
@@ -106,8 +101,33 @@ Karte angezeigt.
 
 \end{enumerate}
 
-\section{Netzwerk}
-\section{Pi im Auto}
-\section{Endgeräte}
+\chapter{Testszenarien}
+\subsection{Allgemeiner Funktionstest}
+\begin{itemize}
+\item Der Nutzer setzt sich in sein Auto.
+\item Er schaltet die Zündung an.
+\item Er verbindet sich mit seinem Smartphone mit dem WiFi-Netzwerk.
+\item Der Nutzer öffnet mit dem Browser seines Smartphones zum ersten mal die Seite der Software.
+\item Er identifiziert sich als Fahrer.
+\item Sobald die Dashes angezeigt werden startet er den Motor und fährt los.
+\item Er lässt sich Durchschnittsgeschwindigkeit anzeigen.
+\item Während der Fahrt sinkt der Tankfüllstand unter die eingestellte Grenze.
+\item Das Karte-Icon ändert sich zu einem Tank-Icon.
+\item Der Fahrer drückt auf das Tank-Icon.
+\item Es öffnet sich die Liste der Tankstellen in der Nähe und eine Karte.
+\item Er wählt eine Tankstelle aus und fährt zu dieser.
+\item Nach dem Tanken setzt er sich wieder in das Auto.
+\item Er schaltet wieder die Zündung an.
+\item Dann verbindet er sich wieder mit dem Wifi-Netzwerk.
+\item Und öffnet die Website der Software und meldet sich erneut als Fahrer an.
+\item Um die Tankstelle zu verlassen muss er erst ein bisschen zurück fahren.
+\item Dazu wechselt er auf dem Smartphone in den Rückwärtsgang-Modus.
+\item Nachdem er die Tankstelle verlassen hat und wieder schneller fährt beendet sich der Rückwärts-Modus automatisch.
+\item Der Fahrer kommt an seinem Ziel an.
+%\item Er hält an und wechselt in den Rückwärtsgang.
+%\item Dann wechselt er auf dem Smartphone in den Einparkmodus.
+%\item Mit deren Hilfe er dann einparkt.
+\item Dann schaltet er das Auto aus und verlässt es.
+\end{itemize}
 
 \end{document}
