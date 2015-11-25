@@ -56,7 +56,7 @@
 	\begin{enumerate}
 		\setcounter{enumi}{\value{enumTemp}}
 		\item{\textbf{Protokoll führen}} \\ Ziel: Es werden eingehende Daten gespeichert. \\ Vorbedingung: Server läuft. Bluetooth-Verbindung mit OBD2 Adapter ist hergestellt. \\ Auslösendes Ereignis: Von der Bluetooth-Schnittstelle treffen Daten ein. %%TODO: Check BT API Node.js server 
-		Nachbedingung: Die Daten, die von der Bluetooth-Schnittstelle kommen, befinden sich in der Datenbank und kommen über das Netzwerk auf Endgeräten an.
+		Nachbedingung: Die Daten, die von der Bluetooth-Schnittstelle kommen, befinden sich in der Datenbank.
 		
 		\item{\textbf{Vergangene Daten aufrufen}} \\ Ziel: Es werden Daten von vergangenen Zeitpunkten dargestellt. \\ Vorbedingung: Es wurde bereits eine Fahrt getätigt. Der Server läuft.\\ Auslösendes Ereignis: Der Nutzer fordert Daten aus der Vergangenheit an. \\ Nachbedingung: Die Daten werden auf dem Endgerät angezeigt.
 	
