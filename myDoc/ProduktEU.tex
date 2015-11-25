@@ -4,7 +4,7 @@
 
 %-------------- PRODUKTEINSATZ ---------------------
 \chapter{Produkteinsatz}
-Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter Sensoren eines Autos. Dies beinhaltet Informationen wie die Geschwindigkeit, Motortemperatur, Raddrehzahl und ähnliches. Damit bietet es die Möglichkeit diese Daten  auf einem Mobiltelefon, Laptop oder anderem Computer mit Bildschirm anzuzeigen.
+Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter Sensoren eines Autos. Dies beinhaltet Informationen wie die Geschwindigkeit, Motortemperatur, Raddrehzahl und ähnliches. Damit bietet es die Möglichkeit, diese Daten  auf einem Mobiltelefon, Laptop oder anderem Computer mit Bildschirm anzuzeigen.
 
 
 \section{Anwendungsbereiche}
@@ -39,7 +39,7 @@ Das Rahmenwerk und die Module werden in TypeScript \footnote{http://www.typescri
 \begin{itemize}
 
 \item
-Eine Client-Server Architektur nach dem Thin Client-Konzept
+Eine Client-Server-Architektur nach dem Thin-Client-Konzept
 \item
 Auf dem Server läuft der Teil der Software, der die Sensordaten empfängt, einpflegt und über WebRTC an die Endgeräte versendet.
 \item
@@ -53,7 +53,7 @@ Auf der Userseite laufen verschiedene Applikationen neben aRSDM. Diese Anwendung
 Testfahrzeug: Opel Astra H 1.6 Bj 2005 %%Genauer
 \item
 Testfahrzeug: ITK-Engineering Modellauto \\
-Ein Modellauto der Firma ITK-Engineering AG, angetrieben über einen Elektromotor. Alle Daten die hier verfügbar sind liegen über CAN an.
+Ein Modellauto der Firma ITK-Engineering AG, angetrieben über einen Elektromotor. Alle Daten, die hier verfügbar sind, liegen über CAN an.
 \item
 Raspberry Pi 2 Model B
 \item
@@ -61,7 +61,7 @@ ASUS BT400 Bluetooth USB Adapter
 \item
 UMTS Stick Telekom
 \item
-OBD2 Bluetooth Adapter ELM327
+OBD2-Bluetooth-Adapter ELM327
 
 \end{itemize}
 
@@ -70,7 +70,7 @@ OBD2 Bluetooth Adapter ELM327
 \begin{itemize}
 \item
 \textbf{Serverseite:}\\
-Ein Debian Linux basierter Server, auf dem eine LevelDB Datenbank läuft.
+Ein Debian-Linux-basierter Server, auf dem eine LevelDB-Datenbank läuft.
 \item
 \textbf{Clientseite:}\\
 Web-Browser:
@@ -109,7 +109,7 @@ Broadcom BCM2836 Arm7 Quad Core Processor (900MHz)
 \item
 4 x USB 2 ports
 \item
-Bluetooth Funktionalität
+Bluetooth-Funktionalität
 \end{itemize}
 Can-Modul
 \item
@@ -122,7 +122,7 @@ Android Smartphone (min. 1 GHz und 1 GB RAM)
 \newpage
 \section{Systemarchitektur}
 
-Das System ist modular aufgebaut. Es gibt pro System genau einen Server. Endgeräte können eine Netzwerkverbindung mit dem Server herstellen. Entweder direkt via Wi-Fi im Auto oder entfernt (~\ref{remote}) über das Internet verbinden (~\ref{firstcon}, ~\ref{connection}, ~\ref{driver1}, ~\ref{driver2}) . Das soll in der Funktionalität keinen Unterschied machen. Diese Verbindung beruht auf WebRTC \footnote{http://www.webrtc.org} und soll den Datenkanal dieses Protokolls verwenden, um Sensordaten zu Übertragen. Des Weiteren ist eine Rückfahrkamera per USB mit dem Server verbunden. Die Kamerabilder werden über den Media Kanal (WebRTC) auf das Endgerät übertragen.
+Das System ist modular aufgebaut. Es gibt pro System genau einen Server. Endgeräte können eine Netzwerkverbindung mit dem Server herstellen. Dabei kann die Verbindung entweder direkt via Wi-Fi im Auto oder entfernt (~\ref{remote}) über das Internet hergestellt werden. (~\ref{firstcon}, ~\ref{connection}, ~\ref{driver1}, ~\ref{driver2}) Das soll in der Funktionalität keinen Unterschied machen. Diese Verbindung beruht auf WebRTC \footnote{http://www.webrtc.org} und soll den Datenkanal dieses Protokolls verwenden, um Sensordaten zu übertragen. Des Weiteren ist eine Rückfahrkamera per USB mit dem Server verbunden. Die Kamerabilder werden über den Media Kanal (WebRTC) auf das Endgerät übertragen.
 
 \begin{figure}[H]
   	\begin{center}
