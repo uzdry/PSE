@@ -6,11 +6,11 @@
 
 \chapter{Einleitung}
 
-In der modernen Informationsgesellschafft fallen immer mehr nutzbare Daten an. Seien es Daten von sozialen Netzwerken und Daten von Personen über Nutzung und Gewohnheiten allgemein, oder Daten technischer Art, wie Sensordaten in Anlagen oder Automobilen. Mehr und mehr Sensorik findet Einsatz. Oft ist es sehr interessant diese Daten auszuwerten und visuell zu repräsentieren. Tablets und Smartphones sind omnipräsent. Jeder hat dauerhaft Zugriff auf einen leistungsfähigen Rechner mit hochauflösendem Display. Diese Geräte sind also optimal zur Anzeige von Daten geeignet. Unabhängig von der Art der Daten müssen diese gesammelt, gegebenenfalls vorverarbeitet und bereitgestellt werden. Dazu bedarf es einer generischen Schnittstelle. In dem Rahmen von aRSDM sollen Sensordaten gesammelt, gespeichert und weiterverteilt werden. Die Quelle dieser Daten ist der mittlerweile in fast jedem PKW verfügbare OBD2 Anschluss. Es ist eine (abstrakte) Komponente zwischen Sensoren und Endgerät gefragt, die sich für beliebige, nicht unbedingt schon bekannte Anwendungsszenarien erweitern lässt. Ein Rahmenwerk, das Daten sammelt, speichert und verteilt.
+In der modernen Informationsgesellschafft fallen immer mehr nutzbare Daten an. Seien es Daten von sozialen Netzwerken und Daten von Personen über Nutzung und Gewohnheiten allgemein, oder Daten technischer Art, wie Sensordaten in Anlagen oder Automobilen. Mehr und mehr Sensorik findet Einsatz. Oft ist es sehr interessant, diese Daten auszuwerten und visuell zu repräsentieren. Tablets und Smartphones sind omnipräsent. Jeder hat dauerhaft Zugriff auf einen leistungsfähigen Rechner mit hochauflösendem Display. Diese Geräte sind optimal zur Anzeige von Daten geeignet. Unabhängig von der Art der Daten müssen sie gesammelt, gegebenenfalls vorverarbeitet und bereitgestellt werden. Dazu bedarf es einer generischen Schnittstelle. Im Rahmen von aRSDM sollen Sensordaten gesammelt, gespeichert und weiterverteilt werden. Die Quelle dieser Daten ist der mittlerweile in fast jedem PKW verfügbare OBD2 Anschluss. Es ist eine (abstrakte) Komponente zwischen Sensoren und Endgerät gefragt, die sich für beliebige, nicht unbedingt schon bekannte Anwendungsszenarien erweitern lässt. Ein Rahmenwerk, das Daten sammelt, speichert und verteilt.
 
 \section{Aufgabenstellung}
 
-Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erfolgt eine Grafische Darstellung von Sensordaten. Die Quelle der Daten befindet sich in lokaler Distanz, die Daten gelangen über ein Netzwerk auf das Endgerät. aRSDM bietet eine API, die von Dritten für weitere Anwendungsfälle genutzt werden kann. Als Anwendung liefern wir ein Automotive-Modul, welches die Sensordaten, die über den CAN-Bus eines PKW verfügbar sind, vearbeitet und darstellt.
+Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erfolgt eine Grafische Darstellung von Sensordaten. Die Quelle der Daten befindet sich nicht in der Nähe des Endgeräts. Sie werden über eine Netzwerkverbindung übertragen. aRSDM bietet eine API, die von Dritten für weitere Anwendungsfälle genutzt werden kann. Als Anwendung liefern wir ein Automotive-Modul, welches die Sensordaten, die über den OBD2 Bus eines PKW verfügbar sind, vearbeitet und darstellt.
 
 
 \chapter{Zielbestimmung}
@@ -51,13 +51,13 @@ Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erf
 \section{Wunschkriterien}
 
 \begin{enumerate}
-	\item{\textbf{Lokalisierung}} Die Software speichert GPS Daten vom Endgerät.
+	\item{\textbf{Lokalisierung}}\\Die Software speichert GPS-Daten vom Endgerät.
 
-	\item{\textbf{Navigation}} Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
+	\item{\textbf{Navigation}}\\Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
 
-	\item{\textbf{Sensordaten vom Endgerät}} Die Software verwaltet Sensordaten von den verbundenen Endgeräten wie zum Beispiel den Beschleunigungssensor.
+	\item{\textbf{Sensordaten vom Endgerät}}\\Die Software verwaltet Sensordaten von den verbundenen Endgeräten, wie zum Beispiel den Beschleunigungssensor.
 
-	\item{\textbf{Streckenbezug}} Daten und Aggregierte Funktionen sind Streckenbezogen verfügbar.
+	\item{\textbf{Streckenbezug}} \\Daten und Aggregierte Funktionen sind Streckenbezogen verfügbar.
 
 \end{enumerate}
 
@@ -69,20 +69,20 @@ Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erf
 \section{Abgrenzungskriterien}
 
 \begin{enumerate}
-	\item{\textbf{Erweiterung}} Für andere Sensorquellen werden keine Treiber bereitgestellt.
+	\item{\textbf{Erweiterung}} \\Für andere Sensorquellen werden keine Treiber bereitgestellt.
 
-	\item{\textbf{Unidirektional}} Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
+	\item{\textbf{Unidirektional}} \\Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
 
-	\item{\textbf{Bildauswertung}} Kamerabilder werden von der Software nicht interpretiert.
+	\item{\textbf{Bildauswertung}} \\Kamerabilder werden von der Software nicht interpretiert.
 
-	\item{\textbf{Android}} Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
+	\item{\textbf{Android}} \\Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
 
-	\item{\textbf{Flotte}} Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
+	\item{\textbf{Flotte}} \\Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
 
 
-	\item{\textbf{Diagnose}} Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
+	\item{\textbf{Diagnose}} \\Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
 
-	\item{\textbf{RemoteAcces}} Für entferntes Monitoring wird keine maximale Latenz garantiert.
+	\item{\textbf{Remote Acces}} \\Für entferntes Monitoring wird keine maximale Latenz garantiert.
 
 \end{enumerate}
 
