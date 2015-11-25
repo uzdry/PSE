@@ -3,6 +3,12 @@
 \begin{document}
 
 \chapter{Globale Testfälle}
+
+\renewcommand{\theenumi}{/GT\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{GT\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
+
 \textbf{globale Vorbedingungen:}
 \begin{itemize}
 \item
