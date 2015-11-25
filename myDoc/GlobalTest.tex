@@ -19,9 +19,27 @@ Der Server läuft.
 
 \begin{enumerate}
 
+\item{\textbf{Erstanmeldung}} \\
+\textbf{Ablauf: } Ein Endgerät verbindet sich zum ersten Mal mit dem Server. Dann wird überprüft ob die Signatur des Endgeräts in die Datenbank hinzugefügt wurde.
+
+\item{\textbf{Erneute Anmeldung}} \\
+\textbf{Vorbedingung: } Das Endgerät hatte sich bereits einmal mit dem Server verbunden ist aktuell jedoch getrennt.
+\textbf{Ablauf: } Das Endgerät verbindet sich mit dem Server. Dann wird überprüft ob automatisch die Daten der passenden Signatur geladen werden.
+
+\item{\textbf{Fahreranmeldung}} \\
+\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server und gibt sich als Fahrer aus. Dann wird überprüft ob die aktuell aufgezeichneten Daten mit der Signatur des Endgeräts verbunden werden.
+
+\item{\textbf{Zwei Fahreranmeldungen}} \\
+\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server. Es gibt sich als Fahrer aus. Dann verbindet sich ein zweites Endgerät und will sich als Fahrer ausgeben. Dann wird überprüft ob auf dem zweiten Endgerät eine Meldung angezeigt wird laut der es bereits einen Fahrer gibt.
+
+
 \item{\textbf{Instrumente anzeigen}} \\
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\
 \textbf{Ablauf: } Alle verfügbaren Instrumente auf dem Endgerät Einblenden, Ausblenden und Kombinieren
+
+\item{\textbf{Aggregierte Funktionen}} \\
+\textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\ 
+\textbf{Ablauf: } Es werden vom Server verschiedene aggregierte Funktionen berechnet. Diese werden dann mit händisch berechneten Werten verglichen.
 
 \item{\textbf{Einparken vereinfachen}} \\
 \textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
