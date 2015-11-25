@@ -19,9 +19,90 @@ Der Server läuft.
 
 \begin{enumerate}
 
+\item{\textbf{Erstanmeldung}} \\
+\textbf{Ablauf: } Ein Endgerät verbindet sich zum ersten Mal mit dem Server. Dann wird überprüft ob die Signatur des Endgeräts in die Datenbank hinzugefügt wurde.
+
+\item{\textbf{Erneute Anmeldung}} \\
+\textbf{Vorbedingung: } Das Endgerät hatte sich bereits einmal mit dem Server verbunden ist aktuell jedoch getrennt.
+\textbf{Ablauf: } Das Endgerät verbindet sich mit dem Server. Dann wird überprüft ob automatisch die Daten der passenden Signatur geladen werden.
+
+\item{\textbf{Fahreranmeldung}} \\
+\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server und gibt sich als Fahrer aus. Dann wird überprüft ob die aktuell aufgezeichneten Daten mit der Signatur des Endgeräts verbunden werden.
+
+\item{\textbf{Zwei Fahreranmeldungen}} \\
+\textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server. Es gibt sich als Fahrer aus. Dann verbindet sich ein zweites Endgerät und will sich als Fahrer ausgeben. Dann wird überprüft ob auf dem zweiten Endgerät eine Meldung angezeigt wird laut der es bereits einen Fahrer gibt.
+
 \item{\textbf{Instrumente anzeigen}} \\
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\
 \textbf{Ablauf: } Alle verfügbaren Instrumente auf dem Endgerät Einblenden, Ausblenden und Kombinieren
+
+\item{\textbf{Smartphone Utilization}}
+\textbf{Vorbedingung: } Die Sensoren des Endgeräts sind aktiviert. \\
+\textbf{Ablauf: } Es werden die Sensorwerte vom Endgerät auf dem Server gesendet. Dann wird überprüft ob der Server die Daten empfangen und gespeichert hat, und ob diese von Software bearbeitet werden.
+
+\item{\textbf{Fahrinformationen darstellen}} \\
+\textbf{Ablauf: } Es werden neue Sensordaten zur Datenbank hinzugefügt. Dann werden diese auf dem Endgerät angezeigt.
+
+\item{\textbf{Aggregierte Funktionen}} \\
+\textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\ 
+\textbf{Ablauf: } Es werden vom Server verschiedene aggregierte Funktionen berechnet. Diese werden dann mit händisch berechneten Werten verglichen.
+
+\item{\textbf{Protokoll führen und Daten anzeigen}} \\
+\textbf{Vorbedingung: } Das Auto fährt. \\
+\textbf{Ablauf: } Mit dem Auto fahren und Daten erzeugen. Die Daten im Endgerät auf allen Instrumenten live und auf Abruf anzeigen. Auf Konsistenz und ausreichend kleine Latenz prüfen. Datenausfälle simulieren. Datenbank auf korrekte Einträge überprüfen.
+
+\item{\textbf{Maximale Kapazität prüfen} \\
+\textbf{Vorbedingung: } keine weiteren Vorbedingungen erforderlich \\
+\textbf{Ablauf: } Die default-Kapazität auf dem Endgerät prüfen, neue default-Kapazität setzen. Daten mit dem Auto erzeugen, bis die Datenbank bis zum Grenzwert gefüllt ist. Überprüfen, ob das Datenlimit eingehalten wurde und ob nur wie spezifiziert die ältesten Daten gelöscht wurden. Auf Konsistenz und korrektes Löschen aller Daten prüfen.
+
+\item{\textbf{Remote Access}} \\
+\textbf{Vorbedingung: } keine weiteren Vorbedingungen erforderlich \\
+\textbf{Ablauf: } Mit entferntem Endgerät mit dem Server verbinden. Anzeigen und Ausblenden von Instrumenten und Anzeige von Daten testen. Anmeldung überprüfen.
+
+\item{\textbf{Einparken vereinfachen}} \\
+\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
+\textbf{Ablauf: } Das Bild der Rückfahrkamera mit einer kollisionfreien
+Fahrbahn wird angezeigt. Der Fahrer fährt entlang dieser Fahrbahn, dann wird das
+Bild regelmäßig aktualisiert.
+
+\item{\textbf{Ultraschallsensoren visualisieren}} \\
+\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
+\textbf{Ablauf: } Das Bild der Kamera mit den Distanzwerten vom jeweiligen
+Sensor wird angezeigt.
+
+\item{\textbf{Einparkhilfe beenden}} \\
+\textbf{Vorbedingung: } Einparkhilfe ist angezeigt. \\
+\textbf{Ablauf: } Der Fahrer fährt vorwärts und das Fahrzeug bewegt sich
+schneller als 5km/h, dann wird die Einparkhilfe entfernt.
+
+\item{\textbf{Karte anzeigen}} \\
+\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformatonen ist mit dem
+Server verbunden.\\
+\textbf{Ablauf: } Der Benutzer fordert den Kartendienst an. Die Karte der
+Umgebung wird dann angezeigt.
+
+\item{\textbf{Tankstellen auflisten}} \\
+\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformationen ist mit dem
+Server verbunden.\\
+\textbf{Ablauf: } Der Fahrer fährt mit dem Auto mit niedrigem Tankfüllstand.Eine
+Liste der Tankstellen wird erzeugt und solche Tankstellen werden auf der
+Karte markiert. 
+
+\item{\textbf{Route berechnen}} \\
+\textbf{Vorbedingung: } Das Endgerät mit der Liste von Tankstellen in der Nähe
+ist mit dem Server verbunden. Die Lokalisierungsinformationen vom Endgerät
+stehen zur Verfügung.\\
+\textbf{Ablauf: } Der Benutzer wählt eine Tankstelle aus. Die Route zur
+Tankstelle wird auf der Karte angezeigt.
+
+\item{\textbf{Werkstätten}} \\
+\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformationen ist mit dem
+Server verbunden. \\
+\textbf{Ablauf: } Ein Dummysignal, das eine Fehlermeldung simuliert, wird
+an den Server geschickt. Dann wird die Route zur nächsten Werkstatt auf der
+Karte angezeigt.
+
+
 
 \end{enumerate}
 
