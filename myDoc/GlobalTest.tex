@@ -23,6 +23,52 @@ Der Server läuft.
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\
 \textbf{Ablauf: } Alle verfügbaren Instrumente auf dem Endgerät Einblenden, Ausblenden und Kombinieren
 
+\item{\textbf{Einparken vereinfachen}} \\
+\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
+\textbf{Ablauf: } Das Bild der Rückfahrkamera mit einer kollisionfreien
+Fahrbahn wird angezeigt. Der Fahrer fährt entlang dieser Fahrbahn, dann wird das
+Bild regelmäßig aktualisiert.
+
+\item{\textbf{Ultraschallsensoren visualisieren}} \\
+\textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
+\textbf{Ablauf: } Das Bild der Kamera mit den Distanzwerten vom jeweiligen
+Sensor wird angezeigt.
+
+\item{\textbf{Einparkhilfe beenden}} \\
+\textbf{Vorbedingung: } Einparkhilfe ist angezeigt. \\
+\textbf{Ablauf: } Der Fahrer fährt vorwärts und das Fahrzeug bewegt sich
+schneller als 5km/h, dann wird die Einparkhilfe entfernt.
+
+
+\item{\textbf{Karte anzeigen}} \\
+\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformatonen ist mit dem
+Server verbunden.\\
+\textbf{Ablauf: } Der Benutzer fordert den Kartendienst an. Die Karte der
+Umgebung wird dann angezeigt.
+
+\item{\textbf{Tankstellen auflisten}} \\
+\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformationen ist mit dem
+Server verbunden.\\
+\textbf{Ablauf: } Der Fahrer fährt mit dem Auto mit niedrigem Tankfüllstand.Eine
+Liste der Tankstellen wird erzeugt und solche Tankstellen werden auf der
+Karte markiert.
+
+\item{\textbf{Route berechnen}} \\
+\textbf{Vorbedingung: } Das Endgerät mit der Liste von Tankstellen in der Nähe
+ist mit dem Server verbunden. Die Lokalisierungsinformationen vom Endgerät
+stehen zur Verfügung.\\
+\textbf{Ablauf: } Der Benutzer wählt eine Tankstelle aus. Die Route zur
+Tankstelle wird auf der Karte angezeigt.
+
+\item{\textbf{Werkstätten}} \\
+\textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformationen ist mit dem
+Server verbunden. \\
+\textbf{Ablauf: } Ein Dummysignal, das eine Fehlermeldung simuliert, wird
+an den Server geschickt. Dann wird die Route zur nächsten Werkstatt auf der
+Karte angezeigt.
+
+
+
 \end{enumerate}
 
 \section{Netzwerk}
