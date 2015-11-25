@@ -22,58 +22,77 @@ Die Darstellung soll in verschiedenen Internet-Browsern auf Endgeräten erfolgen
 \section{Musskriterien}
 
 %%Frage Lizensierung...
+\renewcommand{\theenumi}{/MK\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{/MK\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
-\myparagraph{Allgemeine Funktionen}
+\begin{enumerate}
 
-\subsection{\mknr Anzeigeelemente} Der Nutzer kann Anzeigeelemente ein- und ausblenden.
-
-\subsection{\mknr Remote Acces} Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
-
-\subsection{\mknr Protokollierung} Der Nutzer soll jederzeit in der Lage sein, Daten von vergangenen Zeitpunkten abzurufen.
-
-\subsection{\mknr Statistiken} Der Benutzer kann sich Statistiken der gespeicherten Sensorwerte anzeigen lassen.
-
-\subsection{\mknr Erweiterbarkeit} Drittentwickler können Module für die Verarbeitung und Auswertung weiterer Sensordaren schreiben.
+\item{\textbf{}} \\Der Nutzer kann Anzeigeelemente ein- und ausblenden.
 
 
-\myparagraph{Automotive Kontext}
 
-\subsection{\mknr Fahrinformation} Der Benutzer bekommt Fahrinformationen angezeigt.
+\item{\textbf{Erweiterbarkeit}} \\Drittentwickler können Module für die Verarbeitung und Auswertung weiterer Sensordaren schreiben.
 
-\subsection{\mknr Durschnitssverbrauch} Die Software zeigt den Durschnittsverbrauch des Fahrzeugs an. 
-
-\subsection{\mknr Restkilometer} Die Software zeigt die verfügbaren Restkilometer bis zur nächsten Tankfüllung an. Diese werden anhand des Fahrverhaltens berechnet.
-
-\subsection{\mknr Einparkhile} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality-Features zur Verfügung.
-
-\subsection{\mknr POI} Bei kritischen Sensorwerten kann der Nutzer die nächsten Tankstellen / Werstätten einbleden.
+\item{\textbf{Verbindung}} \\Der Server soll in der Lage sein, entfernte Sensordaten zu Empfangen. Die Daten können über Bluetooth von einem OBD2 Bluetooth Adapter empfangen werden.
 
 
+
+\item{\textbf{Fahrinformation}} Der Benutzer bekommt Fahrinformationen angezeigt.
+\item{\textbf{Anzeigeelemente}} \\Der Nutzer kann Anzeigeelemente ein- und ausblenden.
+
+\item{\textbf{RemoteAccess}} \\Falls Netzwerkverbindung besteht, können entfernte Nutzer die Sensordaten einsehen.
+
+\item{\textbf{Protokollierung}} \\Der Nutzer soll jederzeit in der Lage sein, Daten von vergangenen Zeitpunkten abzurufen.
+
+\item{\textbf{aggregierte Funktionen}} Die Software soll aus verschiedenen Sensordaten aggregierte Funktionen wie Durchschnittsverbrauch und Restkilometer berechnen.
+
+\item{\textbf{Einparkhile}} Dem Fahrer steht eine Einparkhilfe mit Augmented Reality-Features zur Verfügung.
+
+\item{\textbf{POI}} Bei kritischen Sensorwerten kann der Nutzer die nächsten Tankstellen / Werstätten einbleden.
+\end{enumerate}
+
+\renewcommand{\theenumi}{/WK\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{/WK\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 \section{Wunschkriterien}
 
+\begin{enumerate}
+\item{\textbf{Smartphone Utilization}} Die Software verwendet auch Sensordaten aus dem Endgerät.
 
-\subsection{\mknr Smartphone Utilization} Die Software verwendet auch Sensordaten aus dem Endgerät.
+\item{\textbf{Personalisierung}} Aggregierte Funktionen sind personalisiert verfügbar.
 
-\subsection{\mknr Personalisierung} Aggregierte Funktionen sind personalisiert verfügbar.
+\item{\textbf{Fahrer}} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren.
+\end{enumerate}
 
-\subsection{\mknr Fahrer} Ein Nutzer, der mit dem Server verbunden ist, kann sich mit der Software auf seinem Endgerät als Fahrer identifizieren.
+\renewcommand{\theenumi}{/AK\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{/AK\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
 \section{Abgrenzungskriterien}
 
-\subsection{\mknr Erweiterung} Für andere Sensorquellen werden keine Treiber bereitgestellt.
+\begin{enumerate}
+\item{\textbf{Erweiterung}} Für andere Sensorquellen werden keine Treiber bereitgestellt.
 
-\subsection{\mknr Unidirektional} Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
+\item{\textbf{Unidirektional}} Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
 
-\subsection{\mknr Bildauswertung} Kamerabilder werden von der Software nicht interpretiert.
+\item{\textbf{Bildauswertung}} Kamerabilder werden von der Software nicht interpretiert.
 
-\subsection{\mknr Android} Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
+\item{\textbf{Android}} Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
 
-\subsection{\mknr Flotte} Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
+\item{\textbf{Flotte}} Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
 
-\subsection{\mknr Navigation} Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
+\item{\textbf{Navigation}} Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
 
-\subsection{\mknr Diagnose} Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
+\item{\textbf{Diagnose}} Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
 
-\subsection{\mknr RemoteAcces} Für entferntes Monitoring wird keine maximale Latenz garantiert 
+\item{\textbf{RemoteAcces}} Für entferntes Monitoring wird keine maximale Latenz garantiert 
+
+\end{enumerate}
+
+
 
 \end{document}

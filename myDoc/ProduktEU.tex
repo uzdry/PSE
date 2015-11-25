@@ -34,7 +34,7 @@ Für Remote-Zugriff muss eine Netzwerkverbindung vorhanden sein.
 
 %--------------- Produktumgebung -------------
 \chapter{Produktumgebung}
-Das Rahmenwerk und die Module werden in TypeScript programmiert. Der Server wird in node.js laufen. Als Datenbanksystem wird LevelUp verwendet.
+Das Rahmenwerk und die Module werden in TypeScript \footnote{http://www.typescriptlang.org} programmiert. Der Server wird in node.js \footnote{https://nodejs.org/} laufen. Als Datenbanksystem wird LevelUp \footnote{https://github.com/Level/levelup} verwendet.
 
 \begin{itemize}
 
@@ -54,6 +54,15 @@ Testfahrzeug: Opel Astra H 1.6 Bj 2005 %%Genauer
 \item
 Testfahrzeug: ITK-Engineering Modellauto \\
 Ein Modellauto der Firma ITK-Engineering AG, angetrieben über einen Elektromotor. Alle Daten die hier verfügbar sind liegen über CAN an.
+\item
+Raspberry Pi 2 Model B
+\item
+ASUS BT400 Bluetooth USB Adapter
+\item
+UMTS Stick Telekom
+\item
+OBD2 Bluetooth Adapter ELM327
+
 \end{itemize}
 
 
@@ -61,8 +70,7 @@ Ein Modellauto der Firma ITK-Engineering AG, angetrieben über einen Elektromoto
 \begin{itemize}
 \item
 \textbf{Serverseite:}\\
-Ein Webserver mit einer Datenbank\\
-Aufgebaut auf einer Linux-Distribution
+Ein Debian Linux basierter Server, auf dem eine LevelDB Datenbank läuft.
 \item
 \textbf{Clientseite:}\\
 Web-Browser:
@@ -100,6 +108,8 @@ Broadcom BCM2836 Arm7 Quad Core Processor (900MHz)
 1GB RAM
 \item
 4 x USB 2 ports
+\item
+Bluetooth Funktionalität
 \end{itemize}
 Can-Modul
 \item
@@ -107,6 +117,19 @@ Can-Modul
 Standardrechner (min. 1 GHz und 2 GB RAM)\\
 Android Smartphone (min. 1 GHz und 1 GB RAM)
 \end{itemize}
+
+
+\section{Systemarchitektur}
+
+Das System ist modular aufgebaut. Es gibt pro System genau einen Server. Endgeräte können eine Netzwerkverbindung mit dem Server herstellen. Entweder direkt via Wi-Fi im Auto oder entfernt (~\ref{remote}) über das Internet verbinden (~\ref{firstcon}, ~\ref{connection}, ~\ref{driver1}, ~\ref{driver2}) . Das soll in der Funktionalität keinen Unterschied machen. Diese Verbindung beruht auf WebRTC \footnote{http://www.webrtc.org} und soll den Datenkanal dieses Protokolls verwenden, um Sensordaten zu Übertragen. Des Weiteren ist eine Rückfahrkamera per USB mit dem Server verbunden. Die Kamerabilder werden über den Media Kanal (WebRTC) auf das Endgerät übertragen.
+
+\begin{figure}[H]
+  	\begin{center}
+ 		\includegraphics[width=\textwidth]{Images/sysarch.png}
+  		\caption{Blockbild der Systemarchitektur}
+  	\end{center}
+\end{figure}
+
 \end{document}
 
 

@@ -9,39 +9,35 @@
 \renewcommand{\theenumii}{\arabic{enumii}}
 \renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
-\section{Endgerät zum Server verbinden}
+\section{Endgerät mit Server verbinden}
+
 	\begin{enumerate}
-		\item{\textbf{Erstmals anmelden}}\\ Ziel: Der Benutzer soll sich in das System anmelden können, wobei nur maximal eine Person sich als Fahrer anmelden kann.
+		\item{\textbf{Erstmals anmelden}} \label{firstcon}
+		\\ Ziel: Der Benutzer soll sich in das System anmelden können, wobei nur maximal eine Person sich als Fahrer anmelden kann.
 		Vorbedingung: Das Endgerät war noch nicht mit dem Server verbunden.
 		Nachbedingung: Es wird ein Account für den Nutzer dieses Endgeräts angelegt
 		Auslösendes Ereignis: Es wird eine Netzwerkverbindung zwischen Server und Endgerät aufgebaut.
 
-		\item{\textbf{Erneut anmelden}}
+		\item{\textbf{Erneut anmelden}} \label{connection}
 		\\Vorbedingung: Das Endgerät war bereits mit dem Server verbunden und ist zum aktuellen Zeitpunkt getrennt. \\Nachbedingung: Das Gerät ist angemeldet und und der entsprechende Account ist ausgewählt.
 		Auslösendes Ereignis: Es wird eine Netzwerkverbindung zwischen Server und Endgerät aufgebaut.
-		\item{\textbf{Fahrer}}\\ Ziel: Der Benutzer meldet sich als Fahrer ein.  \\
-		Vorbedingung: Mindestens ein Endgerät ist mit dem Server verbunden. Kein Benutzer hat sich als Fahrer angemeldet.\\
-		Nachbedingung: Der Benutzer wird als Fahrer identifiziert. \\
-		Auslösendes Ereignis: Der Benutzer meldet sich mit seinem Endgerät an.
+
+		\item{\textbf{Nutzer als Fahrer identifizieren}} \label{driver1}
+		\\ Ziel: Genau Ein Benutzer wird vom System als Fahrer erkannt.  \\
+		Vorbedingung: Kein Endgerät ist mit dem Server verbunden.\\
+		Nachbedingung: Der Benutzer dieses Geräts wird als Fahrer identifiziert. \\
+		Auslösendes Ereignis: Der Benutzer verbindet sein Endgerät mit dem Server.
+
+		\item{\textbf{Fahrer unter Nutzern identifizieren}} \label{driver2}
+		\\ Ziel: Genau Ein Benutzer wird vom System als Fahrer erkannt.  \\
+		Vorbedingung: Es ist genau ein End mit dem Server verbunden.\\
+		Nachbedingung: Der Benutzer eines anderen Endgeräts wird als Fahrer identifiziert. \\
+		Auslösendes Ereignis: Der Benutzer verbindet ein anderes Endgerät mit dem Server und definiert es in den Einstellungen als Fahrergerät
+
 		\setcounter{enumTemp}{\value{enumi}}
 		
 
 	\end{enumerate}
-
-\section{Engerät zum Server verbinden}
-	\begin{enumerate}	
-	\setcounter{enumi}{\value{enumTemp}}
-		\item{\textbf{Erstmals anmelden}}\\ Ziel: Der Benutzer soll sich in das System anmelden können, wobei nur maximal eine Person sich als Fahrer anmelden kann.
-		Vorbedingung: Das Endgerät war noch nicht mit dem Server verbunden.
-		Nachbedingung: Es wird ein Account für den Nutzer dieses Endgeräts angelegt
-		Auslösendes Ereignis: Es wird eine Netzwerkverbindung zwischen Server und Endgerät aufgebaut.
-
-		\item{\textbf{Erneut anmelden}}
-		\\Vorbedingung: Das Endgerät war bereits mit dem Server verbunden und ist zum aktuellen Zeitpunkt getrennt. \\Nachbedingung: Das Gerät ist angemeldet und und der entsprechende Account ist ausgewählt.
-		Auslösendes Ereignis: Es wird eine Netzwerkverbindung zwischen Server und Endgerät aufgebaut.
-		\setcounter{enumTemp}{\value{enumi}}
-	\end{enumerate}
-
 	%GUI-Elemente einblenden:
 	
 	\section{\textbf{GUI-Instrumemte auswählen}}
@@ -56,7 +52,7 @@
 	\end{enumerate} 
 	%Datenhaltung:
 	
-	\section{\textbf{Datenhaltung}}
+	\section{Datenhaltung}
 
 	\begin{enumerate}
 		\setcounter{enumi}{\value{enumTemp}}
@@ -69,13 +65,23 @@
 		
 		\item{\textbf{Daten automatisch löschen}} \\ Ziel: Um Überfüllung der Datenbank zu vermeiden werden Daten gelöscht. \\ Vorbedingung: Der Server läuft. \\ Auslösendes Ereignis: Die definierte maximale Kapazität der Datenbank ist erreicht. \\ Nachbedingung: Die Datenbank hat weniger Einträge als ihre maximale Kapazität. Die ältesten Einträge wurden gelöscht.
 
+		\renewcommand{\theenumi}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}0W/}
+		\renewcommand{\labelenumi}{\theenumi}
+		\renewcommand{\theenumii}{\arabic{enumii}}
+		\renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}W/}
 
 		\item{\textbf{Smartphone Utilization}} \label{smartphoneutil} \\ Vorbedingung: Es existiert eine Verbindung mit einem Endgerät. Die Sensoren des Endgeräts sind aktiviert.\\ Auslösendes Ereignis: Auf dem Endgerät sind neue Sensordaten verfügbar. \\ Nachbedingung (Erfolg): Die Sensordaten vom Endgerät werden auf den Server übertragen. Die Daten werden auf dem Server gespeichert und von Software bearbeitet.\\  Nachbedingung (Fehlschlag): Die Sensoraten werden nicht übertragen.
 
+	
+
 		\item{\textbf{Position tracken}} \\Ziel: ein Bewegungsprofil ertsellen, das man mit Sensorwerten verbinden kann. Beispielsweise wo man einen hohen Kraftstoffverbrauch hat. \\Vorbedingung: Mindestens ein Endgerät ist mit dem Server verbunden. Genau ein Nutzer ist als Fahrer identifiziert. Das Endgerät des Fahrers hat Lokalisierungsinfo. Smartphone Sensordaten können an den Server übermittelt werden ~\ref{smartphoneutil}
 
+		\renewcommand{\theenumi}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+		\renewcommand{\labelenumi}{\theenumi}
+		\renewcommand{\theenumii}{\arabic{enumii}}
+		\renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 		
-		\item{\textbf{Remote Access erzeugen}} \\ Ziel: Der Benutzer kann die Software auf einem entfernten Endystem benutzen.\\ Vorbedingungen: Das System läuft und es kommen Daten über den OBD2-Adapter an. Das System hat eine Verbindung zum Internet. \\ Ablauf: Der Benutzer verbindet ein entferntes Endgerät über Eingabe einer URL im Browser mit dem Server.\\ Nachbedingung (Erfolg): Die Funktionen GUI-Konfiguration, Fahrinformation, Vergangene Daten, Karte und Einparkhilfe stehen auf dem Endsystem zur Verfügung. \\ Nachbedingung (Fehlschlag): Das Endsystem zeigt an, dass die Verbindung zum Server fehlgeschlagen ist.
+		\item{\textbf{Remote Access erzeugen}} \label{remote} \\ Ziel: Der Benutzer kann die Software auf einem entfernten Endystem benutzen.\\ Vorbedingungen: Das System läuft und es kommen Daten über den OBD2-Adapter an. Das System hat eine Verbindung zum Internet. \\ Ablauf: Der Benutzer verbindet ein entferntes Endgerät über Eingabe einer URL im Browser mit dem Server.\\ Nachbedingung (Erfolg): Die Funktionen GUI-Konfiguration, Fahrinformation, Vergangene Daten, Karte und Einparkhilfe stehen auf dem Endsystem zur Verfügung. \\ Nachbedingung (Fehlschlag): Das Endsystem zeigt an, dass die Verbindung zum Server fehlgeschlagen ist.
 		\setcounter{enumTemp}{\value{enumi}}
 	\end{enumerate} 
 
@@ -102,7 +108,7 @@
 	\end{enumerate}
 
 
-	\section{{Einparkhilfe}}
+	\section{Einparkhilfe}
 	
 	\begin{enumerate}
 	\setcounter{enumi}{\value{enumTemp}}
@@ -118,7 +124,7 @@
 	\end{enumerate}
 	
 	
-	\section{\textbf{Karte und POI}}
+	\section{Karte und POI}
 	
 	\begin{enumerate}
 	\setcounter{enumi}{\value{enumTemp}}
