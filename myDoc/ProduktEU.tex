@@ -119,6 +119,7 @@ Android Smartphone (min. 1 GHz und 1 GB RAM)
 \end{itemize}
 
 
+\newpage
 \section{Systemarchitektur}
 
 Das System ist modular aufgebaut. Es gibt pro System genau einen Server. Endgeräte können eine Netzwerkverbindung mit dem Server herstellen. Entweder direkt via Wi-Fi im Auto oder entfernt (~\ref{remote}) über das Internet verbinden (~\ref{firstcon}, ~\ref{connection}, ~\ref{driver1}, ~\ref{driver2}) . Das soll in der Funktionalität keinen Unterschied machen. Diese Verbindung beruht auf WebRTC \footnote{http://www.webrtc.org} und soll den Datenkanal dieses Protokolls verwenden, um Sensordaten zu Übertragen. Des Weiteren ist eine Rückfahrkamera per USB mit dem Server verbunden. Die Kamerabilder werden über den Media Kanal (WebRTC) auf das Endgerät übertragen.
