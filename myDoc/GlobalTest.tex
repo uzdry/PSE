@@ -32,7 +32,6 @@ Der Server läuft.
 \item{\textbf{Zwei Fahreranmeldungen}} \\
 \textbf{Ablauf: } Ein Endgerät verbindet sich mit dem Server. Es gibt sich als Fahrer aus. Dann verbindet sich ein zweites Endgerät und will sich als Fahrer ausgeben. Dann wird überprüft ob auf dem zweiten Endgerät eine Meldung angezeigt wird laut der es bereits einen Fahrer gibt.
 
-
 \item{\textbf{Instrumente anzeigen}} \\
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\
 \textbf{Ablauf: } Alle verfügbaren Instrumente auf dem Endgerät Einblenden, Ausblenden und Kombinieren
@@ -40,6 +39,18 @@ Der Server läuft.
 \item{\textbf{Aggregierte Funktionen}} \\
 \textbf{Vorbedingung: } Ein Endgerät ist mit dem Server verbunden. \\ 
 \textbf{Ablauf: } Es werden vom Server verschiedene aggregierte Funktionen berechnet. Diese werden dann mit händisch berechneten Werten verglichen.
+
+\item{\textbf{Protokoll führen und Daten anzeigen}} \\
+\textbf{Vorbedingung: } Das Auto fährt. \\
+\textbf{Ablauf: } Mit dem Auto fahren und Daten erzeugen. Die Daten im Endgerät auf allen Instrumenten live und auf Abruf anzeigen. Auf Konsistenz und ausreichend kleine Latenz prüfen. Datenausfälle simulieren. Datenbank auf korrekte Einträge überprüfen.
+
+\item{\textbf{Maximale Kapazität prüfen} \\
+\textbf{Vorbedingung: } keine weiteren Vorbedingungen erforderlich \\
+\textbf{Ablauf: } Die default-Kapazität auf dem Endgerät prüfen, neue default-Kapazität setzen. Daten mit dem Auto erzeugen, bis die Datenbank bis zum Grenzwert gefüllt ist. Überprüfen, ob das Datenlimit eingehalten wurde und ob nur wie spezifiziert die ältesten Daten gelöscht wurden. Auf Konsistenz und korrektes Löschen aller Daten prüfen.
+
+\item{\textbf{Remote Access}} \\
+\textbf{Vorbedingung: } keine weiteren Vorbedingungen erforderlich \\
+\textbf{Ablauf: } Mit entferntem Endgerät mit dem Server verbinden. Anzeigen und Ausblenden von Instrumenten und Anzeige von Daten testen. Anmeldung überprüfen.
 
 \item{\textbf{Einparken vereinfachen}} \\
 \textbf{Vorbedingung: } Der Fahrer schaltet ins Rückwärtsgang. \\
@@ -56,7 +67,6 @@ Sensor wird angezeigt.
 \textbf{Vorbedingung: } Einparkhilfe ist angezeigt. \\
 \textbf{Ablauf: } Der Fahrer fährt vorwärts und das Fahrzeug bewegt sich
 schneller als 5km/h, dann wird die Einparkhilfe entfernt.
-
 
 \item{\textbf{Karte anzeigen}} \\
 \textbf{Vorbedingung: } Ein Endgerät mit Lokalisierungsinformatonen ist mit dem
