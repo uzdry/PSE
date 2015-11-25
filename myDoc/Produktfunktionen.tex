@@ -145,6 +145,11 @@
 		\\Auslösendes Ereignis: Das OBD-system detektiert einen niedrigen
 		Tankfüllstand
   	
+  		\renewcommand{\theenumi}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/W}
+		\renewcommand{\labelenumi}{\theenumi}
+		\renewcommand{\theenumii}{\arabic{enumii}}
+		\renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/w}
+
   	\item {\textbf{Route zur gewünschten Tankstelle berechnen}}
   		\\Ziel: der Fahrer wird in Route zur gewünschten Tankstelle informiert. 
   		\\Vorbedingung: Die Tankstellen in der Nähe sind angezeigt. Die Endgeräte
@@ -152,6 +157,11 @@
   		\\Nachbedingung: Die Route zur gewünschten Tankstelle wird auf Karte
   		angezeigt.
    		\\Auslösendes Ereignis: Der Fahrer wählt eine Tankstelle aus.
+
+   		\renewcommand{\theenumi}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+		\renewcommand{\labelenumi}{\theenumi}
+		\renewcommand{\theenumii}{\arabic{enumii}}
+		\renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
   
 	\item{\textbf{Werkstätten anzeigen}} 
 		\\Ziel: Das OBD-system findet ein Problem, dann wird die Route zur nächsten
