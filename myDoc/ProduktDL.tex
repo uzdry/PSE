@@ -10,8 +10,8 @@
 \renewcommand{\labelenumii}{PD\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
 % Start of new text 1/2.
-\section{\mkd physische Sensordaten}
-Es sind zeitgestempelte und fahrergestempelte Messwerte der folgenden Sensoren zu speichern:
+\section{Physische Sensordaten}
+Es sind zeitgestempelte und fahrergestempelte (~\ref{driver1}) Messwerte der folgenden Sensoren zu speichern:
 \begin{enumerate}
 \item
 Temperatur der Motorkühlflüssigkeit
@@ -56,7 +56,7 @@ Distanzwerte der Ultraschallsensoren
 \setcounter{enumTemp}{\value{enumi}}
 \end{enumerate}
 
-\section{\mkd virtuelle Sensordaten}
+\section{Virtuelle Sensordaten}
 Es sind Werte der folgenden virtuellen Sensoren zu speichern:
 
 \begin{enumerate}
@@ -66,18 +66,18 @@ Es sind Werte der folgenden virtuellen Sensoren zu speichern:
 \setcounter{enumTemp}{\value{enumi}}
 \end{enumerate}
 
-\section{\mkd Personenbezogene Daten}
+\section{Personenbezogene Daten}
 Es sind Profilinformationen der Fahrer zu speichern:
 
 \begin{enumerate}
 \setcounter{enumi}{\value{enumTemp}}
 \item Endgerät-Signatur
 \item Anzeigeeinstellungen
-\item Genutzter Kraftstoff
+\item Präferierter Kraftstoff (Super E5, Diesel, etc.)
 \setcounter{enumTemp}{\value{enumi}}
 \end{enumerate}
 
-\section{\mkd Laufzeitdaten}
+\section{Laufzeitdaten}
 Zur Laufzeit sind weiterhin folgende Daten temporär zu speichern:
 \begin{enumerate}
 \setcounter{enumi}{\value{enumTemp}}
@@ -88,7 +88,7 @@ Zur Laufzeit sind weiterhin folgende Daten temporär zu speichern:
 \item Aktuelle Fahrtnummer
 \item Durchschnittsverbrauch
 \item Zurückgelegte Strecke
-\item Durschnittsdauer/ Strecke
+\item Durschnittsgeschwindigkeit
 \setcounter{enumTemp}{\value{enumi}}
 \end{enumerate}
 
@@ -101,23 +101,23 @@ Zur Laufzeit sind weiterhin folgende Daten temporär zu speichern:
 
 \begin{enumerate}
 
-\item{\textbf{Latenz von ~\ref{pastData}}} \\
-Die Funktion ~\ref{pastData} soll 300 ms dauern. Wenn die Daten nach dieser Zeit noch nicht angezeigt wurden soll ein Wartesymbol angezeigt werden. 
+	\item{\textbf{Latenz von~\ref{pastData}}} \\
+	Die Funktion~\ref{pastData} soll 300 ms dauern. Wenn die Daten nach dieser Zeit noch nicht angezeigt wurden soll ein Wartesymbol angezeigt werden. 
 
-\item{\textbf{Auswirkung von ~\ref{deleteData}}} \\
-Die Funktion ~\ref{deleteData} darf keine Auswirkungen auf die sonstige Performanz des Systems haben.
+	\item{\textbf{Auswirkung von~\ref{deleteData}}} \\
+	Die Funktion~\ref{deleteData} darf keine Auswirkungen auf die sonstige Performanz des Systems haben.
 
-\item{\textbf{Latenz von ~\ref{liveData}}} \\
-Die Funktion ~\ref{liveData} darf höchstens 100 ms benötigen.
+	\item{\textbf{Latenz von~\ref{liveData}}} \\
+	Die Funktion~\ref{liveData} darf höchstens 100 ms benötigen.
 
-\item{\textbf{Bildrate Rückfahrkamera}} \\
-Das Kamerabild sowie die dargestellte Fahrbahn sollen im Abstand von 100 ms aktualisiert werden.
+	\item{\textbf{Bildrate Rückfahrkamera}} \\
+	Das Kamerabild sowie die dargestellte Fahrbahn sollen im zeitlichen Abstand von 100 ms aktualisiert werden.
 
-\item{\textbf{Aktualisierungsrate Ultraschallsensoren}} \\
-Die Aktualisierung von ~\ref{ultrasound} soll im Abstand von 100 ms stattfinden.
+	\item{\textbf{Aktualisierungsrate Ultraschallsensoren}} \\
+	Die Aktualisierung von~\ref{ultrasound} soll im zeitlichen Abstand von 100 ms stattfinden.
 
-\item{\textbf{Multiple Access}} \\
-Die Verbindung von bis zu vier Personen gleichzeitig ist möglich.
+	\item{\textbf{Multiple Access}} \\
+	Die Verbindung von bis zu vier Personen gleichzeitig ist möglich.
 
 
 \end{enumerate}
