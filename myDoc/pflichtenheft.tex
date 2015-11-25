@@ -19,13 +19,11 @@
 
 
 
-\newcounter{FA}
-\newcommand{\itemFA}[1]{/FA\item}
-\newcommand{\refFA}[1]{/FA\ref{}}
-\renewcommand{\theenumi}{\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
+\newcounter{enumTemp}
+\renewcommand{\theenumi}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
 \renewcommand{\labelenumi}{\theenumi}
 \renewcommand{\theenumii}{\arabic{enumii}}
-\renewcommand{\labelenumii}{\theenumi}
+\renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
 \makeatletter 
 \newcommand\mknr{/MK\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
