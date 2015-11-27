@@ -6,12 +6,7 @@
 
 \chapter{Einleitung}
 
-In der modernen Informationsgesellschafft fallen immer mehr nutzbare Daten an. Seien es Daten von sozialen Netzwerken und Daten von Personen über Nutzung und Gewohnheiten allgemein, oder Daten technischer Art, wie Sensordaten in Anlagen oder Automobilen. Mehr und mehr Sensorik findet Einsatz. Oft ist es sehr interessant, diese Daten auszuwerten und visuell zu repräsentieren. Tablets und Smartphones sind omnipräsent. Jeder hat dauerhaft Zugriff auf einen leistungsfähigen Rechner mit hochauflösendem Display. Diese Geräte sind optimal zur Anzeige von Daten geeignet. Unabhängig von der Art der Daten müssen sie gesammelt, gegebenenfalls vorverarbeitet und bereitgestellt werden. Dazu bedarf es einer generischen Schnittstelle. Im Rahmen von aRSDM sollen Sensordaten gesammelt, gespeichert und weiterverteilt werden. Die Quelle dieser Daten ist der mittlerweile in fast jedem PKW verfügbare OBD2 Anschluss. Es ist eine (abstrakte) Komponente zwischen Sensoren und Endgerät gefragt, die sich für beliebige, nicht unbedingt schon bekannte Anwendungsszenarien erweitern lässt. Ein Rahmenwerk, das Daten sammelt, speichert und verteilt.
-
-\section{Aufgabenstellung}
-
-Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erfolgt eine Grafische Darstellung von Sensordaten. Die Quelle der Daten befindet sich nicht in der Nähe des Endgeräts. Sie werden über eine Netzwerkverbindung übertragen. aRSDM bietet eine API, die von Dritten für weitere Anwendungsfälle genutzt werden kann. Als Anwendung liefern wir ein Automotive-Modul, welches die Sensordaten, die über den OBD2 Bus eines PKW verfügbar sind, vearbeitet und darstellt.
-
+Zur Verbesserung des Fahrens besitzen moderne PKWs eine Vielzahl an Sensoren, die praktisch alle für das Führen eines Fahrzeugs relevanten Informationen liefern. Boardcomputer, die mittlerweile serienmäßig in allen modernen Autos verbaut sind, sind für die Darstellung dieser Daten mittlerweile unverzichtbar. Die Verarbeitung dieser Daten ist jedoch zumeist nur rudimentär, die Darstellung nur wenig personalisierbar. Eine weitläufige Speicherung der Daten und deren erneute Darstellung ist zumeist nicht vorgesehen. aRSDM bietet eine Client-Server-basierten Boardcomputerfunktion, die auf beliebigen, über Netzwerk verbundenen Computern wie Laptops, Tablets und Smartphones angezeigt werden kann. Insbesondere bietet aRSDM die Möglichkeit, den Boardcomputer auch aus großer räumlicher Distanz über das Internet anzuzeigen, sowie Fahrtdaten zu analysieren, auszuwerten und in personalisierten Statistiken anzuzeigen. Als Schnittstelle zum Auto wird der mittlerweile in fast jedem PKW vorhandene OBD2-Anschluss verwendet. aRSDM ist webbasiert, leichtgewichtig und einfach zu erweitern. Außerdem wird eine API angeboten, die den Zugriff auf Funktionen wie das Verwalten, Speichern und Verteilen von Daten ermöglicht. 
 
 \chapter{Zielbestimmung}
 
@@ -69,7 +64,7 @@ Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erf
 \section{Abgrenzungskriterien}
 
 \begin{enumerate}
-	\item{\textbf{Erweiterung}} \\Für andere Sensoren werden keine Treiber bereitgestellt.
+	\item{\textbf{Weitere Sensorquellen}} \\Für andere Sensoren werden keine Treiber bereitgestellt.
 
 	\item{\textbf{Unidirektional}} \\Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
 
@@ -78,7 +73,6 @@ Smartphones und Tablets des Users sind die sogenannten Endgeräte. Auf ihnen erf
 	\item{\textbf{Android}} \\Die Visualisierung der Daten erfolgt nur im Browser, wir stellen keine gesonderte App zur Verfügung.
 
 	\item{\textbf{Flotte}} \\Der Zugriff auf verschiedene Fahrzeuge wird nicht verwaltet.
-
 
 	\item{\textbf{Diagnose}} \\Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
 
