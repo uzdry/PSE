@@ -30,10 +30,10 @@
 		Auslösendes Ereignis: Der Benutzer verbindet sein Endgerät mit dem Server.
 
 		\item{\textbf{Fahrer unter Nutzern identifizieren}} \label{driver2}
-		\\ Ziel: Genau ein Benutzer wird vom System als Fahrer erkannt.  \\
+		\\ Ziel: Genau ein Benutzer, der sich mit einem anderen Endgerät mit dem Server verbindet, wird vom System als Fahrer erkannt.  \\
 		Vorbedingung: Es ist genau ein Endgerät mit dem Server verbunden.\\
 		Nachbedingung: Der Benutzer eines anderen Endgeräts wird als Fahrer identifiziert. \\
-		Auslösendes Ereignis: Der Benutzer verbindet ein anderes Endgerät mit dem Server und definiert es in den Einstellungen als Fahrergerät
+		Auslösendes Ereignis: Der Benutzer verbindet ein anderes Endgerät mit dem Server und meldet sich als Fahrer an.
 
 		\setcounter{enumTemp}{\value{enumi}}
 		
@@ -48,7 +48,7 @@
 	\begin{enumerate}
 	\setcounter{enumi}{\value{enumTemp}}
 		\item{\textbf{Instrumente anzeigen}} \\Vorbedingung: Es sind Endgeräte mit dem Server verbunden.\\ Auslösendes Ereignis: Der Nutzer wählt in den Einstellungen auf dem Endgerät ein Instrument aus.\\ Nachbedingung: Das Instrument wird auf dem Bildschirm angezeigt und zeigt die aktuellen Daten an. Falls keine aktuellen Daten vorhanden sind, steht es in neutraler Position.
-		\item{\textbf{Dashboard überladen}} \\Ziel: Das Dashboard soll nicht überladen wirken.\\
+		\item{\textbf{Dashboard nicht überladen}} \\Ziel: Das Dashboard soll nicht überladen wirken.\\
 		Vorbedingung: Es werden Dashes auf dem Dashboard angezeigt. \\Auslösendes Ereignis: Der Nutzer wählt in den Einstellungen ein zusätzliches Instrument aus, welches nicht mehr passen würde.\\
 		Nachbedingung: Die Auswahl wird nicht angenommen. Eine weitere Fehlermeldung wird nicht ausgegeben.
 		\item{\textbf{Instrumente ausblenden}} \\
@@ -97,7 +97,7 @@
 		\renewcommand{\theenumii}{\arabic{enumii}}
 		\renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 		
-		\item{\textbf{Remote Access erzeugen}} \label{remote} \\ Ziel: Der Benutzer kann die Software auf einem entfernten Endgerät benutzen.\\ Vorbedingungen: Das System läuft und es kommen Daten über den OBD2-Adapter an. Das System hat eine Verbindung zum Internet.\\ Nachbedingung: Die Funktionen GUI-Konfiguration, Fahrinformation, Vergangene Daten, Karte und Einparkhilfe stehen auf dem Endsystem zur Verfügung.\\ Auslösendes Ereignis: Der Benutzer verbindet ein entferntes Endgerät über Eingabe einer URL im Browser mit dem Server.
+		\item{\textbf{Remote Access erzeugen}} \label{remote} \\ Ziel: Der Benutzer kann die Software auf einem entfernten Endgerät benutzen.\\ Vorbedingungen: Das System läuft und hat eine Verbindung zum Internet.\\ Nachbedingung: Die Funktionen GUI-Konfiguration, Fahrinformation, Vergangene Daten, Karte und Einparkhilfe stehen auf dem Endsystem zur Verfügung.\\ Auslösendes Ereignis: Der Benutzer verbindet ein entferntes Endgerät über Eingabe einer URL im Browser mit dem Server.
 		\setcounter{enumTemp}{\value{enumi}}
 	\end{enumerate} 
 
