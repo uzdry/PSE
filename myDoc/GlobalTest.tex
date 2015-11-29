@@ -29,14 +29,14 @@ Ablauf: Das Endgerät verbindet sich mit dem Server. Es wird überprüft ob auto
 \item{\textbf{Fahreranmeldung}} \label{regDriverT} \\
 Ablauf: Ein Endgerät verbindet sich mit dem Server. Es wird als Gerät des Fahrers identifiziert. Es wird überprüft, ob die anschließend gespeicherten Daten mit der Signatur des neuen Fahrers abgelegt werden.
 
-\item{\textbf{Fahrerwechsel}} \\
+\item{\textbf{Fahrerwechsel}} \label{changeDriverT} \\
 Ablauf: Ein Endgerät verbindet sich mit dem Server. Es wird als Gerät des Fahrers identifiziert. Es verbindet sich ein zweites Endgerät und meldet sich als Fahrer an. Es wird überprüft, ob die anschließend gespeicherten Daten mit der Signatur des neuen Fahrers und nur der Signatur des neuen Fahrers abgelegt werden.
 
 \item{\textbf{Instrumente anzeigen}} \label{showDashesT} \\
 Vorbedingung: Ein Endgerät ist mit dem Server verbunden. \\
-Ablauf: Alle verfügbaren Instrumente werden auf dem Endgerät ein- und ausgeblendet und kombiniert.
+Ablauf: Alle verfügbaren Instrumente werden auf dem Endgerät ein- und ausgeblendet und kombiniert. Es wird auf korrekte Auflistung der Dashes im Bezug auf die vorhandenen Sensoren geprüft.
 
-\item{\textbf{Aggregierte Funktionen}} \\
+\item{\textbf{Aggregierte Funktionen}} \label{calcAggDataT} \\
 Vorbedingung: Ein Endgerät ist mit dem Server verbunden. \\ 
 Ablauf: Es werden vom Server verschiedene aggregierte Funktionen berechnet. Diese werden dann mit händisch berechneten Werten verglichen.
 
@@ -117,6 +117,10 @@ Bob schaltet die Zündung wieder an, das Smartphone verbindet sich mit dem Netzw
 Da vor ihm noch ein Auto steht, muss Bob erst einmal etwas nach hinten fahren. Dazu wechselt er in den Rückfahrkameramodus der Software und sieht über die Kamera, wie weit er noch nach hinten fahren kann. (~\ref{parkenT}, ~\ref{ultraT})
 \item
 Nachdem er die Tankstelle verlassen hat und wieder schneller fährt beendet sich die Einparkhilfe automatisch. (~\ref{endParkenT}) Irgendwann kommt Bob dann an seiner Hochschule an, schaltet das Auto aus und verlässt es. 
+\item
+Auf der Fahrt nach Hause, bei der Bob sich wieder mit dem Server, holt er unterwegs seine Schwester von der Arbeit ab. Da sie erst vor kurzem ihren Führerschein gemacht hat, lässt er sie den Rest der Strecke fahren. Sie verbindet ihr Smartphone mit dem Server und meldet sich als neuen Fahrer an. (~\ref{changeDriverT}
+\item
+Bob, der auf seinem eigenen Smartphone die Fahrtdaten beobachtet, schaut sich den durchschnittlichen Benzinverbrauch an, um das Fahrverhalten seiner Schwester beurteilen zu können. (~\ref{calcAggDataT})
 \end{enumerate}
 \section{Remote Test}
 \begin{enumerate}
