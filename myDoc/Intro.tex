@@ -6,7 +6,7 @@
 
 \chapter{Einleitung}
 
-Zur Verbesserung des Fahrens besitzen moderne PKWs eine Vielzahl an Sensoren, die praktisch alle für das Führen eines Fahrzeugs relevanten Informationen liefern. Boardcomputer, die mittlerweile serienmäßig in allen modernen Autos verbaut sind, sind für die Darstellung dieser Daten mittlerweile unverzichtbar. Die Verarbeitung dieser Daten ist jedoch zumeist nur rudimentär, die Darstellung nur wenig personalisierbar. Eine weitläufige Speicherung der Daten und deren erneute Darstellung ist zumeist nicht vorgesehen. aRSDM bietet eine Client-Server-basierten Boardcomputerfunktion, die auf beliebigen, über Netzwerk verbundenen Computern wie Laptops, Tablets und Smartphones angezeigt werden kann. Insbesondere bietet aRSDM die Möglichkeit, den Boardcomputer auch aus großer räumlicher Distanz über das Internet anzuzeigen, sowie Fahrtdaten zu analysieren, auszuwerten und in personalisierten Statistiken anzuzeigen. Als Schnittstelle zum Auto wird der mittlerweile in fast jedem PKW vorhandene OBD2-Anschluss verwendet. aRSDM ist webbasiert, leichtgewichtig und einfach zu erweitern. Außerdem wird eine API angeboten, die den Zugriff auf Funktionen wie das Verwalten, Speichern und Verteilen von Daten ermöglicht. 
+Zur Verbesserung des Fahrens besitzen moderne PKWs eine Vielzahl an Sensoren, die praktisch alle für das Führen eines Fahrzeugs relevanten Informationen liefern. Boardcomputer, die mittlerweile serienmäßig in allen modernen Autos verbaut sind, sind für die Darstellung dieser Daten mittlerweile unverzichtbar. Die Verarbeitung dieser Daten ist jedoch zumeist nur rudimentär, die Darstellung nur wenig personalisierbar. Eine weitläufige Speicherung der Daten und deren erneute Darstellung ist zumeist nicht vorgesehen. VINJAB bietet eine Client-Server-basierten Boardcomputerfunktion, die auf beliebigen, über Netzwerk verbundenen Computern wie Laptops, Tablets und Smartphones angezeigt werden kann. Insbesondere bietet VINJAB die Möglichkeit, den Boardcomputer auch aus großer räumlicher Distanz über das Internet anzuzeigen, sowie Fahrtdaten zu analysieren, auszuwerten und in Statistiken anzuzeigen. Als Schnittstelle zum Auto wird der mittlerweile in fast jedem PKW vorhandene OBD2-Anschluss verwendet. VINJAB ist webbasiert, leichtgewichtig, und einfach zu erweitern. Außerdem wird eine API angeboten, die den Zugriff auf Funktionen wie das Verwalten, Speichern und Verteilen von Daten ermöglicht. 
 
 \chapter{Zielbestimmung}
 
@@ -28,9 +28,9 @@ Zur Verbesserung des Fahrens besitzen moderne PKWs eine Vielzahl an Sensoren, di
 
 	\item{\textbf{Informationen auswählen}} \\Der Nutzer soll wählen können, welche Informationen dargestellt werden.
 
-	\item{\textbf{Aggregierte Funktionen}} \\Neben den Daten der Sensoren sollen virtuelle Sensoren realisiert und aggregierte Funktionen berechnet und dargestellt werden.
+	\item{\textbf{Aggregierte Funktionen}} \\Neben den Daten der Sensoren sollen virtuelle Sensoren realisiert sowie aggregierte Funktionen berechnet und dargestellt werden.
 
-	\item{\textbf{Karte}} \\Der Nutzer kann sich eine Karte der Umgebung anzeigen lassen, auf der ggf. Points of Interest angezeigt werden.
+	\item{\textbf{Karte}} \\Der Nutzer kann sich eine Karte der Umgebung anzeigen lassen, auf der gegebenenfalls Points of Interest angezeigt werden.
 
 	\item{\textbf{Einparkhilfe}} \\Der Nutzer kann eine Einparkhilfe anzeigen lassen, welche Hindernisse visualisiert und die aktuelle Fahrspur anzeigt.
 
@@ -48,11 +48,9 @@ Zur Verbesserung des Fahrens besitzen moderne PKWs eine Vielzahl an Sensoren, di
 \begin{enumerate}
 	\item{\textbf{Lokalisierung}}\\Die Software speichert GPS-Daten vom Endgerät.
 
-	\item{\textbf{Navigation}}\\Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
-
 	\item{\textbf{Sensordaten vom Endgerät}}\\Die Software verwaltet Sensordaten von den verbundenen Endgeräten, wie zum Beispiel den Beschleunigungssensor.
 
-	\item{\textbf{Streckenbezug}} \\Daten und Aggregierte Funktionen sind Streckenbezogen verfügbar.
+	\item{\textbf{Streckenbezug}} \\Daten und aggregierte Funktionen sind Streckenbezogen verfügbar.
 
 \end{enumerate}
 
@@ -64,7 +62,7 @@ Zur Verbesserung des Fahrens besitzen moderne PKWs eine Vielzahl an Sensoren, di
 \section{Abgrenzungskriterien}
 
 \begin{enumerate}
-	\item{\textbf{Weitere Sensorquellen}} \\Für andere Sensoren werden keine Treiber bereitgestellt.
+	\item{\textbf{Weitere Sensoren}} \\Für andere Sensoren werden keine Treiber bereitgestellt.
 
 	\item{\textbf{Unidirektional}} \\Die Software liest und interpretiert die Daten nur und sendet keine Daten an Quellen zurück.
 
@@ -77,6 +75,8 @@ Zur Verbesserung des Fahrens besitzen moderne PKWs eine Vielzahl an Sensoren, di
 	\item{\textbf{Diagnose}} \\Die Datenspeicherung ersetzt nicht den Fehlerspeicher des Steuergeräts im Auto.
 
 	\item{\textbf{Remote Access}} \\Für entferntes Monitoring wird keine maximale Latenz garantiert.
+	
+	\item{\textbf{Navigation}}\\Die Anzeige der aktuellen Position und der umgebenden POI erfolgt über Drittsoftware und kann nicht als Navigationssystem benutzt werden.
 
 \end{enumerate}
 

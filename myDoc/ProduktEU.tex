@@ -4,7 +4,7 @@
 
 %-------------- PRODUKTEINSATZ ---------------------
 \chapter{Produkteinsatz}
-Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter Sensoren eines Autos. Dies beinhaltet Informationen wie die Geschwindigkeit, Motortemperatur, Raddrehzahl und ähnliches. Damit bietet es die Möglichkeit, diese Daten  auf einem Mobiltelefon, Laptop oder anderem Computer mit Bildschirm anzuzeigen.
+Das Produkt dient zur Speicherung und Distribution von Daten mehrerer verteilter Sensoren eines Autos. Dies beinhaltet Informationen wie die Geschwindigkeit, Motortemperatur, Raddrehzahl und ähnliches. Damit bietet es die Möglichkeit, diese Daten  auf einem Smartphone, Laptop oder anderem Computer mit Bildschirm anzuzeigen.
 
 
 \section{Anwendungsbereiche}
@@ -17,14 +17,14 @@ Dieses Produkt dient zum Speichern und Anzeigen von in einem PKW verfügbaren Se
 \section{Zielgruppen}
 \begin{itemize}
 \item
-Private Autofahrer mit oder ohne tiefere technische Kenntnisse von PKWs. 
+Private Autofahrer mit oder ohne tieferen technischen Kenntnissen von PKWs. 
 \end{itemize}
 
 
 \section{Betriebsbedingungen}
 \begin{itemize}
 \item
-Der PKW muss über einen OBD2 Anschluss verfügen.
+Der PKW muss über einen OBD2-Anschluss verfügen.
 \item
 Das Produkt muss Strom aus dem Auto beziehen können.
 \item
@@ -34,7 +34,7 @@ Für Remote-Zugriff muss eine Netzwerkverbindung vorhanden sein.
 
 %--------------- Produktumgebung -------------
 \chapter{Produktumgebung}
-Das Rahmenwerk und die Module werden in TypeScript \footnote{http://www.typescriptlang.org} programmiert. Der Server wird in node.js \footnote{https://nodejs.org/} laufen. Als Datenbanksystem wird LevelUp \footnote{https://github.com/Level/levelup} verwendet.
+Das Rahmenwerk und die Module werden in TypeScript\footnote{http://www.typescriptlang.org} programmiert. Der Server wird in node.js\footnote{https://nodejs.org/} laufen. Als Datenbanksystem wird LevelUp\footnote{https://github.com/Level/levelup} verwendet.
 
 \begin{itemize}
 
@@ -43,14 +43,14 @@ Eine Client-Server-Architektur nach dem Thin-Client-Konzept
 \item
 Auf dem Server läuft der Teil der Software, der die Sensordaten empfängt, einpflegt und über WebRTC an die Endgeräte versendet.
 \item
-Auf der Userseite laufen verschiedene Applikationen neben aRSDM. Diese Anwendungen sollen die Software aber nicht beeinflussen und auch nicht von ihr beeinflusst werden.
+Auf der Clientseite laufen verschiedene Applikationen neben VINJAB. Diese Anwendungen sollen die Software aber nicht beeinflussen und auch nicht von ihr beeinflusst werden.
 \end{itemize}
 
 %%%%Fragen
 \section*{Testumgebung}
 \begin{itemize}
 \item
-Testfahrzeug: Opel Astra H 1.6 Bj 2005 %%Genauer
+Testfahrzeug: Opel Astra H 1.6 Baujahr 2005
 \item
 Testfahrzeug: ITK-Engineering Modellauto \\
 Ein Modellauto der Firma ITK-Engineering AG, angetrieben über einen Elektromotor. Alle Daten, die hier verfügbar sind, liegen über CAN an.
@@ -59,10 +59,9 @@ Raspberry Pi 2 Model B
 \item
 ASUS BT400 Bluetooth USB Adapter
 \item
-UMTS Stick Telekom
+UMTS-Stick
 \item
 OBD2-Bluetooth-Adapter ELM327
-
 \end{itemize}
 
 
@@ -83,15 +82,6 @@ Safari Version 9
 Firefox Version 42
 \item
 Google Chrome Android Version 14.10
-\end{itemize}
-Getestet auf:
-\begin{itemize}
-\item
-Mac OS X
-\item
-Fedora 22
-\item
-Windows 7
 \end{itemize}
 \end{itemize}
 
@@ -122,7 +112,7 @@ Android Smartphone (min. 1 GHz und 1 GB RAM)
 \newpage
 \section{Systemarchitektur}
 
-Das System ist modular aufgebaut. Es gibt pro System genau einen Server. Endgeräte können eine Netzwerkverbindung mit dem Server herstellen. Dabei kann die Verbindung entweder direkt via Wi-Fi im Auto oder entfernt (~\ref{remote}) über das Internet hergestellt werden. (~\ref{firstcon}, ~\ref{connection}) Das soll in der Funktionalität keinen Unterschied machen. Diese Verbindung beruht auf WebRTC \footnote{http://www.webrtc.org} und soll den Datenkanal dieses Protokolls verwenden, um Sensordaten zu übertragen. Des Weiteren ist eine Rückfahrkamera per USB mit dem Server verbunden. Die Kamerabilder werden über den Media Kanal (WebRTC) auf das Endgerät übertragen. Das mit dem Lenkrad markierte Endgerät stellt das Gerät des Fahrers da. Personenbezogene Daten werden nach Fahrer gespeichert. (~\ref{driver1}, ~\ref{driver2})
+Das System ist modular aufgebaut. Es gibt pro System genau einen Server. Endgeräte können eine Netzwerkverbindung mit dem Server herstellen. Dabei kann die Verbindung entweder direkt via Wi-Fi im Auto oder entfernt (~\ref{remote}) über das Internet hergestellt werden. (~\ref{firstcon}, ~\ref{connection}) Das soll in der Funktionalität keinen Unterschied machen. Diese Verbindung beruht auf WebRTC\footnote{http://www.webrtc.org} und soll den Datenkanal dieses Protokolls verwenden, um Sensordaten zu übertragen. Des Weiteren ist eine Rückfahrkamera per USB mit dem Server verbunden. Die Kamerabilder werden über den Media Kanal (WebRTC) auf das Endgerät übertragen. Das mit dem Lenkrad markierte Endgerät stellt das Gerät des Fahrers dar. Personenbezogene Daten werden nach Fahrer gespeichert. (~\ref{driver1}, ~\ref{driver2})
 
 \begin{figure}[H]
   	\begin{center}

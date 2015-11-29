@@ -68,6 +68,7 @@ Es sind die folgenden Daten aus den Einstellungen sowie errechnete Daten zu spei
 \item Anzeigeeinstellungen
 \item Präferierter Kraftstoff (Super E5, Diesel, etc.)
 \item Anzahl der Einzelfahrten
+\item Präferierte maximale Datenbankkapazität
 \item Bluetooth-Verbindungsdaten mit dem OBD2-Adapter (temporär)
 \item Netzwerk-Verbindungsdaten aller verbundenen Geräte (temporär) 
 \item Aktuell anzuzeigende Sensordaten auf den Endgeräten (temporär)
@@ -88,7 +89,7 @@ Es sind die folgenden Daten aus den Einstellungen sowie errechnete Daten zu spei
 \begin{enumerate}
 
 	\item{\textbf{Latenz von~\ref{pastData}}} \\
-	Die Funktion~\ref{pastData} soll 300 ms dauern. Wenn die Daten nach dieser Zeit noch nicht angezeigt wurden soll ein Wartesymbol angezeigt werden. 
+	Die Funktion~\ref{pastData} soll maximal 300 ms dauern. Wenn die Daten nach dieser Zeit noch nicht angezeigt wurden soll ein Wartesymbol angezeigt werden. 
 
 	\item{\textbf{Auswirkung von~\ref{deleteData}}} \\
 	Die Funktion~\ref{deleteData} darf keine Auswirkungen auf die sonstige Performanz des Systems haben.
@@ -96,11 +97,11 @@ Es sind die folgenden Daten aus den Einstellungen sowie errechnete Daten zu spei
 	\item{\textbf{Latenz von~\ref{liveData}}} \\
 	Die Funktion~\ref{liveData} darf höchstens 100 ms benötigen.
 
-	\item{\textbf{Bildrate Rückfahrkamera}} \\
-	Das Kamerabild sowie die dargestellte Fahrbahn sollen im zeitlichen Abstand von 100 ms aktualisiert werden.
+	\item{\textbf{Bildrate der Rückfahrkamera}} \\
+	Das Kamerabild sowie die dargestellte Fahrbahn sollen im zeitlichen Abstand von maximal 100 ms aktualisiert werden.
 
 	\item{\textbf{Aktualisierungsrate Ultraschallsensoren}} \\
-	Die Aktualisierung von~\ref{ultrasound} soll im zeitlichen Abstand von 100 ms stattfinden.
+	Die Aktualisierung von~\ref{ultrasound} soll im zeitlichen Abstand von maximal 100 ms stattfinden.
 
 	\item{\textbf{Multiple Access}} \\
 	Die Verbindung von bis zu vier Personen gleichzeitig ist möglich.
