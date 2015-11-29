@@ -10,7 +10,7 @@ Der Nutzer soll GUI-Instrumente anzeigen und ausblenden können. Zu den GUI-Inst
 
 \section{Dashboard}
 
-Das Dashboard besteht aus verschiedenen Anzeigeelementen, sogenannten Dashes, und oben einer Leiste auf der links das Icon unserer Software angezeigt wird. Mittig ist der Einstellungsbutton über den man in die Einstellungsansicht wechseln kann. Und rechts wird die Uhrzeit angezeigt. Diese Leiste ist immer zu sehen. Deren Elemente können sich jedoch, je nach aktueller Anzeige, ändern.
+Das Dashboard besteht aus verschiedenen Anzeigeelementen, sogenannten Dashes, und oben einer Leiste auf der verschiedene Informationen dargestellt werden. Links wird, beim Fahrer, ein Lenkrad angezeigt. Mittig ist der Einstellungsbutton über den man in die Einstellungsansicht wechseln kann. Und rechts wird die Uhrzeit angezeigt. Diese Leiste ist immer zu sehen. Deren Elemente können sich jedoch, je nach aktueller Anzeige, ändern.
 
 \begin{figure}[H]
   	\begin{center}
@@ -80,16 +80,22 @@ Weitere mögliche Anzeigeelemente neben Live-Anzeigen sind Graphen, auf denen St
 Die Tabelle kann in verschiedenen Anzeigen genutzt werden. Die Tabellengröße, also die Anzahl der Spalten und Zeilen, ist variabel. In der Tabelle kann man scrollen und ihre Zellen können mit verschiedenen Elementen, wie z.B. Bildern oder Text, gefüllt werden. Bei Berührung einer Zelle kann eine Funktion aufgerufen werden.\\
 Genutzt wird eine Tabelle z.B. in der ~\nameref{sec:Karte}. 
 
-Eine Anzeige, in der die Tabelle sogar hauptsächlich zur Anwendung kommt, sind Einstellungen. Hier werden zuerst alle Einstellungskategorien in der Tabelle angezeigt. Bei Druck auf Eine wird die Anzeige der gewählten Kategorie geöffnet. Hier werden in einer Tabelle die verschiedenen Konfigurationsmöglichkeiten dargestellt. Diese lassen sich auch wieder über einen Druck auf das Tabellenelement beeinflussen. Hier wird dann eine kleine Tabelle mit den Optionen oder falls nötig ein beschreibbares Textfeld angezeigt. In dem folgenden Beispiel wird die Auswahl der Dashes angezeigt. Hier wird bei Druck auf ein Element ein Haken angezeigt um zu zeigen, dass dieses Dash ausgewählt ist. Bei erneutem Druck wird das Element wieder abgewählt und der Haken verschwindet.
-
-Das verlassen der Tabelle ist möglich über die mittig in der obigen Leiste befindliche Schaltfläche mit dem Namen der letzten Anzeige. Hier ist es z.B. möglich aus der obersten Einstellungsanzeige wieder auf das Dashboard zu wechseln. Vorgenommene Einstellungen werden erst bei verlassen der Einstellungen aktiv.  
-
 \begin{figure}[H]
   	\begin{center}
  		\includegraphics[width=\textwidth]{Images/GUI-Settings.png}
   		\caption{Beispiel: Tabelle mit den verschiedenen verfügbaren Informationen.}
   	\end{center}
 \end{figure}
+
+
+Eine Anzeige, in der die Tabelle sogar hauptsächlich zur Anwendung kommt, sind Einstellungen. Hier werden zuerst alle Einstellungskategorien in der Tabelle angezeigt, diese sind die Anzeigeelemente und Allgemeine Konfigurationen wie der "niedrige Tankfüllstand". Bei Druck auf eine Kategorie wird die Anzeige der gewählten Kategorie geöffnet. Hier werden in einer Tabelle die verschiedenen Konfigurationsmöglichkeiten dargestellt. Diese lassen sich auch wieder über einen Druck auf das Tabellenelement beeinflussen. 
+%Hier wird dann eine kleine Tabelle mit den Optionen oder falls nötig ein beschreibbares Textfeld angezeigt.
+In dem folgenden Beispiel wird die Auswahl der Dashes angezeigt. Hier lässt sich ein Element per Druck auswählen und wieder abwählen. Der Status wird über den Haken angezeigt.
+
+In den gesamten Einstellungen kann man sich oben rechts über das Kästchen mit dem Haken zum Fahrer machen.
+
+Das verlassen der Tabelle ist möglich über die mittig in der obigen Leiste befindliche Schaltfläche mit dem Namen der letzten Anzeige. Hier ist es z.B. möglich aus der obersten Einstellungsanzeige wieder auf das Dashboard zu wechseln. Vorgenommene Einstellungen werden erst bei verlassen der Einstellungen aktiv.  
+
 
 \clearpage
 \section{Karte}
