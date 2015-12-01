@@ -1,0 +1,108 @@
+% Version 0.01
+\documentclass[a4paper]{scrreprt}
+
+\usepackage{subfiles}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[bookmarks=true,hidelinks]{hyperref}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage{array}
+\usepackage{vhistory}
+\usepackage{titlepic}
+
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
+%% counters
+
+\newcommand{\itemFAW}[1]{\refstepcounter{FA}\label{fa:#1}\item[/FA\theFA0W/]}
+\newcommand{\refFAW}[1]{/FA\ref{fa:#1}0W/}
+
+
+
+\newcounter{enumTemp}
+\renewcommand{\theenumi}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}0/}
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
+
+\makeatletter 
+\newcommand\mknr{/MK\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkfa{/FA\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkfaw{/FA\the\numexpr\c@section-1\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}W/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkt{/T\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mka{/AK\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkd{/PD\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\makeatletter 
+\newcommand\mkl{/PL\the\numexpr\c@section\relax\ifnum\c@section<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+
+\makeatletter 
+\newcommand\aknr{/AK\the\numexpr\c@subsection-1\relax\ifnum\c@ssubection<10 0\fi\arabic{subsection}\arabic{subsubsection}/} 
+\makeatother
+
+\pagenumbering{roman}
+\begin{document}
+
+\title{Pflichtenheft PSE - VINJAB: VINJAB Is Not Just A Boardcomputer}
+\author{Vladimir Bykovski 
+			\and Jonas Haas 
+			\and David Grajzel 
+			\and Nicolas Schreiber
+			\and Valentin Springsklee
+			\and Yimeng Zhu}
+
+\titlepic{\includegraphics[width=\textwidth]{Images/VINJAB-Logo.png}}
+
+
+
+\maketitle
+
+\newpage
+%%\setcounter{secnumdepth}{-1} 
+\setcounter{page}{1} %Seitennummer des Inhaltsverzeichnis
+
+
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+
+\subfile{Intro}
+
+\subfile{ProduktEU}
+
+\subfile{Produktfunktionen}
+
+\subfile{ProduktDL}
+
+\subfile{UI}
+
+\subfile{GlobalTest}
+
+\subfile{Qualitaet}
+
+\subfile{Glossar}
+
+
+\end{document}
