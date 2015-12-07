@@ -5,5 +5,11 @@
 \section{Datenrepräsentanten}
 
 Auf dem Server gibt es für jedes Endgerät ein Objekt, welches das physische Endgerät Repräsentiert. Diese Objekte sind Instanzen einer Klasse \glq Terminal\grq. Außerdem wird jeder Sensorwert, der an der Datenschnittstelle ankommt, als Objekt auf Serverseite repräsentiert. Die Objekte Sind Instanzen einer Klasse \glq SensorRepresentant\grq. \glq Terminal\grq subscribed von \glq SensorRepresentant\grq. \glq SensorRepresentant\grq Objekte halten aktuelle Sensorwerte, die von der Datenschnittstelle kommen.
+
+\section{Chain of Responsibility}
+
+Die Werte der Sensoren und die Werte der aggregierten Funktionen können sich zu beliebigen Zeitpunkten ändern. Die sind als Subscribable Value gespeichert und so wie es im Publish-Subscribe Entwurfsmuster vorgesehen ist, werden alle Objekte, die als Beobachter vorhanden sind bei allen Änderungen benachrichtigt. Die Beobachter sind die Endgerät-Proxys. Wenn die eine Nachricht kriegen (es sind neue Werte vorhanden), schicken Sie diese Information nach dem Chain of Responsibility Prinzip weiter. Die WebRTC-Magic Module konvertieren die Nachrichten in einfache Zeichenketten und leiten die über die bestehende Netzwerkverbindung (sei es entweder LAN oder Internet) weiter. Dafür verwenden die RTC Peer Connections und RTC Data Channels. Die ankommende Zeichenketten auf dem Endgerät werden wiederhergestellt (WebRTC-Magic Modul) und das Endgerät kann die Nachrichtenobjekte behandeln. Die werden genauso dargestellt, wie die losgeschickt worden (vom Endgerät-Proxy). Das Endgerät leitet dann die Nachricht an allen Dashes weiter, für die diese Informationen relevant sind.
+
+
 \end{document}
 
