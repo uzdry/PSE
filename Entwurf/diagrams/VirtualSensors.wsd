@@ -1,0 +1,28 @@
+Component diagram 2
+
+@startuml
+
+interface BusAcces{
+	...
+}
+
+abstract class VirtualSensor {
+	+activ(pActive: Boolean) : Boolean
+	-initialize()
+	-provideValuesFromBus(): double[]
+	-computeValue(values: double[]) : double
+}
+
+class AverageComputation {
+	type: MessageID
+	+setType(pType: MessageID)
+}
+
+VirtualSensor <|-- FuelConsumption
+VirtualSensor <|-- AverageComputation
+
+
+BusAcces <|.. VirtualSensor
+
+@enduml
+
