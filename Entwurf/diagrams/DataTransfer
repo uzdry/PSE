@@ -1,0 +1,23 @@
+@startuml
+
+Interface BusAccess
+
+Class Proxy {
+dataChannel: WebRTCDataChannel
+message: Message
+transfer()
+}
+
+Class Message
+Class WebRTCDataChannel
+Class Client
+
+BusAccess <|- Proxy
+BusAccess <|- Message
+
+Proxy "delegate" --> "1" Message
+Proxy "use" --> "1" WebRTCDataChannel
+Client - BusAccess
+
+
+@enduml
