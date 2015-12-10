@@ -26,8 +26,8 @@ Message <|-- DashboardConfigMessage
 interface BusAccess {
 	bus: MessageBus
 	recieveQueue: List<Message>
-	+subscribe(subscriber: this, id: MessageID)
-	+unsubscribe(subscriber: this, id: MessageID)
+	+subscribe(subscriber: BusAccess, id: MessageID)
+	+unsubscribe(subscriber: BusAccess, id: MessageID)
 	+publish(message: Message)
 	+handleMessage(message: Message)
 	+getSubscriptions()
@@ -35,7 +35,6 @@ interface BusAccess {
 }
 
 class Broker {
-	bus: MessageBus
 	subscriptions: (hashed) Array of Lists of Subscribed Objects
 	+getSubscriptions(id: MessageID)
 	+getSubscriptions(object: BusAccess)
@@ -44,7 +43,6 @@ class Broker {
 }
 
 class MessageBus {
-	broker: Broker
 	messageQueue: List<Message>
 	+handleMessage(message: Message)
 	-distribute(message: Message)
