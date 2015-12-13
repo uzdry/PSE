@@ -1,0 +1,24 @@
+@startuml
+
+
+Widget <|-- NumberDash
+Widget <|-- BooleanDash
+
+abstract class Widget{
+    name: String
+    _create()
+    _destroy()
+    {abstract} update(value)
+}
+
+abstract class NumberDash{
+    {abstract} update(value: int)
+}
+
+abstract class BooleanDash{
+    {abstract} update(value: bool)
+}
+
+
+
+@enduml
