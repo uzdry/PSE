@@ -1,24 +1,39 @@
 @startuml
 
 
-Widget <|-- NumberDash
-Widget <|-- BooleanDash
+widget <|-- numberDash
+widget <|-- booleanDash
+gridster "1" -- "0..*" widget
 
-abstract class Widget{
-    name: String
+
+abstract class widget{
+    name: string
     _create()
     _destroy()
     {abstract} update(value)
 }
 
-abstract class NumberDash{
+abstract class numberDash{
     {abstract} update(value: int)
 }
 
-abstract class BooleanDash{
+abstract class booleanDash{
     {abstract} update(value: bool)
 }
 
+class gridster{
+    instance: gridster
+    getInstance(): gridster
+    add_widget(:widget, :options)
+    remove_widget(:widget, callback: Function)
+    serialize(): JSON 
+}
+
+note right of gridster::getInstance()
+    if(instance == null)
+        instance == new gridster();
+    return instance;
+end note
 
 
 @enduml
