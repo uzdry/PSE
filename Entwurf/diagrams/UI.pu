@@ -1,39 +1,71 @@
 @startuml
 
 
-widget <|-- numberDash
-widget <|-- booleanDash
-gridster "1" -- "0..*" widget
+Gridster "1" -- "0..*" Widget
 
 
-abstract class widget{
-    name: string
-    _create()
-    _destroy()
-    {abstract} update(value)
+abstract class Widget implements BusAccess{
+    -name: String
+    +_create()
+    +_destroy()
+    +{abstract} update(value)
 }
 
-abstract class numberDash{
-    {abstract} update(value: int)
+abstract class NumberDash extends Widget{
+    +{abstract} update(value: int)
 }
 
-abstract class booleanDash{
-    {abstract} update(value: bool)
+abstract class BooleanDash extends Widget{
+    +{abstract} update(value: bool)
 }
 
-class gridster{
-    instance: gridster
-    getInstance(): gridster
-    add_widget(:widget, :options)
-    remove_widget(:widget, callback: Function)
-    serialize(): JSON 
+class LinearGauge extends NumberDash{
 }
 
-note right of gridster::getInstance()
+class RadialGauge extends NumberDash{
+}
+
+class WarningSign extends BooleanDash{
+}
+
+class Gridster << (S,#FF7700) Singleton,Serializable >> {
+    -instance: Gridster
+    +getInstance(): Gridster
+    +add_widget(:widget, :options)
+    +remove_widget(:widget, callback: Function)
+    +serialize(): JSON 
+}
+
+note right of Gridster
     if(instance == null)
-        instance == new gridster();
-    return instance;
+        instance == new Gridster()
+    return instance
 end note
+
+'-------------------------------------
+
+Settings "1"--"*" Table
+Settings --> Gridster: Change widgets
+
+class Settings implements BusAccess{
+    config: Config
+    -changeConfig()
+}
+
+abstract class Table {
+    -objects[]: Array of Objects
+    +addObject(:Object)
+    +removeObject(:Object)
+}
+
+
+'-------------------------------------
+Map "1"--"1" Table
+
+
+class Map{
+}
+
 
 
 @enduml
