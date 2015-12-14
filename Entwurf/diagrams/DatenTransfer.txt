@@ -1,0 +1,20 @@
+@startuml
+
+Interface BusAccess
+
+Class WebRTCDataChannel
+
+Class Client
+
+Class Proxy {
+dataChannel: WebRTCDataChannel
+transfer()
+}
+
+BusAccess <|.. Proxy
+
+Proxy --> "1" WebRTCDataChannel
+
+Client - BusAccess
+
+@enduml
