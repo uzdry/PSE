@@ -26,10 +26,10 @@ Message <|-- StatisticMessage
 Message <|-- DashboardConfigMessage
 
 abstract class BusAccess << Creator >> {
-	bus: MessageBus
-	recieveQueue: List<Message>
 	+publish(message: Message)
 	+handleMessage(message: Message)
+	+subscribe(object: BusAccess, topic: Topic)
+	+unsubscribe(object: BusAccess, topic: Topic)
 	-createMessage()
 }
 
@@ -46,8 +46,8 @@ class Subscription {
 }
 
 class MessageBus {
-	messageQueue: List<Message>
-	+getBroker()
+	+subscribe(object: BusAccess, topic: Topic)
+	+unsubscribe(object: BusAccess, topic: Topic)
 	+handleMessage(message: Message)
 	-distribute(message: Message)
 }
