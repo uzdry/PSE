@@ -1,0 +1,68 @@
+﻿@startuml
+Class Camera {
+verticalAOV : double
+horizontalAOV : double
+}
+
+Class Vec3 {
+x : double
+y : double
+z : double
+
++normalize()
++getDotProduct(otherVector : Vec3) : double
+}
+
+Class Vec2 {
+x : double
+y : double
+}
+
+Class Car {
+width : double
+frontOverhang : double
+rearOverhang : double
+wheelbase : double
+}
+
+Class SVGDrawer {
++SVGDrawer(camera : Camera)
++drawSVG(screenPath : Vec2[][])
++drawSVG(screenPath : Vec2[][], distances : double[])
++drawSVG(distances : double[])
++deleteSVG()
+}
+
+Class PathCreator {
++PathCreator(car : Car, camera : Camera)
++createPath(steeringWheelPosition : double) : Vec2[][]
+}
+
+Class PerspectiveProjector {
++PerspectiveProjector(camera : Camera)
++pathToScreenPath(path : Vec2[][]) : Vec2[][]
+}
+
+Class Communicator {
+-steeringWheelPosition : double
+-proximitySensorValues : double[]
++initialize(car : Car, camera : Camera, proximitySensorCount : int)
++setSteeringWheel(position : double)
++setProximitySensor(sensor_id : int, distance : double)
+}
+
+Class Rectangle {
+width : int
+height : int
+}
+Camera "0..1" --> "1" Vec3 : isLocatedAt >
+Camera "0..1" --> "1" Vec3 : looksToDirection >
+Communicator "1" o-- "1" SVGDrawer
+Communicator "1" o-- "1" PerspectiveProjector
+Communicator "1" o-- "1" PathCreator
+SVGDrawer "1" --> "1" Camera
+PathCreator "1" --> "1" Camera
+PerspectiveProjector "1" --> "1" Camera 
+PathCreator "1" --> "1" Car
+Camera "1" --> "1" Rectangle : hasResolution >
+@enduml

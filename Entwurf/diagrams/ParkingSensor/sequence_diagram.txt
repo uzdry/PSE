@@ -1,0 +1,39 @@
+﻿@startuml
+->Communicator : initialize(car, camera, proximitySensorCount)
+activate Communicator
+->Communicator : setProximitySensor(id, distance)
+alt [ All proximity sensor values are known]
+Communicator -> SVGDrawer : drawSVG(camera, distances)
+activate SVGDrawer
+deactivate SVGDrawer
+end
+->Communicator : setSteeringWheel(position)
+Communicator->PathCreator : path = createPath(position, camera, car)
+activate PathCreator
+PathCreator-->>Communicator
+deactivate PathCreator
+Communicator->PerspectiveProjector : screenPath = pathToScreenPath(camera, path)
+activate PerspectiveProjector
+PerspectiveProjector-->>Communicator
+deactivate PerspectiveProjector
+alt [ All proximity sensor values are known]
+Communicator->SVGDrawer : drawSVG(camera, screenPath, distances)
+activate SVGDrawer
+deactivate SVGDrawer
+else [ At least one proximity sensor value is missing]
+Communicator->SVGDrawer : drawSVG(camera, screenPath)
+activate SVGDrawer
+deactivate SVGDrawer
+end
+-> Communicator : setProximitySensor(id, distance)
+alt [ All proximity sensor values are known]
+Communicator -> SVGDrawer : drawSVG(camera, screenPath, distances)
+activate SVGDrawer
+deactivate SVGDrawer
+else [ At least one proximity sensor value is missing]
+Communicator -> SVGDrawer : drawSVG(camera, screenPath)
+activate SVGDrawer
+deactivate SVGDrawer
+end
+deactivate Communicator
+@enduml
