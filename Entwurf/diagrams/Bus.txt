@@ -2,6 +2,11 @@ Component diagram 2
 
 @startuml
 
+class Name {
+}
+
+Message *-- "1" Name
+
 abstract class  Message << serializable, Product >> {
 }
 
@@ -11,6 +16,10 @@ class SensorValueMessage << ConcreteProduct >> {
 
 class StatisticMessage << ConcreteProduct >> {
 	statistic: Statistic
+}
+
+class DatabaseRequestMessage <<ConcreteProduct >> {
+	dbRequest: dbRequest
 }
 
 class DashboardConfigMessage << ConcreteProduct >> {
