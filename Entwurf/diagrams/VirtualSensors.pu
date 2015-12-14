@@ -11,15 +11,21 @@ abstract class VirtualSensor {
 	-initialize()
 	-provideValuesFromBus(): double[]
 	-computeValue(values: double[]) : double
+	-pushOnBus(message: Message);
 }
 
 class AverageComputation {
-	type: MessageID
-	+setType(pType: MessageID)
+	type: TopicID
+	+setType(pType: TopicID)
 }
 
+class TripMileage {
+	counter: double
+}
+
+
 VirtualSensor <|-- FuelConsumption
-VirtualSensor <|-- AverageComputation
+VirtualSensor <|-- TripMileage
 
 
 BusAcces <|.. VirtualSensor
