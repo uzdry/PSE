@@ -1,0 +1,35 @@
+@startuml
+
+
+class Statistics {
+	Statistics(tid: TopicID) <<constructor>>
+	-getAllData(tid: TopicID): Map<Date, Value>
+	-getData(tid: TopicID, startTime: Date, endTime: Date): Map<Date, Value>
+}
+
+interface BusAccess
+
+class TerminalProxy {
+
+}
+
+class Value {
+	-value: double
+	-String: unit
+	+getValue(): double
+	+getUnit(): String
+}
+
+class DatabaseConnection {
+	connection: jdbc
+	getTime(tid: TopicID, index: int): Date
+	getData(tid: TopicID, index: int): Value
+}
+
+
+
+Statistics "0..*" <-- TerminalProxy
+BusAccess <|-- TerminalProxy
+
+
+@enduml
