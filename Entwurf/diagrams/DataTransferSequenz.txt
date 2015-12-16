@@ -1,0 +1,26 @@
+activate Terminal
+create PeerConnectionFactory
+Terminal -> PeerConnectionFactory: <<Create>>
+activate PeerConnectionFactory
+Terminal -> PeerConnectionFactory: CreatePeerConnection
+create PeerConnection
+PeerConnectionFactory -> PeerConnection: <<Create>>
+activate PeerConnection
+PeerConnection ->> Terminal: OnSignalingMessage()
+Terminal ->> Webserver: SendOffer()
+activate Webserver
+Webserver ->> Terminal: Answer()
+Terminal ->> PeerConnection: ProcessSignalingMessage()
+loop
+PeerConnection -> Webserver: Onmessage()
+Webserver -> PeerConnection: Onmessage()
+end
+Terminal ->> PeerConnection: Close()
+PeerConnection ->> Terminal: OnStageChange()
+Terminal ->> Webserver: ShutDown()
+Webserver ->> Terminal: AnswerShutDown()
+deactivate Webserver
+Terminal ->> PeerConnection: ProcessSignalingMessage()
+PeerConnection ->> Terminal: OnstageChange()
+deactivate PeerConnection
+deactivate PeerConnectionFactory
