@@ -2,10 +2,10 @@
 actor User
 
 activate User
-User --> Terminal: Open webpage of software
+User ->> Terminal: Open webpage of software
 activate Terminal
 
-Terminal --> Webserver: request webpage with all documents
+Terminal ->> Webserver: request webpage with all documents
 activate Webserver
 
 Terminal <-- Webserver: send page (html, JS) back
@@ -17,12 +17,16 @@ ref over Terminal,Webserver
 end ref
 
 alt signature not found
-	Webserver -> Webserver: create random signature for new device
-	Webserver --> Terminal: send signature
+	Webserver -> Webserver: createRandomSignature()
+	activate Webserver
+		Webserver -> Webserver: Signature
+	deactivate Webserver
+	Webserver -> Terminal: send signature
 	Terminal -> Terminal: create cookie with signature
 end
 
 create ":Proxy"
+
 Webserver --> ":Proxy": <<creates>>
 deactivate Webserver
 
@@ -33,6 +37,7 @@ deactivate Terminal
 
 Terminal --> ":Proxy": send(cookie)
 activate ":Proxy"
+
 
 activate ":Proxy"
 	":Proxy" -> ":Proxy": createMessage(request, signature)
@@ -74,6 +79,7 @@ activate Bus
 	Bus ->> ":Proxy": handleMessage(message)
 deactivate Bus
 
+
 activate ":Proxy"
 	":Proxy" ->> ":Proxy": changeSubscriptions(signature)
 	activate ":Proxy"
@@ -81,6 +87,7 @@ activate ":Proxy"
 	deactivate ":Proxy"
 	Terminal <<- ":Proxy": initiate WebRTC connection
 	Terminal <<- ":Proxy": send config
+
 
 	loop
 		Terminal <-- ":Proxy": send live data
@@ -114,4 +121,5 @@ deactivate ":Proxy"
 deactivate User
 deactivate Terminal
 deactivate Database
+
 @enduml
