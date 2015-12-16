@@ -8,9 +8,14 @@ activate Terminal
 Terminal ->> Webserver: request webpage with all documents
 activate Webserver
 
-Terminal <<-- Webserver: send page (html, JS) back
-Webserver -> Terminal: request VINJAB-Cookie
-Terminal --> Webserver: return cookie or null
+Terminal <-- Webserver: send page (html, JS) back
+
+ref over Terminal,Webserver
+
+	For establishing WebRTC-Connection look in File ...
+
+end ref
+
 alt signature not found
 	Webserver -> Webserver: createRandomSignature()
 	activate Webserver
@@ -21,8 +26,18 @@ alt signature not found
 end
 
 create ":Proxy"
-Webserver -> ":Proxy": <<creates>>
+
+Webserver --> ":Proxy": <<creates>>
 deactivate Webserver
+
+Terminal -> Terminal: searchForCookie()
+activate Terminal
+	Terminal -> Terminal: cookie or null
+deactivate Terminal
+
+Terminal --> ":Proxy": send(cookie)
+activate ":Proxy"
+
 
 activate ":Proxy"
 	":Proxy" -> ":Proxy": createMessage(request, signature)
@@ -64,6 +79,7 @@ activate Bus
 	Bus ->> ":Proxy": handleMessage(message)
 deactivate Bus
 
+
 activate ":Proxy"
 	":Proxy" ->> ":Proxy": changeSubscriptions(signature)
 	activate ":Proxy"
@@ -71,6 +87,7 @@ activate ":Proxy"
 	deactivate ":Proxy"
 	Terminal <<- ":Proxy": initiate WebRTC connection
 	Terminal <<- ":Proxy": send config
+
 
 	loop
 		Terminal <-- ":Proxy": send live data
@@ -104,4 +121,5 @@ deactivate ":Proxy"
 deactivate User
 deactivate Terminal
 deactivate Database
+
 @enduml
