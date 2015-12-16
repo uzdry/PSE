@@ -2,51 +2,70 @@ Component diagram 2
 
 @startuml
 
-abstract class Message {
-	TopicID: Integer
-	+delete()
+class Name {
 }
 
-class SensorValueMessage {
+Message *-- "1" Name
+
+abstract class  Message << serializable, Product >> {
+}
+
+class SensorValueMessage << ConcreteProduct >> {
 	value: float
 }
 
-class GraphicalStatisticMessage {
+class StatisticMessage << ConcreteProduct >> {
 	statistic: Statistic
 }
 
-class DashboardConfigMessage {
+class DatabaseRequestMessage <<ConcreteProduct >> {
+	dbRequest: dbRequest
+}
+
+class DashboardConfigMessage << ConcreteProduct >> {
 	dashboardConfig: DashboardConfig
 }
 
+abstract Class Topic {
+	topic: topic
+}
+
 Message <|-- SensorValueMessage
-Message <|-- GraphicalStatisticMessage
+Message <|-- StatisticMessage
 Message <|-- DashboardConfigMessage
 
-interface BusAccess {
-	bus: MessageBus
-	recieveQueue: List<Message>
+abstract class BusAccess << Creator >> {
 	+publish(message: Message)
 	+handleMessage(message: Message)
-	+getSubscriptions()
+	+subscribe(object: BusAccess, topic: Topic)
+	+unsubscribe(object: BusAccess, topic: Topic)
 	-createMessage()
 }
 
 class Broker {
-	subscriptions: [hashed] Array of Lists of Subscribed Objects
-	+getSubscriptions(TopicID: Integer)
+	+getSubscriptions(topic: Topic)
 	+getSubscriptions(object: BusAccess)
-	+subscribe(object: BusAccess, TopicID: Integer)
-	+unsubscribe(object: BusAccess, TopicID: Integer)
+	+subscribe(object: BusAccess, topic: Topic)
+	+unsubscribe(object: BusAccess, topic: Topic)
+}
+
+class Subscription {
+	subscriber: BusAccess
+	subscribedTopic: Topic
 }
 
 class MessageBus {
-	messageQueue: List<Message>
-	+getBroker()
+	+subscribe(object: BusAccess, topic: Topic)
+	+unsubscribe(object: BusAccess, topic: Topic)
 	+handleMessage(message: Message)
 	-distribute(message: Message)
 }
 
-MessageBus "1"--"1" Broker
+MessageBus *--"1" Broker
+MessageBus o--"0..n" Message
+MessageBus o--"0..n" BusAccess 
+Broker *--"0..n" Subscription
+BusAccess o.."0..n" Message
+Message *--"1" Topic
 
 @enduml

@@ -1,0 +1,46 @@
+Component diagram 2
+
+@startuml
+
+abstract class DBAccess {
+database: Object
+}
+
+class LevelDBAccess extends DBAccess {
+-levelup()
+}
+
+LevelDBAccess o--"1" LevelUP
+
+class LevelUP {
+} 
+note left: is an instance of LevelUP and holds all functionality
+
+
+class DBEntry {
+}
+
+class DBIdentifier {
+date: date
+}
+
+class Value {
+}
+
+abstract class Topic {
+}
+
+abstract class BusAccess {
+}
+
+class DBBusAccess extends BusAccess {
+
+}
+
+LevelUP o--"0..n" DBEntry
+DBBusAccess "1"--o LevelDBAccess
+DBIdentifier o-- Topic
+DBEntry o--"1" DBIdentifier
+DBEntry o--"1" Value
+
+@enduml
