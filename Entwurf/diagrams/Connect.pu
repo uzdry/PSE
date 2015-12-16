@@ -2,69 +2,106 @@
 actor User
 
 activate User
-User --> Terminal: Open webpage of software
+User ->> Terminal: Open webpage of software
 activate Terminal
 
-Terminal --> Webserver: request webpage with all documents
+Terminal ->> Webserver: request webpage with all documents
 activate Webserver
 
-Terminal <-- Webserver: send page (html, JS) back
-Webserver --> Terminal: request VINJAB-Cookie
+Terminal <<-- Webserver: send page (html, JS) back
+Webserver -> Terminal: request VINJAB-Cookie
 Terminal --> Webserver: return cookie or null
 alt signature not found
-	Webserver -> Webserver: create random signature for new device
-	Webserver --> Terminal: send signature
+	Webserver -> Webserver: createRandomSignature()
+	activate Webserver
+		Webserver -> Webserver: Signature
+	deactivate Webserver
+	Webserver -> Terminal: send signature
 	Terminal -> Terminal: create cookie with signature
 end
 
 create ":Proxy"
-Webserver --> ":Proxy": <<creates>>
-activate ":Proxy"
+Webserver -> ":Proxy": <<creates>>
 deactivate Webserver
 
-":Proxy" -> Bus: Request config of signature
-deactivate ":Proxy"
-activate Bus
-Bus -> Database: Push request
-deactivate Bus
-Database -> Database: Search for signature
-
-alt signature found
-	Bus <- Database: Push config	
-	activate Bus
-else signature not found
-	deactivate Bus
-	Database -> Database: create default config
-	Database -> Bus: Push config
-	activate Bus
-end
-
-Bus -> ":Proxy": Push config
-deactivate Bus
 activate ":Proxy"
+	":Proxy" -> ":Proxy": createMessage(request, signature)
+	activate ":Proxy"
+		":Proxy" --> ":Proxy": message
+	deactivate ":Proxy"
+	":Proxy" -> Bus: subscribe(database)
+	activate Bus
+    	Bus -> ":Proxy"
+    deactivate Bus
+	":Proxy" ->> Bus: publish(message)
+deactivate ":Proxy"
 
-":Proxy" --> ":Proxy": Set subscriptions after the config
-Terminal <-- ":Proxy": initiate WebRTC connection
-Terminal <-- ":Proxy": send config
+activate Bus
+	Bus ->> Database: handleMessage(message)
+deactivate Bus
 
-loop
-	Terminal <-- ":Proxy": send live data
-	Terminal --> User: Show dashes with config	
+activate Database
+	Database -> Database: searchSignature(signature)
+	activate Database
+		Database --> Database: Config
+	deactivate Database
 
-	alt config changed
-		Terminal --> ":Proxy": send new config
-		":Proxy" --> Bus: push new config
-		activate Bus
-		":Proxy" --> ":Proxy": adjust subscriptions after config
-		Bus --> Database: push new config
-		deactivate Bus
+	alt signature equals null
+		Database -> Database: createConfig(signature, defaultConfig)
 		activate Database
-		Database --> Database: adjust config of signature
+			Database -> Database
 		deactivate Database
+		
 	end
-end
+	Database -> Database: createMessage(answer, config)
+	activate Database
+		Database -> Database: message
+	deactivate Database
+	Database ->> Bus: publish(message)
+deactivate Database	
+
+activate Bus
+	Bus ->> ":Proxy": handleMessage(message)
+deactivate Bus
+
+activate ":Proxy"
+	":Proxy" ->> ":Proxy": changeSubscriptions(signature)
+	activate ":Proxy"
+		":Proxy" -->> ":Proxy"
+	deactivate ":Proxy"
+	Terminal <<- ":Proxy": initiate WebRTC connection
+	Terminal <<- ":Proxy": send config
+
+	loop
+		Terminal <-- ":Proxy": send live data
+		Terminal --> User: Show dashes with config	
+
+		alt config changed
+			Terminal ->> ":Proxy": send new config
+			":Proxy" -> ":Proxy": createMessage(newConfig, config)
+			activate ":Proxy"
+				":Proxy" --> ":Proxy": Message
+			deactivate ":Proxy"
+			":Proxy" -> ":Proxy": changeSubscribtions(config)
+			activate ":Proxy"
+				":Proxy" --> ":Proxy"
+			deactivate ":Proxy"
+			":Proxy" ->> Bus: publish(message)
+			activate Bus
+				Bus ->> Database: handleMessage(message)
+			deactivate Bus
+			
+			activate Database
+				Database -> Database: adjustConfig(config)
+				activate Database
+					Database->Database
+				deactivate Database
+			deactivate Database
+		end
+	end
+deactivate ":Proxy"
 
 deactivate User
 deactivate Terminal
-deactivate ":Proxy"
+deactivate Database
 @enduml
