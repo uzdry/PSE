@@ -1,10 +1,11 @@
 @startuml
 
 
-Gridster "1"*--"*" Widget
+Grid "1"*--"*" Widget
 
+abstract class BusAccess
 
-abstract class Widget implements BusAccess{
+abstract class Widget extends BusAccess{
     -name: String
     +_create()
     +_destroy()
@@ -28,28 +29,21 @@ class RadialGauge extends NumberDash{
 class WarningSign extends BooleanDash{
 }
 
-class Gridster << (S,#FF7700) Singleton,Serializable >> {
-    -instance: Gridster
-    +getInstance(): Gridster
-    +add_widget(:widget, :options)
-    +remove_widget(:widget, callback: Function)
-    +serialize(): JSON 
+class Grid << (S,#FF7700) Singleton,Serializable >> {
+    +add_widget(:Widget, :Options)
+    +remove_widget(:Widget, callback: Function)
+	-gridster: Gridster
 }
-
-note right of Gridster
-    if(instance == null)
-        instance == new Gridster()
-    return instance
-end note
 
 '-------------------------------------'
 
 Settings *-- Table
-Settings --> Gridster
+Settings --> Grid
 
-class Settings implements BusAccess{
-    config: Config
-    -changeConfig()
+class Settings <<Singleton>> extends BusAccess{
+	-availableSignals: List
+	-config: Config
+	-changeConfig()
 }
 
 abstract class Table {
