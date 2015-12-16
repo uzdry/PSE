@@ -11,7 +11,7 @@ abstract class  Message << serializable, Product >> {
 }
 
 class SensorValueMessage << ConcreteProduct >> {
-	value: float
+	value: Value
 }
 
 class StatisticMessage << ConcreteProduct >> {
@@ -24,10 +24,6 @@ class DatabaseRequestMessage <<ConcreteProduct >> {
 
 class DashboardConfigMessage << ConcreteProduct >> {
 	dashboardConfig: DashboardConfig
-}
-
-abstract Class Topic {
-	topic: topic
 }
 
 class DBRequest {
