@@ -1,4 +1,4 @@
-Component diagram 2
+IComponent diagram 2
 
 @startuml
 
@@ -19,7 +19,7 @@ class StatisticMessage << ConcreteProduct >> {
 }
 
 class DatabaseRequestMessage <<ConcreteProduct >> {
-	dbRequest: dbRequest
+	dbRequest: DBRequest
 }
 
 class DashboardConfigMessage << ConcreteProduct >> {
@@ -30,9 +30,33 @@ abstract Class Topic {
 	topic: topic
 }
 
+class DBRequest {
+	-topic: Topic
+	+getQuery(): Query
+}
+
+class DBReqRecent {
+	-numberRecentEntries: int
+}
+
+class DBReqFrom {
+	-startDate: Date
+}
+
+class DBReqRange {
+	-startDate: Date
+	-endDate: Date
+}
+
 Message <|-- SensorValueMessage
 Message <|-- StatisticMessage
 Message <|-- DashboardConfigMessage
+Message <|-- DatabaseRequestMessage
+
+DBRequest <|-- DBReqRecent
+DBRequest <|-- DBReqFrom
+DBRequest <|-- DBReqRange
+
 
 abstract class BusAccess << Creator >> {
 	+publish(message: Message)
@@ -65,7 +89,7 @@ MessageBus *--"1" Broker
 MessageBus o--"0..n" Message
 MessageBus o--"0..n" BusAccess 
 Broker *--"0..n" Subscription
-BusAccess o.."0..n" Message
+BusAccess o--"0..n" Message
 Message *--"1" Topic
 
 @enduml
