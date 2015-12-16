@@ -1,11 +1,6 @@
 IComponent diagram 2
 
-@startuml
-
-class Name {
-}
-
-Message *-- "1" Name
+@startuml 
 
 abstract class  Message << serializable, Product >> {
 }
@@ -90,6 +85,5 @@ MessageBus o--"0..n" Message
 MessageBus o--"0..n" BusAccess 
 Broker *--"0..n" Subscription
 BusAccess o--"0..n" Message
-Message *--"1" Topic
 
 @enduml
