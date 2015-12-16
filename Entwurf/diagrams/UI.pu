@@ -37,8 +37,8 @@ class Grid << (S,#FF7700) Singleton,Serializable >> {
 
 '-------------------------------------'
 
-Settings *-- Table
-Settings --> Grid
+Settings "1"*--"1..*" Table
+Settings o--"1" Grid
 
 class Settings <<Singleton>> extends BusAccess{
 	-availableSignals: List
