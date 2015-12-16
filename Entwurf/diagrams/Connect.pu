@@ -1,14 +1,9 @@
 @startuml
-actor User
-
-activate User
-User ->> Terminal: Open webpage of software
 activate Terminal
-
-Terminal ->> Webserver: request webpage with all documents
+Terminal ->> Webserver: openWebpage()
 activate Webserver
 
-Terminal <-- Webserver: send page (html, JS) back
+Terminal <-- Webserver: {css, JS, html}
 
 ref over Terminal,Webserver
 
@@ -16,14 +11,6 @@ ref over Terminal,Webserver
 
 end ref
 
-alt signature not found
-	Webserver -> Webserver: createRandomSignature()
-	activate Webserver
-		Webserver -> Webserver: Signature
-	deactivate Webserver
-	Webserver -> Terminal: send signature
-	Terminal -> Terminal: create cookie with signature
-end
 
 create ":Proxy"
 
@@ -38,6 +25,14 @@ deactivate Terminal
 Terminal --> ":Proxy": send(cookie)
 activate ":Proxy"
 
+alt signature not found
+	":Proxy" -> ":Proxy": createRandomSignature()
+	activate ":Proxy"
+		":Proxy" -> ":Proxy": Signature
+	deactivate ":Proxy"
+	":Proxy" ->> Terminal: send(signature)
+	Terminal -> Terminal: createCookie(signature)
+end
 
 activate ":Proxy"
 	":Proxy" -> ":Proxy": createMessage(request, signature)
@@ -62,7 +57,7 @@ activate Database
 	deactivate Database
 
 	alt signature equals null
-		Database -> Database: createConfig(signature, defaultConfig)
+		Database -> Database: createDefaultConfig(signature)
 		activate Database
 			Database -> Database
 		deactivate Database
@@ -81,45 +76,12 @@ deactivate Bus
 
 
 activate ":Proxy"
-	":Proxy" ->> ":Proxy": changeSubscriptions(signature)
+
+	":Proxy" -> ":Proxy": changeSubscriptions(signature)
 	activate ":Proxy"
-		":Proxy" -->> ":Proxy"
+		":Proxy" --> ":Proxy"
+		
 	deactivate ":Proxy"
-	Terminal <<- ":Proxy": initiate WebRTC connection
-	Terminal <<- ":Proxy": send config
 
-
-	loop
-		Terminal <-- ":Proxy": send live data
-		Terminal --> User: Show dashes with config	
-
-		alt config changed
-			Terminal ->> ":Proxy": send new config
-			":Proxy" -> ":Proxy": createMessage(newConfig, config)
-			activate ":Proxy"
-				":Proxy" --> ":Proxy": Message
-			deactivate ":Proxy"
-			":Proxy" -> ":Proxy": changeSubscribtions(config)
-			activate ":Proxy"
-				":Proxy" --> ":Proxy"
-			deactivate ":Proxy"
-			":Proxy" ->> Bus: publish(message)
-			activate Bus
-				Bus ->> Database: handleMessage(message)
-			deactivate Bus
-			
-			activate Database
-				Database -> Database: adjustConfig(config)
-				activate Database
-					Database->Database
-				deactivate Database
-			deactivate Database
-		end
-	end
-deactivate ":Proxy"
-
-deactivate User
-deactivate Terminal
-deactivate Database
 
 @enduml
