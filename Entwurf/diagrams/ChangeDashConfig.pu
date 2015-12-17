@@ -1,0 +1,40 @@
+@startuml
+
+
+loop
+	activate ":Proxy"
+	activate Terminal
+		Terminal <-- ":Proxy": send live data
+		Terminal -> Terminal: updateDashes()
+		activate Terminal		
+			Terminal --> Terminal
+		deactivate Terminal
+		
+		alt config changed
+			Terminal ->> ":Proxy": send new config
+				":Proxy" -> ":Proxy": changeSubscribtions(config)
+				activate ":Proxy"
+					":Proxy" --> ":Proxy"
+				deactivate ":Proxy"
+				":Proxy" -> ":Proxy": createMessage(newConfig, config)
+				activate ":Proxy"
+					":Proxy" --> ":Proxy": Message
+				deactivate ":Proxy"
+				":Proxy" ->> Bus: publish(message)
+			activate Bus
+				Bus ->> Database: handleMessage(message)
+			deactivate Bus
+			
+			activate Database
+				Database -> Database: adjustConfig(config)
+				activate Database
+					Database->Database
+				deactivate Database
+				
+		end
+	deactivate ":Proxy"
+end
+	
+	
+deactivate Terminal
+@enduml
