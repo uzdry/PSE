@@ -1,0 +1,27 @@
+@startuml
+
+Class Button{
+-gasLevel: double
+#location: Location
++downloadMap()
++view()
+}
+
+Class MapButton
+Class Decorator
+Button <|-down- MapButton
+Button <|- Decorator
+
+Class GasDecorator {
++downloadMap()
+}
+
+Class POIDecorator {
++downloadMap()
+}
+
+Decorator o-- Button
+Decorator <|- GasDecorator
+Decorator <|-down- POIDecorator
+
+@enduml
