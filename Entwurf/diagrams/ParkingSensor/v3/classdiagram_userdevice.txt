@@ -1,0 +1,50 @@
+﻿@startuml
+
+abstract class BusAccess {
+
+}
+
+class DrawablePath {
+}
+
+class ProximitySensorDisplay {
+-radius : double
+-stroke : Brush
+-fill : Color
+-fillOpacity : Percent
+}
+
+abstract class NodeComponent {
+parentNode : NodeComponent
+
+setAttribute(name, value)
+}
+
+class NodeComposite {
++childNodes : NodeComposite[]
+appendChild(newChild : NodeComponent)
+removeChild(child : NodeComponent)
+}
+
+interface Path {
+getIterator() : PathIterator
+
+}
+
+
+abstract class NodeLeaf {
+}
+
+
+NodeLeaf <|.. DrawablePath
+DrawablePath "1" *-- "1" Path
+NodeComponent <|-- NodeComposite
+NodeComponent "0..*" <-- NodeComposite
+
+NodeComponent <|-- NodeLeaf
+
+NodeLeaf <|.. ProximitySensorDisplay
+
+BusAccess <|-- DrawablePath
+BusAccess <|-- ProximitySensorDisplay
+@enduml
