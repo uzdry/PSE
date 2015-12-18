@@ -52,9 +52,44 @@
   	\section{Parking Sensor}
 		Hier ist zu sehen wie das Rückfahrassistenzsystem aufgebaut ist. Siehe auch %TODO Link sequenzdiagramm
 		\begin{figure}[H]
- 			\makebox[\textwidth][c]{\includegraphics[width=0.9\paperwidth]{diagrams/ParkingSensor/class_diagram.png}}
+ 			%\makebox[\textwidth][c]{\includegraphics[width=0.9\paperwidth]{diagrams/ParkingSensor/class_diagram.png}}
   			\caption{Rückfahrsystem Klassendiagramm}
   		\end{figure}
   	
+  	
+\chapter{Klassen}
+	\section{BusAccess}
+	\label{Class:BusAccess}
+		Eine abstrakte Klasse die es ermöglichen soll Zugriff auf den Bus zu bekommen.
+		\begin{description}
+			\attr{private messages: List of Messages} 
+				Noch zu versendende Nachrichten
+			\method{public publish(message: Message): Boolean} 
+				Veröffentliche eine Nachricht.\\ 
+				\textbf{Rückgabewert:} Erfolg des Veröffentlichen?
+			\method{abstract public handleMessage(message: Message)} 
+				Funktion zum empfangen einer neuen und abonnierten Nachricht.\\ 
+				\textbf{Rückgabewert:}
+			\method{public subscribe(object: BusAccess, topic: Topic): boolean} 
+				Funktion um ein Topic zu abonnieren.\\ 
+				\textbf{Parameter:} Der Abonnent und das abonnierte Topic.\\ 
+				\textbf{Rückgabewert:} Erfolg des abonnierens.
+			\method{public unsubscribe(object: BusAccess, topic: Topic): boolean} 
+				Funktion um ein Abonnement zu beenden.\\ 
+				\textbf{Parameter:} Der Abonnent und das abonnierte Topic.\\ 
+				\textbf{Rückgabewert:} Erfolg des beendens
+			\method{private createMessage(): Message}
+				Ganz ehrlich: Ich hab keine Ahnung für was die hier sein soll. Da sollte vllt noch ein oder zwei Parameter zum erzeugen der Message.
+		\end{description}
+  		
+	\section{Message}
+	\label{Class:Message}
+		Eine abstrakte Klasse die als Muster für alle Nachrichten auf dem Bus genutzt wird.
+		\begin{description}
+			\attr{protected topic: Topic} 
+				Das Topic der Nachricht.
+		\end{description}
+		
+
   	
 \end{document}

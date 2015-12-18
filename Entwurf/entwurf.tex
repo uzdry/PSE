@@ -24,6 +24,16 @@
 % \renewcommand{\theenumii}{\arabic{enumii}}
 % \renewcommand{\labelenumii}{/FA\ifnum \value{enumi}<10 0\fi\arabic{enumi}\arabic{enumii}/}
 
+% new commands for creating the Class description
+\newcommand{\method}[1]{
+			\item[\texttt{\textbf{#1}}]
+            }
+\newcommand{\attr}[1]{\item[\texttt{\textbf{#1}}]}
+\newcommand{\type}[1]{\texttt{#1}}
+\newcommand{\literal}[1]{\item[\texttt{#1}]}
+\newcommand{\mlmethod}[1]{\method{\parbox{\textwidth}{#1}}}
+
+
 \pagenumbering{roman}
 \begin{document}
 
