@@ -1,0 +1,24 @@
+﻿@startuml
+
+
+
+
+class ProximityColorScheme <<(X,orchid) >> {
++convertValueToColor(proximity : double) : Color
++getFillOpacity() : Percent
+}
+
+class ProximitySensorDisplay << (R,orchid) >> {
+}
+
+class Circle {
+radius : double
+stroke : Brush
+}
+
+
+ProximitySensorDisplay "1" *-- "1" Circle
+
+ProximityColorScheme <-- ProximitySensorDisplay
+
+@enduml

@@ -1,0 +1,174 @@
+﻿@startuml
+
+class Frame {
+}
+
+class Angle {
++getValueInRadians() : double
++setValueInRadians(angle : double)
+}
+
+class Percent {
++getValue() : double
++setValue() : double
+}
+
+class WebCamStream {
+}
+
+class Vec2 {
+x : double
+y : double
+}
+
+class Vec3 {
+x : double
+y : double
+z : double
+
+normalize()
+getDotProduct(otherVector : Vec3) : double
+}
+
+class Rectangle {
+width : int
+height : int
+}
+
+class Car <<(X,orchid)>> {
+width : double
+rearOverhang : double
+wheelBase : double
+}
+
+
+class Brush {
+width : int
+color : Color
+opacity : Percent
+}
+
+class Camera <<(X,orchid)>> {
+position : Vec3
+direction : Vec3
+resolution : Rectangle
+}
+
+class FieldOfView {
++getHorizontalAngleOfView() : Angle
++getVerticalAngleOfView() : Angle
+}
+
+class PathFactory {
++createPath(steeringWheelPosition : Angle) : Path 
+}
+
+class PerspectiveProjector {
++projectPathToScreen(path : Path) : Path
+}
+
+class PathDrawer <<(R,orchid)>> {
+
+}
+
+class ProximityColorScheme <<(X,orchid) >> {
++convertValueToColor(proximity : double) : Color
++getFillOpacity() : Percent
+}
+
+class ProximitySensorDisplay << (R,orchid) >> {
+}
+
+class Circle {
+radius : double
+stroke : Brush
+}
+
+class Image {
+- resolution : Rectangle
+- imageData : XDOMNodeComposite
++ getImageData() : XDOMNodeComposite
+}
+
+interface XDOMNodeComponent {
+getDOMNode() : var
+getParent() : XDOMNodeComponent
+getPosition() : Vec2
+setPosition(position : Vec2)
+}
+
+class XDOMNodeComposite {
+-position : Vec2
+addElement(element : XDOMNodeComponent)
+removeElement(element : XDOMNodeComponent)
+getChildren() : XDOMNodeComponent[]
+}
+
+interface PathIterator{
+getFirst() : Vec2
+getNext() : Vec2
+}
+
+interface Path {
+getIterator() : PathIterator
+
+}
+
+class PathCircle {
+getCoordinates(rotation : Angle) : Vec2
+}
+
+class PathCircleIterator {
+
+}
+
+class PathArray {
+getCoordinates(index : int) : Vec2
+getLength() : int
+}
+
+abstract class XDOMNodeLeaf {
+- position : Vec2
+}
+
+class DrawablePath {
+-stroke : Brush
++getStroke() : Brush
++getPath() : Path
+}
+
+DrawablePath "0..1" o-- "1" Path
+PathIterator <|-- PathCircleIterator
+PathIterator <|-- PathArrayIterator
+Path <|-- PathCircle
+Path <|-- PathArray
+
+XDOMNodeLeaf <|.. PathDrawer
+PathDrawer "1" *-- "1" DrawablePath
+XDOMNodeComponent <|-- XDOMNodeComposite
+XDOMNodeComponent "0..*" <-- XDOMNodeComposite 
+XDOMNodeComponent <|-- Image
+
+XDOMNodeComponent <|-- XDOMNodeLeaf
+
+XDOMNodeLeaf <|.. ProximitySensorDisplay
+
+ProximitySensorDisplay "1" *-- "1" Circle
+
+ProximityColorScheme <-- ProximitySensorDisplay
+
+PathCircle <--> PathCircleIterator
+PathArray <--> PathArrayIterator
+PathIterator <-- PathDrawer
+
+Camera "1" *-- "1" FieldOfView
+Car <-- PathFactory
+Camera <-- PerspectiveProjector
+PathFactory <-- PathDrawer
+PerspectiveProjector <-- PathDrawer
+
+DrawablePath <-- PathDrawer
+
+Frame "1" *-- "1" WebCamStream
+Frame "1" *-- "1" Image
+@enduml

@@ -1,0 +1,44 @@
+﻿@startuml
+
+class Frame {
+}
+
+class Angle {
++getValueInRadians() : double
++setValueInRadians(angle : double)
+}
+
+class Percent {
++getValue() : double
++setValue() : double
+}
+
+class WebCamStream {
+}
+
+class Vec2 {
+x : double
+y : double
+}
+
+class Vec3 {
+x : double
+y : double
+z : double
+
+normalize()
+getDotProduct(otherVector : Vec3) : double
+}
+
+class Rectangle {
+width : int
+height : int
+}
+
+
+class Brush {
+width : int
+color : Color
+opacity : Percent
+}
+@enduml

@@ -1,0 +1,73 @@
+﻿@startuml
+
+class Car <<(X,orchid)>> {
+width : double
+rearOverhang : double
+wheelBase : double
+}
+
+class Camera <<(X,orchid)>> {
+position : Vec3
+direction : Vec3
+resolution : Rectangle
+}
+
+class FieldOfView {
++getHorizontalAngleOfView() : Angle
++getVerticalAngleOfView() : Angle
+}
+
+class PathFactory {
++createPath(steeringWheelPosition : Angle) : Path 
+}
+
+class PerspectiveProjector {
++projectPathToScreen(path : Path) : Path
+}
+
+class PathDrawer <<(R,orchid)>> {
+
+}
+
+
+
+
+
+
+
+
+interface PathIterator{
+getFirst() : Vec2
+getNext() : Vec2
+}
+
+interface Path {
+getIterator() : PathIterator
+
+}
+
+
+
+class DrawablePath {
+-stroke : Brush
++getStroke() : Brush
++getPath() : Path
+}
+
+DrawablePath "0..1" o-- "1" Path
+
+PathDrawer "1" *-- "1" DrawablePath
+
+
+
+PathIterator <-- PathDrawer
+
+Camera "1" *-- "1" FieldOfView
+Car <-- PathFactory
+Camera <-- PerspectiveProjector
+PathFactory <-- PathDrawer
+PerspectiveProjector <-- PathDrawer
+
+DrawablePath <-- PathDrawer
+
+@enduml

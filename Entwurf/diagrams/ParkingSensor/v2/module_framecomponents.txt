@@ -1,0 +1,58 @@
+﻿@startuml
+
+class Frame {
+}
+
+class WebCamStream {
+}
+
+class PathDrawer <<(R,orchid)>> {
+
+}
+
+class ProximitySensorDisplay << (R,orchid) >> {
+}
+
+class Image {
+- resolution : Rectangle
+- imageData : XDOMNodeComposite
++ getImageData() : XDOMNodeComposite
+}
+
+interface XDOMNodeComponent {
+getDOMNode() : var
+getParent() : XDOMNodeComponent
+getPosition() : Vec2
+setPosition(position : Vec2)
+}
+
+class XDOMNodeComposite {
+-position : Vec2
+addElement(element : XDOMNodeComponent)
+removeElement(element : XDOMNodeComponent)
+getChildren() : XDOMNodeComponent[]
+}
+
+
+
+abstract class XDOMNodeLeaf {
+- position : Vec2
+}
+
+
+
+XDOMNodeLeaf <|.. PathDrawer
+XDOMNodeComponent <|-- XDOMNodeComposite
+XDOMNodeComponent "0..*" <-- XDOMNodeComposite 
+XDOMNodeComponent <|-- Image
+
+XDOMNodeComponent <|-- XDOMNodeLeaf
+
+XDOMNodeLeaf <|.. ProximitySensorDisplay
+
+
+
+Frame "1" *-- "1" WebCamStream
+Frame "1" *-- "1" Image
+
+@enduml
