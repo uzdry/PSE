@@ -1,0 +1,42 @@
+Component diagram 2
+
+@startuml
+
+abstract class BusAccess {
+	...
+}
+
+abstract class VirtualSensor {
+	-topic: Topic
+	+activ(pActive: Boolean): Boolean
+	-initialize()
+	-computeValue(values: Value[]): Value
+}
+
+class TripMileage {
+	-counter: Value
+}
+
+class AverageComputation {
+	-avgTopic: Topic
+}
+
+class Statistics {
+	-topic: Topic
+	-values: Map<Date, Value>
+	+Statistics(pTopic: Topic, pValues: Map<Date, Value>)
+	+data(): Map<Date, Value>
+	+getTimestamps(): Array of Date
+	+getValues(): Array of Value
+}
+
+
+VirtualSensor <|-- FuelConsumption
+VirtualSensor <|-- TripMileage
+VirtualSensor <|-- AverageComputation
+VirtualSensor <|-- RemainingMiles
+
+BusAccess <|-- VirtualSensor
+
+@enduml
+
