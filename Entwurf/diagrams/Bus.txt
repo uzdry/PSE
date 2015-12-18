@@ -3,74 +3,75 @@ IComponent diagram 2
 @startuml 
 
 abstract class  Message << serializable, Product >> {
+	-topic: Topic
 }
 
-class SensorValueMessage << ConcreteProduct >> {
-	value: Value
+class ValueMessage << ConcreteProduct >> extends Message {
+	-value: Value
 }
 
-class ConfigFileMessage << ConcreteProduct >> extends Message {
-configFileRequest: ConfigFileRequest
+class StatisticMessage << ConcreteProduct >> extends Message {
+	-statistic: Statistic
 }
 
-class StatisticMessage << ConcreteProduct >> {
-	statistic: Statistic
+class PathMessage << ConcreteProduct >> extends Message {
+	-curve1: List of Vec2
+	-curve2: List of Vec2
 }
 
-class DatabaseRequestMessage <<ConcreteProduct >> {
-	dbRequest: DBRequest
+class ConfigRequestMessage << ConcreteProduct >> extends Message {
+	-configRequest: ConfigRequest
 }
 
-class DashboardConfigMessage << ConcreteProduct >> {
-	dashboardConfig: DashboardConfig
+class DBRequestMessage << ConcreteProduct >> extends Message {
+	-DBRequest: ConfigRequest
+}
+
+class SettingsMessage << ConcreteProduct >> extends Message {
+	-Map<Topic, Value>
+}
+
+class ConfigRequest {
+	-List<ConfigFileEntry>
 }
 
 class DBRequest {
 	-topic: Topic
+	-onCurrentDriver: Boolean
 	+getQuery(): Query
 }
 
-class DBReqRecent {
+class DBReqRecent extends DBRequest {
 	-numberRecentEntries: int
 }
 
-class DBReqFrom {
+class DBReqFrom extends DBRequest {
 	-startDate: Date
 }
 
-class DBReqRange {
+class DBReqRange extends DBRequest {
 	-startDate: Date
 	-endDate: Date
 }
 
-Message <|-- SensorValueMessage
-Message <|-- StatisticMessage
-Message <|-- DashboardConfigMessage
-Message <|-- DatabaseRequestMessage
-
-DBRequest <|-- DBReqRecent
-DBRequest <|-- DBReqFrom
-DBRequest <|-- DBReqRange
-
-
 abstract class BusAccess << Creator >> {
-	+publish(message: Message)
-	+handleMessage(message: Message)
-	+subscribe(object: BusAccess, topic: Topic)
-	+unsubscribe(object: BusAccess, topic: Topic)
-	-createMessage()
+	+publish(message: Message): Boolean
+	+{abstract}handleMessage(message: Message)
+	+subscribe(object: BusAccess, topic: Topic): Boolean
+	+unsubscribe(object: BusAccess, topic: Topic): Boolean
+	-createMessage(): Message
 }
 
 class Broker {
-	+getSubscriptions(topic: Topic)
-	+getSubscriptions(object: BusAccess)
-	+subscribe(object: BusAccess, topic: Topic)
-	+unsubscribe(object: BusAccess, topic: Topic)
+	+getSubscribers(topic: Topic): List of Subscriptions
+	+getSubscriptions(object: BusAccess): List of BusAccess
+	+subscribe(object: BusAccess, topic: Topic): Boolean
+	+unsubscribe(object: BusAccess, topic: Topic): Boolean
 }
 
 class Subscription {
-	subscriber: BusAccess
-	subscribedTopic: Topic
+	-subscriber: BusAccess
+	-subscribedTopic: Topic
 }
 
 class MessageBus {
