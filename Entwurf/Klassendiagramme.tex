@@ -177,5 +177,53 @@ Die Statusbar kann aus mehreren Buttons, Text und Icons bestehen.
 		\label{ClassFamily:Request}
 		Eine ''Familie'' von Klassen, die zum Anfordern von Informationen benutzt werden. Requests werden in der Regel über Nachrichten versendet und beinhalten z.B. Anfragen an die Datenbank.
 		
+	\section{User Interface}
+		\subsection{Website}
+		Da dies eine statische Webseite darstellt kann man es nicht als Objekt ansehen. Es besitzt zwei Frames die mit den gewünschten JS oder TS-Elementen gefüllt werden können.
+		
+		
+		\subsection{ViewFrame}
+		\label{Class:ViewFrame}
+		Abstrakte Superklasse für alle Views. Unter anderem das Dashboard, die Settings, die Karte und die Rückfahrkamera.
+		    \begin{description}
+				\attr{private elements: List of elements}
+					Liste aller angezeigten Elemente.\\		    	
+		    	\method{abstract public resize(x: integer, y: integer): boolean}
+		    		Ändert die Größe des Frames, welches automatisch auch alle darin angezeigten Elemente anpasst.\\
+		    	
+		    \end{description}
+		
+		\subsection{StatusBarFrame}
+		\label{Class:StatusBarFrame}
+		Zweiter Anzeigeframe. Eine Leiste am oberen Rand der Website.
+		\begin{description}
+			\attr{private elements: List of elements}
+				Liste aller angezeigten Elemente.\\
+			\method{public addElement(e: Element, pos: Position): boolean}
+				Fügt ein neues Anzeigeelement zur Leiste hinzu. 
+				\textbf{Parameter:} Mit dem Parameter pos lässt sich die Position des Elements e auf der Leiste bestimmen.
+				\textbf{Rückgabewert:} Boolean der angibt ob das Hinzufügen funktioniert hat.
+			\method{public removeElement(e: Element): boolean}
+				Entfernt ein Anzeigeelement von der Leiste. 
+				\textbf{Parameter:} Das zu entfernende Element e.
+				\textbf{Rückgabewert:} Boolean das angibt ob das Entfernen funktioniert hat.
+		\end{description}
+		
+		
+		\subsection{GridView}
+		\label{Class:GridView}
+		Das Dashboard. Die gesamte Anzeige besteht aus einem Grid. Als Serializable lässt sich sein Zustand speichern und wiederherstellen.
+		\begin{description}
+			\attr{private gridster: Gridster}
+				Objekt des Plugins welches das gesamte Grid darstellt. 
+			\method{public addWidget(:Widget, :Options): boolean)}
+				Fügt ein Widget in das Grid hinzu.
+				\textbf{Parameter:} Das hinzuzufügende Widget und Optionen (z.B. Positions und Größenangaben).
+				\textbf{Rückgabewert:} Boolean das angibt ob das Hinzufügen ein Erfolg war.
+			\method{public removeWidget(:Widget): boolean)}
+				Entfernt ein Widget vom Grid
+				\textbf{Parameter:} Das zu entfernende Widget.
+				\textbf{Rückgabewert:} Boolean das angibt ob das Entfernen ein Erfolg war.
+		\end{description}
 		
 \end{document}

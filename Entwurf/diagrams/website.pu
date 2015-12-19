@@ -3,13 +3,12 @@
 class Website <<(W,#FF7700)HTML>>{
 }
 
-class Frame <<HTML>>{
+class StatusbarFrame {
 }
 
-class StatusbarFrame <<HTML>> extends Frame{
-}
-
-class ViewFrame <<HTML>> extends Frame{
+abstract class ViewFrame {
+	private elements: List of elements
+	{abstract} public resize(x: integer, y: integer)
 }
 
 class MapView extends ViewFrame{
