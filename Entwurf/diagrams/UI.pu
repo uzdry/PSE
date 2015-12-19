@@ -1,7 +1,29 @@
 @startuml
 
 
-Grid "1"*--"*" Widget
+class Website <<(W,#FF7700)HTML>>{
+}
+
+class Frame <<HTML>>{
+}
+
+class StatusbarFrame <<HTML>> extends Frame{
+}
+
+class ViewFrame <<HTML>> extends Frame{
+}
+
+Website o-left-"1" StatusbarFrame
+Website o-down-"1" ViewFrame
+StatusbarFrame o-left-"0..n" Button
+
+
+'----------------------'
+
+
+
+
+GridView "1"*--"*" Widget
 
 abstract class BusAccess
 
@@ -29,7 +51,7 @@ class RadialGauge extends NumberDash{
 class WarningSign extends BooleanDash{
 }
 
-class Grid << (S,#FF7700) Singleton,Serializable >> {
+class GridView <<  Singleton,Serializable >> extends ViewFrame{
     +add_widget(:Widget, :Options)
     +remove_widget(:Widget, callback: Function)
 	-gridster: Gridster
@@ -37,10 +59,10 @@ class Grid << (S,#FF7700) Singleton,Serializable >> {
 
 '-------------------------------------'
 
-Settings "1"*--"1..*" Table
-Settings o--"1" Grid
+SettingsView "1"*--"1..*" Table
+SettingsView o--"1" GridView
 
-class Settings <<Singleton>> extends BusAccess{
+class SettingsView <<Singleton>> extends BusAccess, ViewFrame{
 	-availableSignals: List
 	-config: Config
 	-changeConfig()
@@ -55,6 +77,10 @@ abstract class Table {
 
 '-------------------------------------'
 
+class MapView extends ViewFrame{
+}
 
+class ParkingView extends ViewFrame{
+}
 
 @enduml
