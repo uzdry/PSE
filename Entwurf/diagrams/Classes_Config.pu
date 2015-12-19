@@ -1,0 +1,19 @@
+@startuml
+
+abstract class BusAccess{
+. . . 
+}
+
+
+class ConfigFileReader extends BusAccess{
+	-configFile: File
+	-setConfig(): boolean
+	-getConfig(): value
+} 
+
+class SignalCollector extends BusAccess{
+	-signalsList: List of available Signals
+}
+
+
+@enduml
