@@ -1,0 +1,67 @@
+﻿@startuml
+
+abstract class BusAccess {
+
+}
+
+class Settings {
+
+carWidth : double
+carRearOverhang : double
+carWheelBase : double
+
+camPosition : Vec3
+camDirection : Vec3
+camResolution : Rectangle
+
+camHorizontalAngleOfView : Angle
+camVerticalAngleOfView : Angle
+
+}
+
+class PathCalculator {
+-createPath(steeringWheelPosition : Angle) : Path 
+-projectPathToScreen(path : Path) : Path
+-publish(pathMessage : PathMessage)
+}
+
+interface PathIterator{
+getFirst() : Vec2
+getNext() : Vec2
+}
+
+interface Path {
+getIterator() : PathIterator
+
+}
+
+class PathCircle {
+getCoordinates(rotation : Angle) : Vec2
+}
+
+class PathCircleIterator {
+
+}
+
+class PathArray {
+getCoordinates(index : int) : Vec2
+getLength() : int
+}
+
+
+PathIterator <|-- PathCircleIterator
+PathIterator <|-- PathArrayIterator
+Path <|-- PathCircle
+Path <|-- PathArray
+
+PathCalculator "1" *-- "1" Path
+
+
+
+PathCircle <--> PathCircleIterator
+PathArray <--> PathArrayIterator
+
+BusAccess <|-- PathCalculator
+PathCalculator o-- Settings
+BusAccess <|-- Settings
+@enduml
