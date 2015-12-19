@@ -2,21 +2,13 @@ Component diagram 2
 
 @startuml
 
-abstract class DBAccess {
-database: Object
-}
-
-class LevelDBAccess extends DBAccess {
+class LevelDBAccess {
 currentDriver: Driver
 maxCapacity: NaturalNumber
+database: LevelUP
 -levelup()
 -DeleteOnMaxCapacity()
 }
-
-LevelDBAccess o--"1" LevelUP
-
-class LevelUP {
-} 
 
 abstract class DBEntry {
 }
@@ -37,7 +29,6 @@ abstract class BusAccess {
 class DBBusAccess extends BusAccess {
 }
 
-LevelUP o--"0..n" DBEntry
 DBBusAccess "1"--o LevelDBAccess
 
 @enduml
