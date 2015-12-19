@@ -76,38 +76,98 @@ Die Statusbar kann aus mehreren Buttons, Text und Icons bestehen.
   	
   	
 \chapter{Klassen}
-	\section{BusAccess}
-	\label{Class:BusAccess}
-		Eine abstrakte Klasse die es ermöglichen soll Zugriff auf den Bus zu bekommen.
+	\section{Bus}
+	\subsection{BusAccess}
+	\label{Class:BusAccess} 
+		Eine abstrakte Klasse, deren erbende Klassen Zugriff auf das Bus-Modul haben.
 		\begin{description}
 			\attr{private messages: List of Messages} 
 				Noch zu versendende Nachrichten
-			\method{public publish(message: Message): Boolean} 
-				Veröffentliche eine Nachricht.\\ 
-				\textbf{Rückgabewert:} Erfolg des Veröffentlichen?
-			\method{abstract public handleMessage(message: Message)} 
-				Funktion zum empfangen einer neuen und abonnierten Nachricht.\\ 
-				\textbf{Rückgabewert:}
+			\method{public publish(message: Message): Boolean}
+			
+				Sendet eine Nachricht asynchron an eine Instanz von MessageBus.\\ 
+				\textbf{Parameter:} Die zu versendende Nachricht.\\ 
+				\textbf{Rückgabewert:} Boolean, der beschreibt, ob die Nachricht beim Bus angekommen ist.
+			\method{abstract public handleMessage(message: Message): Void}  
+				Funktion zum asynchronen Empfangen einer Nachricht von einer Instanz von MessageBus.\\ 
 			\method{public subscribe(object: BusAccess, topic: Topic): boolean} 
-				Funktion um ein Topic zu abonnieren.\\ 
-				\textbf{Parameter:} Der Abonnent und das abonnierte Topic.\\ 
-				\textbf{Rückgabewert:} Erfolg des abonnierens.
+				Funktion zum abonnieren von Nachrichten eines bestimmten Themas.\\ 
+				\textbf{Parameter:} Der Abonnent und das abonnierte Thema.\\ 
+				\textbf{Rückgabewert:} Boolean, der beschreibt, ob das Thema erfolgreich abonniert wurde.
 			\method{public unsubscribe(object: BusAccess, topic: Topic): boolean} 
-				Funktion um ein Abonnement zu beenden.\\ 
-				\textbf{Parameter:} Der Abonnent und das abonnierte Topic.\\ 
-				\textbf{Rückgabewert:} Erfolg des beendens
-			\method{private createMessage(): Message}
-				Ganz ehrlich: Ich hab keine Ahnung für was die hier sein soll. Da sollte vllt noch ein oder zwei Parameter zum erzeugen der Message.
+				Funktion zum Beenden eines Abonnements zu einem bestimmten Thema.\\ 
+				\textbf{Parameter:} Der Abonnent und das abonnierte Thema.\\ 
+				\textbf{Rückgabewert:} Boolean, der beschreibt, ob das Thema erfolgreich aus der Liste der Abonnements entfernt wurde.
+			\method{private createMessage(): Message} 
+				Funktion zum Erzeugen einer neuen Nachricht. Die Funktion sollte in den meisten Fällen von der erbenden Klasse überschrieben werden. \\
+				\textbf{Rückgabewert}: Die neu erzeugte Nachricht.
 		\end{description}
   		
-	\section{Message}
-	\label{Class:Message}
-		Eine abstrakte Klasse die als Muster für alle Nachrichten auf dem Bus genutzt wird.
+	\subsection{Message}
+	\label{Class:Message} 
+		Eine abstrakte Klasse, die als Muster für alle Nachrichten dient, die über den Bus versendet werden können.
 		\begin{description}
-			\attr{protected topic: Topic} 
-				Das Topic der Nachricht.
+			\attr{protected topic: Topic}  
+				Das Thema der Nachricht; wird zur Identifikation des Nachrichtentyps sowie des Inhalts der Nachricht benutzt.
+			\attr{Inhalt}
+				Der Inhalt der Nachricht, ist je nach erbender Klasse von einem unterschiedlichen Typ.
 		\end{description}
+	\subsection{MessageBus}
+	\label{Class:MessageBus}
+		Die Klasse, die die Funktionalität des Busses beinhaltet.
+		\begin{description}
+			\attr{private broker: Broker}
+				Der Broker des Busses; siehe Beschreibung der Broker-Klasse. \\
+				
+			\method{public subscribe(object: BusAccess, topic: Topic): Boolean}
+			Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription in der Broker-Instanz des MessageBus anlegt. \\
+			\textbf{Parameter:} Der Abonnent und das abonnierte Thema. \\
+			\textbf{Rückgabewert:}Boolean, der den Erfolg des Eintrags der Subscription angibt. \\
+			
+			\method{public unsubscribe(object: BusAccess, topic: Topic): Boolean}
+			Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription in der Broker-Instanz des MessageBus löscht, sofern diese existiert. \\
+			\textbf{Parameter:} Der Abonnent und das un-abonnierte Thema. \\
+			\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema im Broker eingetragen ist. \\
+			
+			\method{handleMessage(message: Message): Void}
+			Funktion, die asynchron eine Nachricht von einer Instanz von BusAccess empfängt, sich von der lokalen Broker-Instanz alle Subscriptions auf das Thema der Nachricht holt, und die Nachricht dann über einen Aufruf von distribute(message: Message) an Instanzen von BusAccess verteilt. \\
+			\textbf{Parameter:} Die versendete Nachricht \\
+			
+			\method{distribute(message: Message, subscribers: List of BusAccess): Void}
+			Funktion, die eine Nachricht an alle angegebenen Instanzen von BusAccess versendet.
+			\textbf{Parameter:} Die zu versendende Nachricht und eine Liste aller Instanzen von BusAccess, die die Nachricht bekommen sollen. \\
+			\end{description}
+			
+		\subsection{Broker}
+		\label{Class:Broker}
+		Die Klasse, die im Bus alle Abonnements hält und auf Bedarf an den MessageBus zurückgibt.\\
+		
+		\begin{description}
+		\method{getSubscribers(topic: Topic): List of Subscriptions}
+		Funktion, die die Liste aller Abonnenten auf ein bestimmtes Thema zurückgibt. \\
+		\textbf{Parameter:} Das Thema, auf welchem alle Abonnenten zurückgegeben werden sollen.	\\
+		\textbf{Rückgabewert:} Eine Liste aller Abonnenten auf das Thema.	\\
 		
 
-  	
+		\method{getSubscriptions(object: BusAccess): List of Topics}
+		Funktion, die die Liste aller Abonnements einer bestimmten Instanz von BusAccess zurückgibt. \\
+		\textbf{Parameter:} Die Instanz von BusAccess, für die alle Abonnements zurückgegeben werden sollen.	\\
+		\textbf{Rückgabewert:} Eine Liste aller Themen, für die die Instanz von BusAccess Abonnements hält. 	\\
+		
+		\method{public subscribe(object: BusAccess, topic: Topic): Boolean}
+		Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription anlegt. \\
+		\textbf{Parameter:} Der Abonnent und das abonnierte Thema. \\
+		\textbf{Rückgabewert:}Boolean, der den Erfolg des Eintrags der Subscription angibt. \\
+		
+		\method{public unsubscribe(object: BusAccess, topic: Topic): Boolean}
+		Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription löscht, sofern diese existiert. \\
+		\textbf{Parameter:} Der Abonnent und das un-abonnierte Thema. \\
+		\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema eingetragen ist. \\
+		\end{description}
+		
+		\subsection{Request}
+		\label{ClassFamily:Request}
+		Eine ''Familie'' von Klassen, die zum Anfordern von Informationen benutzt werden. Requests werden in der Regel über Nachrichten versendet und beinhalten z.B. Anfragen an die Datenbank.
+		
+		
 \end{document}
