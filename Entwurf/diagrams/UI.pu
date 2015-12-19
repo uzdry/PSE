@@ -1,26 +1,6 @@
 @startuml
 
 
-class Website <<(W,#FF7700)HTML>>{
-}
-
-class Frame <<HTML>>{
-}
-
-class StatusbarFrame <<HTML>> extends Frame{
-}
-
-class ViewFrame <<HTML>> extends Frame{
-}
-
-Website o-left-"1" StatusbarFrame
-Website o-down-"1" ViewFrame
-StatusbarFrame o-left-"0..n" Button
-
-
-'----------------------'
-
-
 
 
 GridView "1"*--"*" Widget
@@ -31,24 +11,15 @@ abstract class Widget extends BusAccess{
     -name: String
     +_create()
     +_destroy()
-    +{abstract} update(value)
+    +{abstract} handleMessage(value)
 }
 
 abstract class NumberDash extends Widget{
-    +{abstract} update(value: int)
+    +{abstract} handleMessage(value: int)
 }
 
 abstract class BooleanDash extends Widget{
-    +{abstract} update(value: bool)
-}
-
-class LinearGauge extends NumberDash{
-}
-
-class RadialGauge extends NumberDash{
-}
-
-class WarningSign extends BooleanDash{
+    +{abstract} handleMessage(value: bool)
 }
 
 class GridView <<  Singleton,Serializable >> extends ViewFrame{
@@ -75,12 +46,5 @@ abstract class Table {
 }
 
 
-'-------------------------------------'
-
-class MapView extends ViewFrame{
-}
-
-class ParkingView extends ViewFrame{
-}
 
 @enduml

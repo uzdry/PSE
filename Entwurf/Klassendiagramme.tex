@@ -20,7 +20,7 @@
 		Hier sieht man den Aufbau der Virtuellen Sensoren.
 		\begin{figure}[H]
   			\begin{center}
- 				\includegraphics{diagrams/VirtualSensors.png}
+ 				\includegraphics[width=0.8\textheight,angle=90]{diagrams/VirtualSensors.png}
   				\caption{Virtuelle Sensoren Klassendiagramm}
   			\end{center}
   		\end{figure}
@@ -29,16 +29,34 @@
   		Im folgenden Diagramm ist der Aufbau der Datenbank und des Datenbankzugriffs zu sehen.
   		\begin{figure}[H]
   			\begin{center}
- 				\includegraphics[width=0.8\textwidth]{diagrams/DBAccess.png}
+ 				\includegraphics[height=0.8\textheight]{diagrams/DBAccess.png}
   				\caption{Virtuelle Sensoren Klassendiagramm}
   			\end{center}
   		\end{figure}
   	Als Datenbank wurde, wie im Pflichtenheft spezifiziert, LevelDB benutzt. Die Access-Klasse für LevelDB erbt von einer ''DBAccess''-Oberklasse, um leichte Austauschbarkeit zu gewährleisten. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gehalten. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und Fahrer gespeichert, zum anderen fahrerbezogene Einträge, die präferierten Kraftstoff und eine Referenz auf die Konfiguration des virtuellen Armaturenbretts mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit DBBusAccess eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
   	
+
+	\newpage
+  	\section{Website}
+  	\label{Class:Website}
+		Hier ist zu sehen wie die Seite allgemein aufgebaut ist. Die Website besteht aus zwei Frames. In einem wird die Statusbar angezeigt, im anderen werden können verschiedene Views sichtbar sein. Unter anderem z.B. das GridView auf dem die Dashes angezeigt werden. Für weiteres siehe: TODO %TODO Add UserInterface, ParkingView, MapView
+Die Statusbar kann aus mehreren Buttons, Text und Icons bestehen.
+		\begin{figure}[H]
+  			\begin{center}
+ 				\includegraphics[width=\textwidth]{diagrams/website.png}
+  				\caption{UI Klassendiagramm}
+  			\end{center}
+  		\end{figure}  	
   	
   	\newpage
   	\section{User Interface}
-		In dem folgenden Diagramm sieht man den Aufbau der UI auf der Seite des Terminals
+		Wie in \ref{Class:Website} zu sehen ist besteht ein Hauptteil des UserInterface aus dem ViewFrame der von verschiedenen Views vertreten werden kann. Hier sieht man den Aufbau des GridViews und des SettingViews. Das Grid nutzt eine Objekt der Klasse Gridster die aus der Bibliothek Gridster stammt. Das GridView besteht hauptsächlich aus diesem Objekt. Es ermöglicht verschiedene Widgets in einem Grid mit Elementen verschiedener Größen dynamisch anzeigen zu lassen.
+		
+		Hierbei sind die Widgets selbst Abonnenten des angezeigten Signals, weshalb diese die Abstrakte Klasse BusAccess implementieren müssen.
+		
+		Über die SettingsView ist es möglich verschiedene Widgets in dieses Grid hinzuzufügen oder zu ändern. Weshalb sich das SettingView immer die Instanz des Grids als Objekt speichert. Dies kommt zum Einsatz wenn z.B. ein früherer Zustand des Serializable Grids wiederhergestellt werden soll. Um früher gespeicherte Konfigurationen vom Bus zu empfangen und neue Einstellungen an den Server zu schicken implementiert auch die SettingsView den BusAccess. 
+		
+		
 		\begin{figure}[H]
   			\begin{center}
  				\includegraphics[width=\textwidth]{diagrams/UI.png}

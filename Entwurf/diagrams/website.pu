@@ -1,0 +1,36 @@
+@startuml
+
+class Website <<(W,#FF7700)HTML>>{
+}
+
+class Frame <<HTML>>{
+}
+
+class StatusbarFrame <<HTML>> extends Frame{
+}
+
+class ViewFrame <<HTML>> extends Frame{
+}
+
+class MapView extends ViewFrame{
+. . .
+}
+
+class ParkingView extends ViewFrame{
+. . .
+}
+
+class GridView extends ViewFrame{
+. . .
+}
+
+class SettingsView extends ViewFrame{
+. . .
+}
+
+Website "1"*--"1" StatusbarFrame
+Website "1"*--"1" ViewFrame
+StatusbarFrame "1"*--"0..n" Button
+StatusbarFrame "1"*--"0..n" Text
+StatusbarFrame "1"*--"0..n" Icon
+@enduml
