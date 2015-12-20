@@ -17,8 +17,20 @@
   		\end{figure}
   	
   	\newpage
-  	\section{Virtual Sensors}
-		Hier sieht man den Aufbau der virtuellen Sensoren.
+  	\section{Virtuelle Sensoren}
+		Virtuelle Sensoren berechnen aggregierte Funktionen aus Sensorwerten. Die Klasse ''VirtualSensor'' ist ein BusDevice. Es gibt (grundlegend unterschiedliche) Arten von Virtuelle Sensoren. Der momentane Benzinverbrauch ist ein Live-Datum, welches aus mehreren Live-Sensordaten berechnet wird. Die generierten Daten sind insbesondere unabhängig vom Zustand der Datenbank. Ein virtueller Sensor, der einen Durchschnittswert über eine bestimmte Zeit berechnet, benötigt Daten aus der Datenbank. Die Anfrage wird über den Bus geschickt (~\ref{vsseq}). Der virtuelle Sensortyp ''TopicOverTime'' schickt nach einem Datenbankrequest nacheinander Messages mit Tupeln aus Zeit und Wert auf den Bus. Ein solcher Virtueller Sensor (wie Durchschnittswert und ''TopicOverTime'') ist abhängig vom Zustand der Datenbank.
+
+		Die Berechnung einer zustandsabhängigen aggregierten Funktion erfolgt durch eine einmalige Initialisierung des Virtuellen Sensors mit Daten aus der Datenbank. Danach werden die Daten direkt vom virtuellen Sensor inkrementell berechnet.
+
+		Es gibt die virtuellen Sensoren:
+		\begin{itemize}
+			\item{TopicOverTime} Die einfachste Art eines zustandsabhängigen virtuellen Sensors. Schickt, wenn requested, Tupel aus Zeit und Wert des spezifierten Topics.
+			\item{TripMileage} Berechnet den Kilometerstand der Fahrt ab einem spezifiziertem Zeitpunkt.
+			\item{FuelConsumption} Berechnet den Momentanverbrauch
+			\item{RemainingMiles} Berechnet die verbleibenden Kilometer. Die Berechnung ist abhängig vom Fahrverhalten des aktuellen Fahrers.
+			\item{AverageComputation} Liefert den Durchschnittswert eines spezifizierten Topics.
+		\end{itemize}
+
 		\begin{figure}[H]
   			\begin{center}
  				\includegraphics[width=0.8\textheight,angle=90]{diagrams/VirtualSensors.png}
