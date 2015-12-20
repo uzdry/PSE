@@ -1,0 +1,78 @@
+@startuml
+
+actor Bob
+
+participant Terminal
+
+participant TerminalProxy
+
+participant MessageBus
+
+participant Broker
+
+
+participant "avgSpeedComputation: AverageComputation" as AVGSCALC
+
+
+
+participant DBBusAccess
+
+Bob -> Terminal: showDash(avgSpeed)
+activate Terminal
+
+
+
+activate TerminalProxy
+
+TerminalProxy -> TerminalProxy: publish(avgSpeedReq)
+activate TerminalProxy
+
+TerminalProxy -> MessageBus: handleMessage(avgSpeedReq)
+activate MessageBus
+
+MessageBus -> Broker: getSubscribers(Topic.AVG_SPEED_REQ)
+activate Broker
+
+Broker --> MessageBus: subscribers
+deactivate Broker
+
+MessageBus -> AVGSCALC: handleMessage(avgSpeedReq)
+activate AVGSCALC
+
+AVGSCALC -> AVGSCALC: computeValue(avgSpeedReq.getValue())
+activate AVGSCALC
+AVGSCALC --> AVGSCALC: avgSpeed
+deactivate AVGSCALC
+
+create ValueMessage
+
+AVGSCALC -> ValueMessage: <<create>> ValueMessage(Topic.AVG_SPEED, avgSpeed)
+activate ValueMessage
+ValueMessage --> AVGSCALC: valueMessage
+deactivate ValueMessage
+
+AVGSCALC -> AVGSCALC: publish(valueMessage)
+activate AVGSCALC
+AVGSCALC --> AVGSCALC:
+deactivate AVGSCALC
+
+AVGSCALC -> MessageBus: handleMessage(valueMessage)
+activate MessageBus
+
+MessageBus -> Broker: getSubscribers(Topic.AVG_SPEED_REQ)
+activate Broker
+
+Broker --> MessageBus: subscribers
+deactivate Broker
+
+MessageBus -> TerminalProxy: handleMessage(valueMessage)
+activate TerminalProxy
+
+TerminalProxy --> MessageBus:
+deactivate TerminalProxy
+
+MessageBus --> AVGSCALC:
+deactivate MessageBus
+
+
+@enduml
