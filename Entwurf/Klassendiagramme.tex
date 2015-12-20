@@ -179,6 +179,49 @@
 		\label{ClassFamily:Request}
 		Eine ''Familie'' von Klassen, die zum Anfordern von Informationen benutzt werden. Requests werden in der Regel über Nachrichten versendet und beinhalten z.B. Anfragen an die Datenbank.
 		
+		
+	\section{DBAccess}
+	\subsection{DBBusAccess}
+	\label{Class:DBBusAccess}
+	Die Klasse, die im Modul DBAccess den Zugriff auf den Bus ermöglicht und Nachrichten an die Klasse LevelDBAccess weiterleitet. \\
+	\begin{description}
+	\method{public handleMessage(message: Message): Void}
+	Überschriebene Funktion, die die eingegangene Nachricht dekodiert und als konkreten Request, konkrete Konfigurationsänderung oder DBEntry an die zugehörige Instanz von LevelDBAccess weiterleitet. \\
+	\textbf{Parameter:} Die eingegangene Nachricht
+	\end{description}
+	
+	\subsection{LevelDBAccess}
+	\label{Class:LevelDBAccess}
+	Die Klasse, die im Modul die Instanz von LevelUP hält und den konkreten Zugriff auf die Datenbank ausführt. \\
+	\begin{description}
+	\attr{currentDriver: Driver} Der momentan als Fahrer eingetragene Benutzer \\
+	\attr{maxCapacity: NaturalNumber} Die momentan gesetzte maximale Kapazität der Datenbank. \\
+	\attr{database: LevelUP} Die Instanz von LevelUP, die als Datenbank für das System benutzt wird. \\
+	
+	\method{protected put(timestamp: Timestamp, topic: Topic, entry: DBEntry): Boolean}
+	Funktion, die eine Instanz von DBEntry mit einem Key aus  Thema und Zeitstempel in der Datenbank ablegt. \\
+	\textbf{Parameter:} Der Zeitstempel des Eingangs der Nachricht im Modul, das Thema der Nachricht sowie der konkrete Datenbankeintrag. \\
+	\textbf{Rückgabewert:} Boolean, der angibt. ob der Eintrag in der Datenbank abgelegt wurde. \\
+	
+	\method{protected put(driver: Driver, entry: DriverInfoEntry): Boolean}
+	Funktion, die eine Instanz von DriverInfoEntry mit einem Benutzer als Key in der Datenbank ablegt. \\
+	\textbf{Parameter:} Der Benutzer, dessen Fahrerinformationen geändert bzw. gespeichert werden sollen, sowie der konkrete Eintrag in die Datenbank. \\
+	\textbf{Rückgabewert:} Boolean, der angibt, ob der Eintrag in der Datenbank abgelegt wurde. \\
+	
+	\method{protected get(request: DBRequest): List of DBEntries}
+	Funktion, die eine Instanz von DBRequest entgegennimmt und eine Liste von dem Request entsprechenden Datenbankeinträgen zurückgibt. \\
+	\textbf{Parameter:} Eine Instanz von DBRequest \\
+	\textbf{Rückgabewert:} Eine Liste aller DBEntries aus der Datenbank, die dem Request entsprechen. \\
+	
+	\method{private deleteOnMaxCapacity(): Void}
+	Funktion, die die in maxCapacity festgelegte Obergrenze der Datenbank überprüft und ggf. Einträge aus der Datenbank löscht. \\
+	\end{description}
+	
+	\subsection{DBEntry}
+	\label{Class:DBEntry}
+	Die abstrakte Klasse, deren erbende Klassen Datenbankeinträge darstellen. SensorValueEntries beinhalten die Werte von Sensorwerten und den zum Zeitpunkt der Messung eingetragenen Fahrer; DriverInfoEntries beinhalten die Konfiguration des Dashboards eines Benutzers sowie dessen präferierten Kraftstoff.
+	
+		
 	\section{User Interface}
 		\subsection{Website}
 		Da dies eine statische Webseite darstellt kann man es nicht als Objekt ansehen. Es besitzt zwei Frames die mit den gewünschten JS oder TS-Elementen gefüllt werden können.

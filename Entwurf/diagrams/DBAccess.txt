@@ -6,8 +6,10 @@ class LevelDBAccess {
 currentDriver: Driver
 maxCapacity: NaturalNumber
 database: LevelUP
--levelup()
--DeleteOnMaxCapacity()
+put(timestamp: Timestamp, topic: Topic, entry: DBEntry): Boolean
+put(driver: Driver, entry: DriverInfoEntry): Boolean
+get(request: DBRequest): List of DBEntries
+-deleteOnMaxCapacity()
 }
 
 abstract class DBEntry {
@@ -23,12 +25,12 @@ DashboardConfig: DashboardConfig
 PreferedFuel: Fuel
 }
 
-abstract class BusAccess {
+abstract class BusDevice {
 }
 
-class DBBusAccess extends BusAccess {
+class DBBusDevice extends BusDevice {
 }
 
-DBBusAccess "1"--o LevelDBAccess
+DBBusDevice "1"--o LevelDBAccess
 
 @enduml
