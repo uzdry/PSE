@@ -11,7 +11,7 @@
   		
   		\begin{figure}[H]
   			\begin{center}
- 				\includegraphics[width=\textheight,angle=90]{diagrams/Bus.png}
+ 				\makebox[\textwidth][c]{\includegraphics[width=0.8\paperheight, angle=90]{diagrams/Bus.png}}
   				\caption{Bus Klassendiagramm}
   			\end{center}
   		\end{figure}
@@ -40,11 +40,12 @@
 	\newpage
   	\section{Website}
   	\label{Class:Website}
-		Hier ist zu sehen wie die Seite allgemein aufgebaut ist. Die Website besteht aus zwei Frames. In einem wird die Statusbar angezeigt, im anderen werden können verschiedene Views sichtbar sein. Unter anderem z.B. das GridView auf dem die Dashes angezeigt werden. Für weiteres siehe: TODO %TODO Add UserInterface, ParkingView, MapView
-Die Statusbar kann aus mehreren Buttons, Text und Icons bestehen.
+		Hier ist zu sehen wie die Seite allgemein aufgebaut ist. Die Website besteht aus zwei Frames. In einem wird die Statusbar angezeigt, im anderen werden können verschiedene Views sichtbar sein. Unter anderem z.B. das GridView auf dem die Dashes angezeigt werden. Für weiteres siehe: \nameref{Class:GridView}, \nameref{Class:SettingsView}.
+		
+		Die Elemente der Statusbar können unter anderem Text, Knöpfe und Icons sein.
 		\begin{figure}[H]
   			\begin{center}
- 				\includegraphics[width=\textheight, angle=90]{diagrams/website.png}
+ 				\makebox[\textwidth][c]{\includegraphics[width=0.8\paperwidth]{diagrams/website.png}}
   				\caption{UI Klassendiagramm}
   			\end{center}
   		\end{figure}  	
@@ -282,7 +283,7 @@ Die Statusbar kann aus mehreren Buttons, Text und Icons bestehen.
 			
 		\subsection{SignalCollector}
 		\label{Class:SignalCollector}
-			Sammelt die Information welche Signale erhältlich sind. Reagiert auf bestimmte RequestMessages welche entweder das Hinzufügen oder das Auslesen dieser Signale ermöglicht.
+			Sammelt die Information welche Signale erhältlich sind. Reagiert auf bestimmte RequestMessages welche entweder das Hinzufügen oder das Auslesen dieser Signale ermöglicht. Ein Beispiel ist hier das der OBD-Schnittstelle, die auf Anfrage die gesamte Liste seiner Signale auf den Bus legen kann.
 			\begin{description}
 				\attr{signalsList}
 					Die Liste der erhältlichen Signale.

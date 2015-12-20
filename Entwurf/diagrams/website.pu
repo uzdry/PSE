@@ -3,12 +3,15 @@
 class Website <<(W,#FF7700)HTML>>{
 }
 
-class StatusbarFrame {
+class StatusBarFrame {
+	-elements: List of elements
+	+addElement(e: Element, pos: Position): boolean
+	+removeElement(e: Element) boolean
 }
 
 abstract class ViewFrame {
-	private elements: List of elements
-	{abstract} public resize(x: integer, y: integer)
+	-elements: List of elements
+	+{abstract} resize(x: integer, y: integer)
 }
 
 class MapView extends ViewFrame{
@@ -27,9 +30,7 @@ class SettingsView extends ViewFrame{
 . . .
 }
 
-Website "1"*--"1" StatusbarFrame
+Website "1"*--"1" StatusBarFrame
 Website "1"*--"1" ViewFrame
-StatusbarFrame "1"*--"0..n" Button
-StatusbarFrame "1"*--"0..n" Text
-StatusbarFrame "1"*--"0..n" Icon
+
 @enduml

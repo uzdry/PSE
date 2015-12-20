@@ -14,11 +14,9 @@ abstract class Widget extends BusAccess{
 }
 
 abstract class NumberDash extends Widget{
-    +{abstract} handleMessage(value: int)
 }
 
 abstract class BooleanDash extends Widget{
-    +{abstract} handleMessage(value: bool)
 }
 
 class GridView <<  Singleton,Serializable >> extends ViewFrame{
