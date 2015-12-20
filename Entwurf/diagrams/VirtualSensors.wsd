@@ -8,7 +8,6 @@ abstract class BusAccess {
 
 abstract class VirtualSensor {
 	-topic: Topic
-	+activ(pActive: Boolean): Boolean
 	-initialize()
 	-computeValue(values: Value[]): Value
 }

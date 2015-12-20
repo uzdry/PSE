@@ -2,12 +2,15 @@
 
 
 class Statistics {
-	Statistics(tid: TopicID) <<constructor>>
-	-getAllData(tid: TopicID): Map<Date, Value>
-	-getData(tid: TopicID, startTime: Date, endTime: Date): Map<Date, Value>
+	-topic: Topic
+	-values: Map<Date, Value>
+	+Statistics(map: Map<Date, Value>)
+	+data(): Map<Date, Value>
+	+getTimestamps(): Array of Date
+	+getValues(): Array of Value
 }
 
-interface BusAccess
+abstract class BusAccess
 
 class TerminalProxy {
 
@@ -21,15 +24,15 @@ class Value {
 }
 
 class DatabaseConnection {
-	connection: jdbc
-	getTime(tid: TopicID, index: int): Date
-	getData(tid: TopicID, index: int): Value
+	-levelDB: LevelDB
+	+DatabaseConnection(pdbs: LevelDB) <<constructor>>
+	-getAllData(topic: Topic): Message
+	-getAverage(topic: Topic): Message
+	-getData(tid: TopicID, startTime: Date, endTime: Date): StatisticMessage
+
 }
 
-
-
-Statistics "0..*" <-- TerminalProxy
+BusAccess <|-- DatabaseConnection
 BusAccess <|-- TerminalProxy
-
 
 @enduml

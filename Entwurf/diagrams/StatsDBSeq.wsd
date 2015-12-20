@@ -29,17 +29,21 @@ deactivate TerminalProxy
 TerminalProxy -> MessageBus: handleMessage(avgSpeedReq)
 activate MessageBus
 
-MessageBus -> MessageBus: distribute(avgSpeedReq)
-activate MessageBus
+group distribute Message
 
-MessageBus -> Broker: getSubscribers(avgSpeedReq)
-activate Broker
+	MessageBus -> MessageBus: distribute(avgSpeedReq)
+	activate MessageBus
 
-Broker --> MessageBus: subscribers
-deactivate Broker
+	MessageBus -> Broker: getSubscribers(avgSpeedReq)
+	activate Broker
 
-MessageBus --> MessageBus:
-deactivate MessageBus
+	Broker --> MessageBus: subscribers
+	deactivate Broker
+
+	MessageBus --> MessageBus:
+	deactivate MessageBus
+
+end
 
 MessageBus -> AVGSCALC: handleMessage(avgSpeedReq)
 activate AVGSCALC
