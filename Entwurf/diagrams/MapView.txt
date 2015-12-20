@@ -1,0 +1,33 @@
+@startuml
+
+Class MapView <<Singleton>> {
+-map:png
++updateMap()
+}
+
+FrameView <|-down- MapView
+Button <|-down- MapView
+
+MapView <|-down- MapWithPOIView
+MapView <|-down- MapWithGasView
+
+MapWithGasView o--"1" ListGasStation
+MapWithPOIView o--"1" ListPOI
+
+Class GasStationItem{
+-String name
+-String Address
+-float price
+-float distance
+}
+
+Class POIItem {
+-String name
+-String Address
+-float distance
+}
+
+ListPOI "1"*-down-"1.." POIItem
+ListGasStation "1"*-down-"1.." GasStationItem
+
+@enduml
