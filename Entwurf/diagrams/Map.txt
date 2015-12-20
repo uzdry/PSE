@@ -1,6 +1,6 @@
 @startuml
 
-Class Button{
+abstract Class Button{
 -gasLevel: double
 #location: Location
 +downloadMap()
