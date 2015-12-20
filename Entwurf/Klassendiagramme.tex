@@ -305,6 +305,47 @@
 		\subsection{BooleanDash}
 		\label{Class:BooleanDash}
 			Überklasse für alle Dashes, die einen Wahrheitswert anzeigen.
+			
+		\subsection{MapView}
+			Eine Karteanzeige.
+			\begin{description}
+			\attr{map: Map}
+			Die anzuzeigende Karte.
+			\method{updateMap()}
+			Die Karte wird aktualisiert.
+			\end{description}
+		\subsection{MapWithGasView}
+			Eine Karteanzeige mit den Tankstellen in der Umgebung und besteht aus einer
+			Liste der Tankstellen und die Karte
+		\subsection{MapWithPOIView}
+			Eine Karteanzeige mit den POI und besteht aus einer Liste der POI und die
+			Karte.
+		\subsection{ListPOI}
+			Eine Liste der POI.
+		\subsection{ListGasStation}
+			Eine Liste der Tankstellen.
+		\subsection{POIItem}
+			Der Eintrag in der POI-Liste.
+			\begin{description}
+			\attr{private name: String}
+			Name der POI
+			\attr{private address: String}
+			Adresse der POI
+			\attr{private distance: float}
+			Der Abstand zu POI
+			\end{description}
+		\subsection{GasStationItem}
+			Der Eintrag in der Liste für die Tankstellen.
+			\begin{description}
+			\attr{private name: String}
+			Name der Tankstelle
+			\attr{private address: String}
+			Adresse der Tankstelle
+			\attr{private price: float}
+			Der Preis vom voreingestellten Brennstoff in der Tankstelle
+			\attr{private distance: float}
+			Der Abstand zu der Tankstelle
+			\end{description}
 		
 	\section{Konfiguration und erhältliche Signale}
 		\subsection{ConfigFileReader}
@@ -330,4 +371,42 @@
 				\attr{signalsList}
 					Die Liste der erhältlichen Signale.
 			\end{description}
+			
+	\section{Karte}
+		\subsection{Button}
+			Die abstrakte Klasse enthält die Lokalisierungsinformation des Autos und
+			bekommt die Infomation über Tankfüllstand vom Bus. Es kann auch die Karte der
+			Umgebung von Google Map heruntergeladen und die Karte anzeigen lassen.
+				\begin{description}
+					\attr{private gasLevel: double}
+					Der aktuelle Tankfüllstand.
+					\attr{private location: location}
+					Die Lokalisierungsinformation, die vom Endgeräte enthält ist.
+					\method{downloadMap()}
+					Die Karte der Umgebung wird heruntergeladen.
+					\method{view()} 
+					Die runterladene Karte wird angezeigt.
+				\end{description}
+		\subsection{Map}
+			Enthält die Karte der Umgebung.
+		\subsection{Decorator}
+			Die Decorator-Klasse ist nach Entwurfsmuster Decorator entwurfen. Diese
+			Klasse dient dazu, in einem gewissen Kontext, eine spezielle Karte(z.B die
+			Karte mit Tankstelle oder POI) zu heruntergeladen.
+		\subsection{GasDecorator}
+			In einem GasDecorator-Objekt wird die Karte mit den Tankstellen in der
+			Umgebung runtergeladen.
+				\begin{description}
+				\method{downloadMap()}
+				Die Karte, auf der die Tankstellen der Umgebung markiert sind, wird
+				runtergeladen.
+				\end{description}
+		\subsection{POIDecorator}
+			In einem POIDecorator-Objekt wird die Karte mit interessierten Positionen in
+			der Umgebung runtergeladen.
+				\begin{description}
+				\method{downloadMap()}
+				Die Karte, auf der die interessierten Positionen der Umgebung markiert sind,
+				wird runtergeladen.
+				\end{description}
 \end{document}
