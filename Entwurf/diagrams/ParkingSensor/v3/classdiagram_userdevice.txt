@@ -1,29 +1,38 @@
 ﻿@startuml
 
+class ScreenManager {
++draw(parentNode : NodeComponent)
++erase()
+}
+
+class PathNode {
+
+}
+
+class ProximityDisplayNode {
+
+}
+
 abstract class BusAccess {
 
 }
 
-class DrawablePath {
+class PathRefresher {
 }
 
-class ProximitySensorDisplay {
--radius : double
--stroke : Brush
--fill : Color
--fillOpacity : Percent
+class ProximityDisplayRefresher {
 }
 
 abstract class NodeComponent {
-parentNode : NodeComponent
++parentNode : NodeComponent
 
-setAttribute(name, value)
++setAttribute(name, value)
 }
 
 class NodeComposite {
 +childNodes : NodeComposite[]
-appendChild(newChild : NodeComponent)
-removeChild(child : NodeComponent)
++appendChild(newChild : NodeComponent)
++removeChild(child : NodeComponent)
 }
 
 interface Path {
@@ -36,15 +45,21 @@ abstract class NodeLeaf {
 }
 
 
-NodeLeaf <|.. DrawablePath
-DrawablePath "1" *-- "1" Path
+PathRefresher "1" *-- "1" Path
 NodeComponent <|-- NodeComposite
 NodeComponent "0..*" <-- NodeComposite
 
 NodeComponent <|-- NodeLeaf
 
-NodeLeaf <|.. ProximitySensorDisplay
+BusAccess <|-- PathRefresher
+BusAccess <|-- ProximityDisplayRefresher
 
-BusAccess <|-- DrawablePath
-BusAccess <|-- ProximitySensorDisplay
+NodeLeaf <|-- PathNode
+NodeLeaf <|--ProximityDisplayNode
+
+PathNode "2" <-- "1" PathRefresher : refreshes
+ProximityDisplayNode "1" <-- "1" ProximityDisplayRefresher : refreshes
+
+PathRefresher <.. ScreenManager : "create/delete"
+ProximityDisplayRefresher <.. ScreenManager : "create/delete"
 @enduml
