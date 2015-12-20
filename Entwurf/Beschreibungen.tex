@@ -21,9 +21,6 @@ Auf dem Endgerät wird der gleiche Datenbus genutzt wie auf dem Server. Auch hie
 
 Dashes sind dann Subscriber des von ihnen angezeigten Signals. Sie erweitern die Klasse Widget
 
-\section{Chain of Responsibility}
-
-Die Werte der Sensoren und die Werte der aggregierten Funktionen können sich zu beliebigen Zeitpunkten ändern. Diese sind als subscribable Value gespeichert und so wie es im Publish-Subscribe-Bus Entwurfsmuster vorgesehen ist, werden alle Objekte, die als Beobachter vorhanden sind bei Änderungen der abonnierten Werte benachrichtigt. Die Beobachter sind die Endgerät-Proxys. Wenn diese eine Nachricht empfangen (es sind neue Werte vorhanden), schicken Sie diese Information nach dem Chain of Responsibility Prinzip weiter an die PeerConnection. Da die Nachrichten alle Serializable sind kann sehr einfach eine Zeichenkette aus dem Objekt erzeugt werden. Die PeerConnection erhält dann diese Zeichenketten und leiten sie über die bestehende Netzwerkverbindung (sei es entweder LAN oder Internet) weiter. Dafür wird der RTC Data Channel genutzt. Die ankommende Zeichenketten auf dem Endgerät werden durch das Serializable wiederhergestellt und das Endgerät kann die Nachrichtenobjekte behandeln. Die werden genauso dargestellt, wie die losgeschickt worden (vom Endgerät-Proxy). Der Bus leitet dann alle Informationen an die passenden Dashes oder die Einstellungen weiter.
 
 \end{document}
 
