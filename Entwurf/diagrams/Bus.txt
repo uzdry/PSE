@@ -54,7 +54,7 @@ class DBReqRange extends DBRequest {
 	-endDate: Date
 }
 
-abstract class BusDevice {
+abstract class BusDevice << creator >>{
 	+publish(message: Message): Boolean
 	+{abstract}handleMessage(message: Message)
 	+subscribe(object: BusDevice, topic: Topic): Boolean
