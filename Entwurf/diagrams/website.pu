@@ -7,6 +7,7 @@ class StatusBarFrame {
 	-elements: List of elements
 	+addElement(e: Element, pos: Position): boolean
 	+removeElement(e: Element) boolean
+	+changeView(:View): boolean
 }
 
 abstract class ViewFrame {

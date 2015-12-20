@@ -1,18 +1,18 @@
 @startuml
 
-abstract class BusAccess{
+abstract class BusDevice{
 . . . 
 }
 
 
-class ConfigFileReader extends BusAccess{
+class ConfigFileReader extends BusDevice{
 	-configFile: File
-	-setConfig(): boolean
-	-getConfig(): value
+	-set(ID: String, :Value) boolean
+	-get(ID: String): value
 } 
 
-class SignalCollector extends BusAccess{
-	-signalsList: List of available Signals
+class SignalCollector extends BusDevice{
+	-signalsList: List
 }
 
 

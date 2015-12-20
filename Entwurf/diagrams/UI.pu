@@ -5,9 +5,9 @@
 
 GridView "1"*--"*" Widget
 
-abstract class BusAccess
+abstract class BusDevice
 
-abstract class Widget extends BusAccess{
+abstract class Widget extends BusDevice{
     -name: String
     +{abstract}_create()
     +{abstract}_destroy()
@@ -30,7 +30,7 @@ class GridView <<  Singleton,Serializable >> extends ViewFrame{
 SettingsView "1"*--"1..*" Table
 SettingsView o--"1" GridView
 
-class SettingsView <<Singleton>> extends BusAccess, ViewFrame{
+class SettingsView <<Singleton>> extends BusDevice, ViewFrame{
 	-availableSignals: List
 	-config: Config
 	-changeConfig()

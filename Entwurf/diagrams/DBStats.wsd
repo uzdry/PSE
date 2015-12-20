@@ -10,7 +10,7 @@ class Statistics {
 	+getValues(): Array of Value
 }
 
-abstract class BusAccess
+abstract class BusDevice
 
 class TerminalProxy {
 
@@ -32,7 +32,7 @@ class DatabaseConnection {
 
 }
 
-BusAccess <|-- DatabaseConnection
-BusAccess <|-- TerminalProxy
+BusDevice <|-- DatabaseConnection
+BusDevice <|-- TerminalProxy
 
 @enduml

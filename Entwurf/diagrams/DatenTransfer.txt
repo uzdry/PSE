@@ -1,6 +1,6 @@
 @startuml
 
-Interface BusAccess
+Interface BusDevice
 
 Class WebRTCDataChannel
 
@@ -11,10 +11,10 @@ dataChannel: WebRTCDataChannel
 transfer()
 }
 
-BusAccess <|.. Proxy
+BusDevice <|.. Proxy
 
 Proxy --> "1" WebRTCDataChannel
 
-Client - BusAccess
+Client - BusDevice
 
 @enduml

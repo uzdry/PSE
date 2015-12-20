@@ -41,7 +41,7 @@ VirtualSensor <|-- TripMileage
 VirtualSensor <|-- AverageComputation
 VirtualSensor <|-- RemainingMiles
 
-BusAccess <|-- VirtualSensor
+BusDevice <|-- VirtualSensor
 
 @enduml
 
