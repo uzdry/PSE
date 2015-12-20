@@ -3,24 +3,20 @@
 \begin{document}
 \chapter{Vorgänge}
 \section{Datenrepräsentanten}
-Ein Hauptteil der Kommunikation auf dem Server wird über einen zentralen Bus mit Broker gehandelt. Auf ihm gibt es verschiedene Veröffentlicher und Abonnenten (sogenannte Publisher und Subscriber) die alle  eine abstrakte Klasse 'BusAccess' erweitern.
+Ein Hauptteil der Kommunikation auf dem Server wird über einen zentralen Bus mit Broker gehandelt. Auf ihm gibt es verschiedene Veröffentlicher und Abonnenten (sogenannte Publisher und Subscriber) die alle eine abstrakte Klasse 'BusDevice' erweitern.
 
-Alle Nachrichten sind Objekte von Klassen welche die abstrakte Klasse 'Message' erweitern und implementieren. Diese ist Serializable, also auch die Unterklassen. Hier wurden abstrakte Klassen gewählt da mehrere Funktionen zentral implementiert werden andere jedoch, wie z.B. Getter und Setter, von dem Nachrichtentyp abhängen.  
+Alle Nachrichten sind Objekte von Klassen, die die abstrakte Klasse 'Message' um konkrete Inhalte erweitern. Die Klasse Message und alle ihre Unterklassen sind serialisierbar.
 
-Die Rohnachrichten kommen unter anderem von dem Blutooth-Modul, dass als Publisher die erhaltenen Daten auf den Bus legt.
+Die Rohdaten stammen unter anderem vom OBD2-Blutooth-Modul, dass über einen Proxy als Publisher die erhaltenen Daten auf den Bus legt.
 
 Auf dem Server gibt es für jedes Endgerät ein Objekt, welches das physische Gerät repräsentiert. Diese Objekte sind Instanzen einer Klasse 'Proxy' und abonnieren die benötigten Signale auf dem Nachrichtenbus. \\
-Außerdem besitzt jeder Proxy ein eigenes Objekt der Klasse 'PeerConnection' das für die Verbindung zwischen Server und Client zuständig ist. \\
-Die subscribten Daten werden vom Proxy über die PeerConnection an das Endgerät verschickt und wenn Daten von der PeerConnection, also vom Endgerät, ankommen werden diese auf den Bus gelegt.
+Außerdem besitzt jeder Proxy ein eigenes Objekt der Klasse 'PeerConnection', welches für die Verbindung zwischen Server und Client zuständig ist. \\
+Die abonnierten Daten werden vom Proxy über die PeerConnection an das Endgerät verschickt. Kommen Informationen oder Anweisungen vom Endgerät über die PeerConnection am Proxy an, werden diese auf den Bus gelegt. \\
+Aggregierte Funktionen und virtuelle Sensoren erben als Klassen von einer Oberklasse 'VirtualSensor'. Sie abonnieren die benötigten Nachrichten, berechnen daraus neue (virtuelle) Sensorwerte und stellen diese als neue Nachricht über den Bus zur Verfügung. \\
 
-Aggregierte Funktionen und virtuelle Sensoren sind Instanzen einer Klasse 'VirtualSensor'. Sie abonnieren die benötigten Signale, berechnen neue Werte sobald die Signale ankommen, und legen diese dann als neues Signal wieder auf den Bus. 
-
-Zentral gespeichert werden alle Daten in einer LevelDB-Datenbank. Ihr vorgeschaltet ist eine Klasse, die eine Schnittstelle zwischen Datenbank und Bus darstellt. In dieser werden alle Signale und Konfigurationsnachrichten abonniert und dann in der Datenbank gespeichert. Außerdem empfängt diese Klasse auch Befehle über den Bus und kann dann z.B. gewünschte Daten aus der Datenbank auf den Bus legen.
+Zentral gespeichert werden alle Daten in einer LevelDB-Datenbank. Die Datenbank ist über ein Modul 'DBAccess' in die Software integriert, welches Zugang zum Bus und die Konvertierung der Nachrichten in Datenbankanfragen bzw. die Konvertierung von Ergebnissen von Queries an die Datenbank in Nachrichten ermöglicht. \\
 
 Auf dem Endgerät wird der gleiche Datenbus genutzt wie auf dem Server. Auch hier gibt es einen Proxy mit einer PeerConnection.
-
-Dashes sind dann Subscriber des von ihnen angezeigten Signals. Sie erweitern die Klasse Widget
-
 
 \end{document}
 
