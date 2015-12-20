@@ -315,10 +315,10 @@
 			Die Karte wird aktualisiert.
 			\end{description}
 		\subsection{MapWithGasView}
-			Eine Karteanzeige mit den Tankstellen in der Umgebung und besteht aus einer
-			Liste der Tankstellen und die Karte
+			Eine Karteanzeige mit den Tankstellen in der Umgebung; besteht aus einer
+			Liste der Tankstellen und der Karte
 		\subsection{MapWithPOIView}
-			Eine Karteanzeige mit den POI und besteht aus einer Liste der POI und die
+			Eine Karteanzeige mit den POI; besteht aus einer Liste der POI und der
 			Karte.
 		\subsection{ListPOI}
 			Eine Liste der POI.
@@ -376,37 +376,37 @@
 		\subsection{Button}
 			Die abstrakte Klasse enthält die Lokalisierungsinformation des Autos und
 			bekommt die Infomation über Tankfüllstand vom Bus. Es kann auch die Karte der
-			Umgebung von Google Map heruntergeladen und die Karte anzeigen lassen.
+			Umgebung von Google Maps heruntergeladen und die Karte angezeigt werden.
 				\begin{description}
 					\attr{private gasLevel: double}
 					Der aktuelle Tankfüllstand.
 					\attr{private location: location}
-					Die Lokalisierungsinformation, die vom Endgeräte enthält ist.
+					Die Lokalisierungsinformation des Engeräts des Fahrers.
 					\method{downloadMap()}
 					Die Karte der Umgebung wird heruntergeladen.
 					\method{view()} 
-					Die runterladene Karte wird angezeigt.
+					Die herunterladene Karte wird angezeigt.
 				\end{description}
 		\subsection{Map}
 			Enthält die Karte der Umgebung.
 		\subsection{Decorator}
-			Die Decorator-Klasse ist nach Entwurfsmuster Decorator entwurfen. Diese
-			Klasse dient dazu, in einem gewissen Kontext, eine spezielle Karte(z.B die
-			Karte mit Tankstelle oder POI) zu heruntergeladen.
+			Die Decorator-Klasse ist nach Entwurfsmuster Decorator entworfen. Diese
+			Klasse dient dazu, in einem gewissen Kontext eine spezielle Karte(z.B die
+			Karte mit Tankstelle oder POI) herunterzuladen.
 		\subsection{GasDecorator}
 			In einem GasDecorator-Objekt wird die Karte mit den Tankstellen in der
-			Umgebung runtergeladen.
+			Umgebung heruntergeladen.
 				\begin{description}
 				\method{downloadMap()}
 				Die Karte, auf der die Tankstellen der Umgebung markiert sind, wird
-				runtergeladen.
+				heruntergeladen.
 				\end{description}
 		\subsection{POIDecorator}
-			In einem POIDecorator-Objekt wird die Karte mit interessierten Positionen in
-			der Umgebung runtergeladen.
+			In einem POIDecorator-Objekt wird die Karte mit interessanten Positionen in
+			der Umgebung heruntergeladen.
 				\begin{description}
 				\method{downloadMap()}
-				Die Karte, auf der die interessierten Positionen der Umgebung markiert sind,
-				wird runtergeladen.
+				Die Karte, auf der die interessanten Positionen der Umgebung markiert sind,
+				wird heruntergeladen.
 				\end{description}
 \end{document}
