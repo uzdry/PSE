@@ -9,9 +9,8 @@ abstract class BusAccess
 
 abstract class Widget extends BusAccess{
     -name: String
-    +_create()
-    +_destroy()
-    +{abstract} handleMessage(value)
+    +{abstract}_create()
+    +{abstract}_destroy()
 }
 
 abstract class NumberDash extends Widget{

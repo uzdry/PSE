@@ -3,24 +3,25 @@
 \begin{document}
 \chapter{Klassendiagramme}
 	\section{Bus}
-		\begin{figure}[h!]
-  			\begin{center}
- 				\includegraphics[width=0.8\textheight,angle=90]{diagrams/Bus.png}
-  				\caption{Bus Klassendiagramm}
-  			\end{center}
-  		\end{figure}
+		
   		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation aller Module ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von ''BusAccess'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusAccess'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Topics (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten) abonnieren. \\
   		Diese Abbonements werden in der Klasse ''Broker'' verwaltet. Sendet ein Objekt von ''BusAccess'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
   		Die Oberklasse ''Message'' besitzt eine Reihe von erbenden Klassen. Dies ist nötig, um alle möglichen Typen von Nachrichten darzustellen: ''SensorValueMessage'' wird für das einfache versenden von Messwerten benutzt, ''ConfigFileRequest'' für Konfigurationsdateien usw. Dieser Aufbau ermöglicht das leichte Ergänzen um ggf. zusätzlich benötigte Nachrichtentypen. Ein besonderer Nachrichtentyp ist die DatabaseRequestMessage, die Anfragen an die Datenbank beinhaltet. Die Anfragen vom Typ ''DBRequest'' sind unterteilt in verschiedene Typen von Anfragen: DBReqRecent fordert die letzten n Einträge an, DBReqFrom alle Einträge seit einem Datum, und DBReqRange fordert alle Datenbankeinträge zwischen zwei Daten an. \\
   		Das Konstrukt  der Klassen ''BusAccess'' sowie erbende Klassen, ''Message'' und die von ''Message'' erbenden Klassen ergeben gemeinsam das Entwurfsmuster der Fabrikmethode. 
   		
+  		\begin{figure}[H]
+  			\begin{center}
+ 				\includegraphics[width=\textheight,angle=90]{diagrams/Bus.png}
+  				\caption{Bus Klassendiagramm}
+  			\end{center}
+  		\end{figure}
   	
   	\newpage
   	\section{Virtual Sensors}
 		Hier sieht man den Aufbau der Virtuellen Sensoren.
 		\begin{figure}[H]
   			\begin{center}
- 				\includegraphics{diagrams/VirtualSensors.png}
+ 				\includegraphics[width=0.8\textheight,angle=90]{diagrams/VirtualSensors.png}
   				\caption{Virtuelle Sensoren Klassendiagramm}
   			\end{center}
   		\end{figure}
@@ -29,7 +30,7 @@
   		Im folgenden Diagramm ist der Aufbau der Datenbank und des Datenbankzugriffs zu sehen.
   		\begin{figure}[H]
   			\begin{center}
- 				\includegraphics[height=0.8\textheight]{diagrams/DBAccess.png}
+ 				\includegraphics[width=0.8\textwidth]{diagrams/DBAccess.png}
   				\caption{Virtuelle Sensoren Klassendiagramm}
   			\end{center}
   		\end{figure}
@@ -43,7 +44,7 @@
 Die Statusbar kann aus mehreren Buttons, Text und Icons bestehen.
 		\begin{figure}[H]
   			\begin{center}
- 				\includegraphics[width=\textwidth]{diagrams/website.png}
+ 				\includegraphics[width=\textheight, angle=90]{diagrams/website.png}
   				\caption{UI Klassendiagramm}
   			\end{center}
   		\end{figure}  	
@@ -216,14 +217,74 @@ Die Statusbar kann aus mehreren Buttons, Text und Icons bestehen.
 		\begin{description}
 			\attr{private gridster: Gridster}
 				Objekt des Plugins welches das gesamte Grid darstellt. 
-			\method{public addWidget(:Widget, :Options): boolean)}
+			\method{public addWidget(:Widget, :Options): boolean}
 				Fügt ein Widget in das Grid hinzu.
 				\textbf{Parameter:} Das hinzuzufügende Widget und Optionen (z.B. Positions und Größenangaben).
 				\textbf{Rückgabewert:} Boolean das angibt ob das Hinzufügen ein Erfolg war.
-			\method{public removeWidget(:Widget): boolean)}
+			\method{public removeWidget(:Widget): boolean}
 				Entfernt ein Widget vom Grid
 				\textbf{Parameter:} Das zu entfernende Widget.
 				\textbf{Rückgabewert:} Boolean das angibt ob das Entfernen ein Erfolg war.
 		\end{description}
 		
+		\subsection{SettingsView}
+		\label{Class:SettingsView}
+		Die Einstellungsanzeige. Die Anzeige besteht aus mehreren Tabellen die bei Auswahl eines Elements eine Tiefergelegene öffnet.
+		\begin{description}
+			\attr{private availableSignals: List}
+				Liste aller erhältlichen Signale \\
+			\attr{private config: config}
+				Aktuelle Konfiguration im Config-File \\
+			\method{private changeConfig()}
+				Wird aufgerufen wenn die Einstellungen angepasst werden. Übermittelt die neuen Einstellungen über den Bus an den Server.\\
+		\end{description}
+		
+		\subsection{Table}
+		\label{Class:Table}
+		Abstrakte Klasse einer Tabelle. Ermöglicht verschiedene Objekte in Zeilen und Spalten anzuzeigen. Generell soll immer eine ganze Zeile als Objekt hinzugefügt werden. Ein eigenes Zeilenobjekt muss dafür implementiert werden.
+		
+		\subsection{Widget}
+		\label{Class:Widget}
+		Entspricht den Vorgaben von JQuery ein neues Widget zu erstellen. Diese werden für das GridView benötigt. Es existieren außer die beschriebenen Funktionen weitere Mögliche die von JQuery bei bestimmten Aktionen aufgerufen werden.
+		\begin{description}
+			\attr{private name: String}
+				Bezeichner für das Widget \\
+			\method{abstract public \_create()}
+				Wird beim Erzeugen des Widgets aufgerufen. Zur Initialisierung von Variablen u.ä.\\
+			\method{abstract public \_destroy()}
+				Wird beim Löschen des Widgets aufgerufen.\\
+		\end{description}
+		
+		\subsection{NumberDash}
+		\label{Class:NumberDash}
+			Überklasse für alle Dashes die einen Zahlenwert anzeigen.
+		
+		\subsection{BooleanDash}
+		\label{Class:BooleanDash}
+			Überklasse für alle Dashes die einen Wahrheitswert anzeigen.
+		
+	\section{Konfiguration und erhältliche Signale}
+		\subsection{ConfigFileReader}
+		\label{Class:ConfigFileReader}
+			Ermöglicht das Lesen und Schreiben einer Konfigurations-Datei über den Datenbus. Es reagiert auf bestimmte RequestMessages.
+			\begin{description}
+				\attr{private configFile: File}
+					Die zu bearbeitende und zu lesende Datei
+				\method{setConfig(name: String, value: Value)}
+					Verändert eine Einstellung. 
+					\textbf{Parameter:} Der Name der Einstellung sowie der neue Wert dieser Einstellung.
+					\textbf{Rückgabewert:} Boolean das angibt ob es diese Einstellung bereits gibt.
+				\method{getConfig(name: String)}
+					Liest eine Einstellung aus.
+					\textbf{Parameter:} Der Name der Einstellung.
+					\textbf{Rückgabewert:} Der Wert der Einstellung oder null falls die Einstellung nicht existiert.
+			\end{description}
+			
+		\subsection{SignalCollector}
+		\label{Class:SignalCollector}
+			Sammelt die Information welche Signale erhältlich sind. Reagiert auf bestimmte RequestMessages welche entweder das Hinzufügen oder das Auslesen dieser Signale ermöglicht.
+			\begin{description}
+				\attr{signalsList}
+					Die Liste der erhältlichen Signale.
+			\end{description}
 \end{document}

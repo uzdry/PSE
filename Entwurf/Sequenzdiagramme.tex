@@ -3,7 +3,8 @@
 \begin{document}
 
 \chapter{Sequenzdiagramme}
-	\section{Terminal connect}
+	\section{Verbindung zwischen Client und Server herstellen}
+	\label{Sequence:TerminalConnect}
 		In dem folgenden Diagramm sieht man den Ablauf vom Verbinden eines Endgeräts mit dem Server bis zur Live-Übertragung der Signale und die Änderung der Anzeigekonfiguration auf dem Endgerät. 
 		
 		Hierbei handelt es sich beim Terminal um das Endgerät auf dem über einen Browser die Vinjab-Seite aufgerufen wird. Der Befehl openWebpage() vom Terminal zum Webserver nutzt das HTT-Protokoll. 
@@ -15,7 +16,8 @@
   			\caption{Verschiedene Dash-Anzeigeelemente.}
   		\end{figure}
   		
-  	\section{WebRTC connection}
+  	\section{WebRTC Verbindung herstellen}
+  	\label{Sequence:WebRTCConnect}
 		In dem folgenden Diagramm wird dargestellt wie eine WebRTC-Verbindung zwischen dem Endgerät und dem Webserver hergestellt wird.
 		
 		WebRTC ist eine Sammlung von Kommunikationsprotokollen und Programmierschnittstellen (API) für die Implementierung in Webbrowsern, die diesen Echtzeitkommunikation über Rechner-Rechner-Verbindungen ermöglichen. Damit können Browser nicht mehr nur Datenressourcen von Backend-Servern abrufen, sondern auch (Echtzeitinformationen) von Browsern anderer Benutzer.
@@ -35,6 +37,13 @@
  				\includegraphics[width=\textwidth]{diagrams/ChangeDashConfig.png}
   				\caption{Verschiedene Dash-Anzeigeelemente.}
   			\end{center}
+  		\end{figure}
+  		
+  	\section{Statistik übertragen}
+  		
+  		\begin{figure}[H]
+ 			\makebox[\textwidth][c]{\includegraphics[width=0.9\paperwidth]{diagrams/StatsDBSeq.png}}
+  			\caption{Verschiedene Dash-Anzeigeelemente.}
   		\end{figure}
   		
   	
