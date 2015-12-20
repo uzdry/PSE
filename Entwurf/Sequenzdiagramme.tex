@@ -3,7 +3,7 @@
 \begin{document}
 
 \chapter{Sequenzdiagramme}
-	\section{Verbindung zwischen Client und Server herstellen}
+	\section{Client mit Server verbinden}
 	\label{Sequence:TerminalConnect}
 		In dem folgenden Diagramm sieht man den Ablauf des Verbindens eines Endgeräts mit dem Server. Auf die Ausführung des Verbindens folgt in der Regel ''\nameref{Sequence:LiveDataNewConfig}''
 		
@@ -14,7 +14,7 @@
   			\caption{Herstellen einer Verbindung zwischen Client und Server}
   		\end{figure}
   		
-  	\section{WebRTC-Verbindung herstellen}
+  	\section{WebRTC-Verbindung}
   	\label{Sequence:WebRTCConnect}
 		In dem folgenden Diagramm wird dargestellt, wie eine WebRTC-Verbindung zwischen dem Endgerät und dem Webserver hergestellt wird. Bei unserem Projekt initiiert der Client die Verbindung.
 		
@@ -36,13 +36,14 @@
   			\end{center}
   		\end{figure}
   		
+  	\newpage
   	\section{Statistik übertragen}
   		\subsection{Aggregierte Funktionen anfordern} \label{vsseq}
 
       Der User fordert ein Dash zur Anzeige an, welches bisher noch nicht angezeigt wurde. Über die Peer Connection von WebRTC wird eine ''RequestMessage'' an den Server geschickt. Auf Serverseiter wird vom entsprechenden TerminalProxy eine RequestMessage für den entsprechenden Wert auf den Bus gelegt. Der Erzeuger verabeitet die Nachricht und veröffentlicht ab sofort die erzeugten Werte auf dem Bus. Handelt es sich beim Erzeuger um einen virtuellen Sensor, muss dieser noch einen Request an die Datenbank senden, sofern ein Diagramm oder Durchschnittswert gefragt ist. Die Datenbank hat eine Fassade, die ein Bus Device ist.
 
   		\begin{figure}[H]
- 			\makebox[\textwidth][c]{\includegraphics[width=0.9\paperwidth]{diagrams/StatsDBSeq.png}}
+ 			\makebox[\textwidth][c]{\includegraphics[width=0.75\paperheight, angle=90]{diagrams/StatsDBSeq.png}}
   			\caption{Verschiedene Dash-Anzeigeelemente.}
   		\end{figure}
   		

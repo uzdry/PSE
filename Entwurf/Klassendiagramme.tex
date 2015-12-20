@@ -5,7 +5,7 @@
 	\section{Bus}
 		
   		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation zwischen allen Modulen ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von der abstrakten Klasse ''BusDevice'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusDevice'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Topics (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten) abonnieren und Abonnements beenden. \\
-  		Diese Abbonements werden in der Klasse ''Broker'' verwaltet. Sendet eine Instanz von ''BusDevice'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
+  		Diese Abonnements werden in der Klasse ''Broker'' verwaltet. Sendet eine Instanz von ''BusDevice'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
   		Die abstrakte Klasse ''Message'' besitzt eine Reihe von erbenden Klassen. Dies ist nötig, um alle möglichen Typen von Nachrichten darzustellen: ''SensorValueMessage'' wird für das einfache versenden von Messwerten benutzt, ''ConfigFileRequest'' für Konfigurationsdateien usw. Dieser Aufbau ermöglicht das leichte Ergänzen um ggf. zusätzlich benötigte Nachrichtentypen. Ein besonderer Nachrichtentyp ist die 'DatabaseRequestMessage', die Anfragen an die Datenbank beinhaltet. Die Anfragen vom Typ ''DBRequest'' sind unterteilt in verschiedene Typen von Anfragen: DBReqRecent fordert die letzten n Einträge an, DBReqFrom alle Einträge seit einem bestimmten Datum, und DBReqRange fordert alle Datenbankeinträge zwischen zwei Daten an. \\
   		Das Konstrukt der Klassen ''BusDevice'' sowie erbende Klassen, ''Message'' und die von ''Message'' erbenden Klassen ergeben gemeinsam das Entwurfsmuster der Fabrikmethode.
   		
@@ -47,6 +47,18 @@
   			\end{center}
   		\end{figure}
   	Als Datenbanksystem wurde, wie im Pflichtenheft spezifiziert, LevelDB benutzt. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gespeichert. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und derzeitigem Fahrer gespeichert. Zum anderen existieren fahrerbezogene Einträge, die den präferierten Kraftstoff des Fahrers sowie eine Referenz auf die Konfiguration des virtuellen Armaturenbretts beinhalten und mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit 'DBBusDevice' eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
+  	
+  	\newpage
+  	\section{ConfigFileReader \& AvailableSignals}
+  		Verschiedene selten geänderte Informationen werden auch in einer Konfigurationsdatei gespeichert. Diese Informationen kann der ConfigFileReader ändern. Er reagiert auf bestimmte Requests auf dem Messagebus.
+  		
+  		Eine weitere wichtige Information ist welche Datensignale allgemein zur Verfügung stehen. Dies wird im SignalCollector gespeichert. Er reagiert ebenso auf bestimmte Signale auf dem Bus
+  		\begin{figure}[H]
+  			\begin{center}
+ 				\includegraphics[width=0.8\textwidth]{diagrams/Classes_Config.png}
+  				\caption{Klassendiagramm des Config-Readers und SignalsCollector}
+  			\end{center}
+  		\end{figure}
   	
 
 	\newpage
@@ -406,7 +418,7 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 	\subsection{DBEntry}
 	\label{Class:DBEntry}
 	Die abstrakte Klasse, deren erbende Klassen Datenbankeinträge darstellen. SensorValueEntries beinhalten die Werte von Sensorwerten und den zum Zeitpunkt der Messung eingetragenen Fahrer; DriverInfoEntries beinhalten die Konfiguration des Dashboards eines Benutzers sowie dessen präferierten Kraftstoff.
-	
+				
 		
 	\section{User Interface}
 		\subsection{Website}
