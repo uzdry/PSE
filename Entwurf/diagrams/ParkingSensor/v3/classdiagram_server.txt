@@ -1,21 +1,29 @@
 ﻿@startuml
 
+class PathBezier {
++getCoordinates(position : Percent) : Vec2
++getControlPoints() : Vec2[]
+}
+
+class PathBezierIterator {
+
+}
 abstract class BusAccess {
 
 }
 
 class Settings {
 
-carWidth : double
-carRearOverhang : double
-carWheelBase : double
++carWidth : double
++carRearOverhang : double
++carWheelBase : double
 
-camPosition : Vec3
-camDirection : Vec3
-camResolution : Rectangle
++camPosition : Vec3
++camDirection : Vec3
++camResolution : Rectangle
 
-camHorizontalAngleOfView : Angle
-camVerticalAngleOfView : Angle
++camHorizontalAngleOfView : Angle
++camVerticalAngleOfView : Angle
 
 }
 
@@ -26,17 +34,17 @@ class PathCalculator {
 }
 
 interface PathIterator{
-getFirst() : Vec2
-getNext() : Vec2
++getFirst() : Vec2
++getNext() : Vec2
 }
 
 interface Path {
-getIterator() : PathIterator
++getIterator() : PathIterator
 
 }
 
 class PathCircle {
-getCoordinates(rotation : Angle) : Vec2
++getCoordinates(rotation : Angle) : Vec2
 }
 
 class PathCircleIterator {
@@ -44,24 +52,25 @@ class PathCircleIterator {
 }
 
 class PathArray {
-getCoordinates(index : int) : Vec2
-getLength() : int
++getCoordinates(index : int) : Vec2
++getLength() : int
 }
 
-
+PathIterator <|-- PathBezierIterator
 PathIterator <|-- PathCircleIterator
 PathIterator <|-- PathArrayIterator
 Path <|-- PathCircle
 Path <|-- PathArray
+Path <|-- PathBezier
 
-PathCalculator "1" *-- "1" Path
+PathCalculator "1" o-- "1" Path
 
 
-
+PathBezier <--> PathBezierIterator
 PathCircle <--> PathCircleIterator
 PathArray <--> PathArrayIterator
 
 BusAccess <|-- PathCalculator
-PathCalculator o-- Settings
+PathCalculator "1" *-- "1" Settings
 BusAccess <|-- Settings
 @enduml

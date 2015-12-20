@@ -64,8 +64,15 @@
   				\caption{Klassendiagramm der GUI}
   			\end{center}
   		\end{figure}
-  		
-  	\newpage
+  	
+		\newpage
+		\section{Einparkhilfe Ultraschallsensoren}
+		Keine Berechnungen sind auf dem Server für die Ultraschallsensoren notwendig. Die neue Werte werden ständig via WebRTC auf das Endgerät geschickt und dort werden sie interpretiert. Auf dem Endgerät werden auch keine Berechnungen durchgeführt, es werden lediglich Messwerte (Distanz) in Farben umgewandelt (ProximityDisplayRefresher).
+
+		\section{Einparhilfe Lenkradposition}
+Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Client-Prinzip). Bei einer Änderung der Lenkradposition wird der Pfad (Path) neu berechnet. Der PathCalculator erzeugt einen neuen Pfad. Die PKW-bezogene Daten, die in Settings gespeichert sind werden dafür verwendet (carWidth, ... usw.). Falls die Daten nicht vorhanden sind, werden die von der Datenbank geholt. Danach wird der Pfad projiziert (es wird ein Pfad mit den neuen Daten erzeugt) und wird berechnet, wie die Kurve auf dem Bildschirm angezeigt werden soll. Die benötigte Daten sind ebenfalls in Settings gespeichert (camPosition, ... usw.). Danach wird der Pfad auf den Bus gelegt und Richtung Endgerät weitergeleitet. Auf dem Endgerät erfolgen keine Berechnungen. Wenn die Daten (SVG-Path-Koordinaten oder Koordinaten für Bezierkurven) ankommen, wird das SVG-Bild neu gezeichnet (PathRefresher).
+  	
+		\newpage
   	\section{Einparkhilfe Serverseite}
 		Im folgenden Diagramm ist der Aufbau des Rückfahrassistenzsystems auf der Serverseite dargestellt.
 		\begin{figure}[H]
@@ -83,6 +90,173 @@
   	
   	
 \chapter{Klassen}
+		\section{Einparkhilfe Clientseite}
+	\subsection{NodeComponent}
+	\label{Abstract Class:NodeComponent}
+		Eine DOM-Komponente, es kann entweder Kompositum oder Blatt sein (Kompositum-Entwurfsmuster).
+		\begin{description}
+			\attr{public parentNode: NodeComponent}
+				Der Elternknoten dieser NodeComponent.
+			\method{public setAttribute(name: var, value: var)}
+				Setzt den Wert eines Attributs in NodeComponent.\\
+				\textbf{Parameter:} Der Name und der Wert des Attributs.\\
+		\end{description}
+		
+	\subsection{NodeComposite}
+	\label{Class:NodeComposite}
+		Ein DOM-Kompositum (Kompositum-Entwurfsmuster).
+		\begin{description}
+			\attr{public childNodes: NodeComposite[]}
+				Die Liste aller Kindknoten.
+			\method{public appendChild(newChild : NodeComponent)}
+				Fügt einen neuen Kindknoten hinzu.\\
+			\method{public removeChild(child : NodeComponent)}
+				Entfernt einen bereits vorhandenen Kindknoten.\\
+		\end{description}
+	
+	\subsection{NodeLeaf}
+	\label{Abstract Class:NodeLeaf}
+		Ein DOM-Blatt (Kompositum-Entwurfsmuster).
+		
+	\subsection{PathNode}
+	\label{Class:PathNode}
+		Ein DOM-Blatt, das einen Pfad auf dem Bildschirm anzeigt.
+
+	\subsection{PathRefresher}
+	\label{Class:PathRefresher}
+		Zeichnet die zwei PathNodes neu, wenn die Lenkradposition geändert wird.
+		
+	\subsection{ProximityDisplayNode}
+	\label{Class:ProximityDisplayNode}
+		Ein DOM-Blatt, das den Wert eines Ultraschallsensors auf dem Bildschirm visualisiert. Wenn es mehrere Ultraschallsensoren gibt, dann sind mehrere ProximityDisplayNodes notwendig.
+		
+	\subsection{ProximityDisplayRefresher}
+	\label{Class:ProximityDisplayRefresher}
+		Aktualisiert das ProximityDisplayNode-Blatt, wenn der Wert des Sensors geändert wird.
+
+	\subsection{ScreenManager}
+	\label{Class:ScreenManager}
+		Verwaltet die gesamte Darstellung, zeichnet die grafische Elemente
+		\begin{description}
+			\method{public draw(parentNode: NodeComponent)}
+				Zeichnet alle Anzeigeelemente auf den Bildschirm und initialisiert die Webkamera.\\
+				\textbf{Parameter:} Der Elternknoten, wo die Anzeigeelemente gezeichnet werden sollen.
+			\method{erase()}
+				Löscht alle Anzeigeelemente und stoppt die Webkamera-Videoübertragung.
+		\end{description}
+
+	
+	\section{Einparkhilfe Serverseite}
+	\subsection{Path}
+	\label{Interface:Path}
+		Das Interface für alle Pfade.
+		\begin{description}
+			\method{public getIterator() : PathIterator}
+				Holt den Iterator, der die aktuelle Implementierung von Path unterstützt.
+				\textbf{Rückgabewert:} Ein PathIterator, der die Punkte dieses Pfades durchlaufen kann.
+		\end{description}
+		
+	\subsection{PathIterator}
+	\label{Interface:PathIterator}
+		Das Interface für den Pfad-Iteratoren.
+		\begin{description}
+			\method{public getFirst(): Vec2}
+				Holt den ersten Punkt des Pfades.
+				\textbf{Rückgabewert:} Die Koordinaten des Punktes.
+			\method{public getNext(): Vec2}
+				Holt den nächsten Punkt des Pfades.
+				\textbf{Rückgabewert:} Die Koordinaten des Punktes.
+		\end{description}
+	
+	\subsection{PathCircle}
+	\label{class:PathCircle}
+		Eine Path-Implementierung, kann verwendet werden um effizient kreisförmige Pfade zu beschreiben. Damit können die einzelne Punkte des Pfades bei Bedarf einfach berechnet werden.
+		\begin{description}
+			\method{public getCoordinates(rotation: Angle) : Vec2}
+				Holt den Koordinaten eines Punktes, der sich auf dem Kreis befindet. Der Punkt ist wie folgt spezifiziert: es gibt ein Vektor, der vom Mittelpunkt des Kreises zu dem Pfad-Startpunkt zeigt (der Startpunkt ist auf der Kreislinie). Dieser Vektor wird dann gedreht (um "rotation") und der Punkt zu dem der Vektor dann zeigt soll zurückgegeben werden. Der Iterator soll die Funktion falls getFirst() aufgerufen wurde mit rotation=0 aufrufen. Bei getNext() soll der Winkel jeweils inkrementiert werden.
+				\textbf{Parameter:}	Die Drehung des Vektors. Alle mögliche Winkel sind gültig.\\
+				\textbf{Rückgabewert:} Die Koordinaten des Punktes auf der Kreislinie.
+		\end{description}
+	
+	\subsection{PathCircleIterator}
+	\label{class:PathCircleIterator}
+		Ein Iterator, der PathCircle unterstützt.
+
+	\subsection{PathArray}
+	\label{class:PathArray}
+		Eine Path-Implementierung, kann verwendet werden um allgemeine Pfade einfach speichern zu können. Die Punkte des Pfades werden als Polygonzug gespeichert.
+		\begin{description}
+			\method{public getCoordinates(index: int) : Vec2}
+				Holt den n-ten Punkt des Polygonzuges, falls index = n.
+				\textbf{Parameter:}Spezifiziert den Punkt im Polygonzug. Falls der Polygonzug aus m Punkten besteht, dann sind die index-Werte zwischen 0 und m-1 gültig. Falls der index-Parameter ungültig ist, soll null zurückgegeben werden.\\
+				\textbf{Rückgabewert:} Die Koordinaten des Punktes.
+			\method{public getLength()}
+				Holt den Anzahl der Punkte im Polygonzug.
+				\textbf{Rückgabewert:} Es wird der Anzahl der Punkte im Polygonzug zurückgegeben.
+		\end{description}
+		
+	\subsection{PathArrayIterator}
+	\label{class:PathArrayIterator}
+		Ein Iterator, der PathArray unterstützt.
+
+	\subsection{PathBezier}
+	\label{class:PathBezier}
+		Eine Path-Implementierung, kann verwendet werden um bei der Speicherung von Kurven Platz zu sparen.
+		\begin{description}
+			\method{public getCoordinates(position: Percent) : Vec2}
+				Holt die Koordinaten eines Punktes, der sich auf der Bezierkurve befindet.
+				\textbf{Parameter:} Bezier-Parameter t der Kurve [0, 1].
+				\textbf{Rückgabewert:} Die Koordinaten des Punktes auf der Bezierkurve.
+			\method{public getControlPoints() : Vec2[]}
+				Holt die Koordinaten aller Kontrollpunkten der Bezierkurve.
+				\textbf{Rückgabewert:} Die Koordinaten aller Punkten auf der Bezierkurve.
+		\end{description}
+		
+	\subsection{PathBezierIterator}
+	\label{class:PathBezierIterator}
+		Ein Iterator, der PathBezier unterstützt.
+
+	\subsection{Settings}
+	\label{class:Settings}
+		Hier werden die Kraftfahrzeug- und Kamerabezogene Parameterwerte bei Bedarf von der Datenbank geholt und gepuffert.
+		\begin{description}
+			\attr{public carWidth : double}
+				Die Breite des Fahrzeugs in Meter.
+			\attr{public carRearOverhang : double}
+				Der hintere Überhang des Fahrzeugs in Meter.
+			\attr{public carWheelBase : double}
+				Der Radstand des Fahrzeugs in Meter.
+			\attr{public camPosition : Vec3}
+				Die Position der Kamera in Fahrzeugkoordinatensystem.
+			\attr{public camDirection : Vec3}
+				Die Richtung der Kamera in Fahrzeugkoordinatensystem.
+			\attr{public camResolution : Rectangle}
+				Die Auflösung der Kamera in Pixeln.
+			\attr{public camHorizontalAngleOfView : Angle}
+				Der horizontale Winkel der Kamera.
+			\attr{public camVerticalAngleOfView : Angle}
+				Der vertikale Winkel der Kamera.
+		\end{description}
+
+	\subsection{PathCalculator}
+	\label{class:PathCalculator}
+		Hört den Bus ab und falls die Position des Lenkrads geändert wurde, erzeugt einen neuen Pfad und leitet denen an das Endgerät weiter.
+			\begin{description}
+				\method{private createPath(steeringWheelPosition : Angle) : Path}
+					Erzeugt einen Pfad der die Bewegung des Fahrzeugs in der Zukunft beschreibt. Der Pfad ist in Fahrzeugkoordinatensystem. Die zwei gespeicherte Koordinaten sind entlang der x- und z-Achsen, die y-Koordinaten sind 0 für alle Punkte und müssen deswegen nicht gespeichert werden.
+					\textbf{Parameter:} Die Position des Lenkrads (Uhrzeigersinn).
+					\textbf{Rückgabewert:} Der Pfad, der die Bewegung des Fahrzeugs in der Zukunft beschreibt.
+				\method{private projectPathToScreen(path : Path) : Path}
+					Projiziert einen Pfad auf den Kamerabildschirm.
+					\textbf{Parameter:} Der Pfad der Fahrzeugbewegung in Fahrzeugkoordinatensystem.
+					\textbf{Rückgabewert:} Der Pfad der Fahrzeugbewegung in Kamerakoordinatensystem.
+				\method{private publish(pathMessage: PathMessage)}
+					Sendet eine Nachricht mit dem Pfad an das Endgerät.
+					\textbf{Parameter:} Die Nachricht, die den Pfad (in Kamerakoordinatensystem) enthält.
+			\end{description}
+			
+		
+	
 	\section{Bus}
 	\subsection{BusDevice}
 	\label{Class:BusDevice} 
