@@ -13,7 +13,7 @@ class ProximityDisplayNode {
 
 }
 
-abstract class BusAccess {
+abstract class BusDevice {
 
 }
 
@@ -51,8 +51,8 @@ NodeComponent "0..*" <-- NodeComposite
 
 NodeComponent <|-- NodeLeaf
 
-BusAccess <|-- PathRefresher
-BusAccess <|-- ProximityDisplayRefresher
+BusDevice <|-- PathRefresher
+BusDevice <|-- ProximityDisplayRefresher
 
 NodeLeaf <|-- PathNode
 NodeLeaf <|--ProximityDisplayNode

@@ -8,7 +8,7 @@ class PathBezier {
 class PathBezierIterator {
 
 }
-abstract class BusAccess {
+abstract class BusDevice {
 
 }
 
@@ -70,7 +70,7 @@ PathBezier <--> PathBezierIterator
 PathCircle <--> PathCircleIterator
 PathArray <--> PathArrayIterator
 
-BusAccess <|-- PathCalculator
+BusDevice <|-- PathCalculator
 PathCalculator "1" *-- "1" Settings
-BusAccess <|-- Settings
+BusDevice <|-- Settings
 @enduml
