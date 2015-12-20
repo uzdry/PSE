@@ -4,10 +4,10 @@
 \chapter{Klassendiagramme}
 	\section{Bus}
 		
-  		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation aller Module ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von ''BusDevice'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusDevice'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Topics (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten) abonnieren. \\
-  		Diese Abbonements werden in der Klasse ''Broker'' verwaltet. Sendet ein Objekt von ''BusDevice'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
-  		Die Oberklasse ''Message'' besitzt eine Reihe von erbenden Klassen. Dies ist nötig, um alle möglichen Typen von Nachrichten darzustellen: ''SensorValueMessage'' wird für das einfache versenden von Messwerten benutzt, ''ConfigFileRequest'' für Konfigurationsdateien usw. Dieser Aufbau ermöglicht das leichte Ergänzen um ggf. zusätzlich benötigte Nachrichtentypen. Ein besonderer Nachrichtentyp ist die DatabaseRequestMessage, die Anfragen an die Datenbank beinhaltet. Die Anfragen vom Typ ''DBRequest'' sind unterteilt in verschiedene Typen von Anfragen: DBReqRecent fordert die letzten n Einträge an, DBReqFrom alle Einträge seit einem Datum, und DBReqRange fordert alle Datenbankeinträge zwischen zwei Daten an. \\
-  		Das Konstrukt  der Klassen ''BusDevice'' sowie erbende Klassen, ''Message'' und die von ''Message'' erbenden Klassen ergeben gemeinsam das Entwurfsmuster der Fabrikmethode. 
+  		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation zwischen allen Modulen ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von der abstrakten Klasse ''BusDevice'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusDevice'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Topics (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten) abonnieren und Abonnements beenden. \\
+  		Diese Abbonements werden in der Klasse ''Broker'' verwaltet. Sendet eine Instanz von ''BusDevice'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
+  		Die abstrakte Klasse ''Message'' besitzt eine Reihe von erbenden Klassen. Dies ist nötig, um alle möglichen Typen von Nachrichten darzustellen: ''SensorValueMessage'' wird für das einfache versenden von Messwerten benutzt, ''ConfigFileRequest'' für Konfigurationsdateien usw. Dieser Aufbau ermöglicht das leichte Ergänzen um ggf. zusätzlich benötigte Nachrichtentypen. Ein besonderer Nachrichtentyp ist die 'DatabaseRequestMessage', die Anfragen an die Datenbank beinhaltet. Die Anfragen vom Typ ''DBRequest'' sind unterteilt in verschiedene Typen von Anfragen: DBReqRecent fordert die letzten n Einträge an, DBReqFrom alle Einträge seit einem bestimmten Datum, und DBReqRange fordert alle Datenbankeinträge zwischen zwei Daten an. \\
+  		Das Konstrukt der Klassen ''BusDevice'' sowie erbende Klassen, ''Message'' und die von ''Message'' erbenden Klassen ergeben gemeinsam das Entwurfsmuster der Fabrikmethode.
   		
   		\begin{figure}[H]
   			\begin{center}
@@ -18,11 +18,11 @@
   	
   	\newpage
   	\section{Virtual Sensors}
-		Hier sieht man den Aufbau der Virtuellen Sensoren.
+		Hier sieht man den Aufbau der virtuellen Sensoren.
 		\begin{figure}[H]
   			\begin{center}
  				\includegraphics[width=0.8\textheight,angle=90]{diagrams/VirtualSensors.png}
-  				\caption{Virtuelle Sensoren Klassendiagramm}
+  				\caption{Klassendiagramm der virtuellen Sensoren}
   			\end{center}
   		\end{figure}
   	\newpage
@@ -31,57 +31,54 @@
   		\begin{figure}[H]
   			\begin{center}
  				\includegraphics[width=0.8\textwidth]{diagrams/DBAccess.png}
-  				\caption{Virtuelle Sensoren Klassendiagramm}
+  				\caption{Klassendiagramm des Datenbankzugriffs}
   			\end{center}
   		\end{figure}
-  	Als Datenbank wurde, wie im Pflichtenheft spezifiziert, LevelDB benutzt. Die Access-Klasse für LevelDB erbt von einer ''DBAccess''-Oberklasse, um leichte Austauschbarkeit zu gewährleisten. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gehalten. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und Fahrer gespeichert, zum anderen fahrerbezogene Einträge, die präferierten Kraftstoff und eine Referenz auf die Konfiguration des virtuellen Armaturenbretts mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit DBBusDevice eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
+  	Als Datenbanksystem wurde, wie im Pflichtenheft spezifiziert, LevelDB benutzt. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gespeichert. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und derzeitigem Fahrer gespeichert. Zum anderen existieren fahrerbezogene Einträge, die den präferierten Kraftstoff des Fahrers sowie eine Referenz auf die Konfiguration des virtuellen Armaturenbretts beinhalten und mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit 'DBBusDevice' eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
   	
 
 	\newpage
   	\section{Website}
   	\label{Class:Website}
-		Hier ist zu sehen wie die Seite allgemein aufgebaut ist. Die Website besteht aus zwei Frames. In einem wird die Statusbar angezeigt, im anderen werden können verschiedene Views sichtbar sein. Unter anderem z.B. das GridView auf dem die Dashes angezeigt werden. Für weiteres siehe: \nameref{Class:GridView}, \nameref{Class:SettingsView}.
+		Hier ist zu sehen wie die Seite allgemein aufgebaut ist. Die Website besteht aus zwei Frames. In einem Frame wird die Statusleiste angezeigt, im anderen werden können verschiedene Sichten angezeigt werden, darunter unter anderem das GridView, auf welchem die Dashes angezeigt werden. Für weiteres siehe: \nameref{Class:GridView}, \nameref{Class:SettingsView}.
 		
-		Die Elemente der Statusbar können unter anderem Text, Knöpfe und Icons sein.
+		Die Elemente der Statusleiste können unter anderem Text, Knöpfe und Icons sein.
 		\begin{figure}[H]
   			\begin{center}
  				\makebox[\textwidth][c]{\includegraphics[width=0.8\paperwidth]{diagrams/website.png}}
-  				\caption{UI Klassendiagramm}
+  				\caption{Klassendiagramm der GUI}
   			\end{center}
   		\end{figure}  	
   	
   	\newpage
   	\section{User Interface}
-		Wie in \ref{Class:Website} zu sehen ist besteht ein Hauptteil des UserInterface aus dem ViewFrame der von verschiedenen Views vertreten werden kann. Hier sieht man den Aufbau des GridViews und des SettingViews. Das Grid nutzt eine Objekt der Klasse Gridster die aus der Bibliothek Gridster stammt. Das GridView besteht hauptsächlich aus diesem Objekt. Es ermöglicht verschiedene Widgets in einem Grid mit Elementen verschiedener Größen dynamisch anzeigen zu lassen.
+		Wie in \ref{Class:Website} zu sehen ist besteht ein Hauptteil des User Interface aus dem ViewFrame, der von verschiedenen Views vertreten werden kann. Hier sieht man den Aufbau des GridViews und des SettingViews. Das Grid nutzt ein Objekt der Klasse 'Gridster' aus der Bibliothek 'Gridster'. Das GridView besteht hauptsächlich aus diesem Objekt. Es ermöglicht die Anzeige verschiedener Widgets in einem Grid mit Elementen verschiedener Größe.
 		
-		Hierbei sind die Widgets selbst Abonnenten des angezeigten Signals, weshalb diese die abstrakte Klasse BusDevice implementieren müssen.
+		Hierbei sind die Widgets selbst Abonnenten des angezeigten Signals, weshalb sie die abstrakte Klasse BusDevice implementieren müssen.
 		
-		Über die SettingsView ist es möglich verschiedene Widgets in dieses Grid hinzuzufügen oder zu ändern. Weshalb sich das SettingView immer die Instanz des Grids als Objekt speichert. Dies kommt zum Einsatz wenn z.B. ein früherer Zustand des Serializable Grids wiederhergestellt werden soll. Um früher gespeicherte Konfigurationen vom Bus zu empfangen und neue Einstellungen an den Server zu schicken implementiert auch die SettingsView den BusDevice. 
-		
+		Über die SettingsView ist es möglich, verschiedene Widgets in diesem Grid hinzuzufügen oder zu ändern. Aus diesem Grund speichert SettingView immer die Instanz des Grids als Objekt. Dies wird benutzt, wenn z.B. ein früherer Zustand des Grids wiederhergestellt werden soll. Um früher gespeicherte Konfigurationen vom Bus zu empfangen und neue Einstellungen an den Server zu schicken implementiert auch die SettingsView das BusDevice. 
 		
 		\begin{figure}[H]
   			\begin{center}
  				\includegraphics[width=\textwidth]{diagrams/UI.png}
-  				\caption{UI Klassendiagramm}
+  				\caption{Klassendiagramm der GUI}
   			\end{center}
   		\end{figure}
   		
-  		
-  		
   	\newpage
-  	\section{Parking Sensor Serverside}
-		Hier ist zu sehen wie das Rückfahrassistenzsystem aufgebaut ist. Siehe auch %TODO Link sequenzdiagramm
+  	\section{Einparkhilfe Serverseite}
+		Im folgenden Diagramm ist der Aufbau des Rückfahrassistenzsystems auf der Serverseite dargestellt.
 		\begin{figure}[H]
  			\makebox[\textwidth][c]{\includegraphics[width=\textwidth]{diagrams/ParkingSensor/v3/classdiagram_server.png}}
-  			\caption{Rückfahrsystem Klassendiagramm}
+  			\caption{Klassendiagramm des Rückfahrassistenzsystems (1)}
   		\end{figure}
   		
   	\newpage
-  	\section{Parking Sensor Clientside}
-		Hier ist zu sehen wie das Rückfahrassistenzsystem aufgebaut ist. Siehe auch %TODO Link sequenzdiagramm
+  	\section{Einparkhilfe Clientseite}
+		Im folgenden Diagramm ist der Aufbau des Rückfahrassistenzsystems auf der Clientseite dargestellt
 		\begin{figure}[H]
  			\makebox[\textwidth][c]{\includegraphics[width=\textwidth]{diagrams/ParkingSensor/v3/classdiagram_userdevice.png}}
-  			\caption{Rückfahrsystem Klassendiagramm}
+  			\caption{Klassendiagramm des Rückfahrassistenzsystems (2)}
   		\end{figure}
   	
   	
@@ -98,12 +95,15 @@
 				Sendet eine Nachricht asynchron an eine Instanz von MessageBus.\\ 
 				\textbf{Parameter:} Die zu versendende Nachricht.\\ 
 				\textbf{Rückgabewert:} Boolean, der beschreibt, ob die Nachricht beim Bus angekommen ist.
+				
 			\method{abstract public handleMessage(message: Message): Void}  
-				Funktion zum asynchronen Empfangen einer Nachricht von einer Instanz von MessageBus.\\ 
+				Funktion zum asynchronen Empfangen einer Nachricht von einer Instanz von MessageBus.
+				
 			\method{public subscribe(object: BusDevice, topic: Topic): boolean} 
 				Funktion zum abonnieren von Nachrichten eines bestimmten Themas.\\ 
 				\textbf{Parameter:} Der Abonnent und das abonnierte Thema.\\ 
 				\textbf{Rückgabewert:} Boolean, der beschreibt, ob das Thema erfolgreich abonniert wurde.
+				
 			\method{public unsubscribe(object: BusDevice, topic: Topic): boolean} 
 				Funktion zum Beenden eines Abonnements zu einem bestimmten Thema.\\ 
 				\textbf{Parameter:} Der Abonnent und das abonnierte Thema.\\ 
@@ -127,25 +127,25 @@
 		Die Klasse, die die Funktionalität des Busses beinhaltet.
 		\begin{description}
 			\attr{private broker: Broker}
-				Der Broker des Busses; siehe Beschreibung der Broker-Klasse. \\
+				Der Broker des Busses; siehe Beschreibung der Broker-Klasse. 
 				
-			\method{public subscribe(object: BusDevice, topic: Topic): Boolean}
+			\method{protected subscribe(object: BusDevice, topic: Topic): Boolean}
 			Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription in der Broker-Instanz des MessageBus anlegt. \\
 			\textbf{Parameter:} Der Abonnent und das abonnierte Thema. \\
-			\textbf{Rückgabewert:}Boolean, der den Erfolg des Eintrags der Subscription angibt. \\
+			\textbf{Rückgabewert:} Boolean, der den Erfolg des Eintrags der Subscription angibt. 
 			
-			\method{public unsubscribe(object: BusDevice, topic: Topic): Boolean}
+			\method{protected unsubscribe(object: BusDevice, topic: Topic): Boolean}
 			Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription in der Broker-Instanz des MessageBus löscht, sofern diese existiert. \\
 			\textbf{Parameter:} Der Abonnent und das un-abonnierte Thema. \\
-			\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema im Broker eingetragen ist. \\
+			\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema im Broker eingetragen ist. 
 			
-			\method{handleMessage(message: Message): Void}
-			Funktion, die asynchron eine Nachricht von einer Instanz von BusDevice empfängt, sich von der lokalen Broker-Instanz alle Subscriptions auf das Thema der Nachricht holt, und die Nachricht dann über einen Aufruf von distribute(message: Message) an Instanzen von BusDevice verteilt. \\
-			\textbf{Parameter:} Die versendete Nachricht \\
+			\method{protected handleMessage(message: Message): Void}
+			Funktion, die asynchron eine Nachricht von einer Instanz von BusDevice empfängt, sich von der lokalen Broker-Instanz alle Subscriptions auf das Thema der Nachricht holt, und die Nachricht dann über einen Aufruf von distribute(message: Message, subscribers: List of BusDevice) an Instanzen von BusDevice verteilt. \\
+			\textbf{Parameter:} Die versendete Nachricht.
 			
-			\method{distribute(message: Message, subscribers: List of BusDevice): Void}
+			\method{private distribute(message: Message, subscribers: List of BusDevice): Void}
 			Funktion, die eine Nachricht an alle angegebenen Instanzen von BusDevice versendet.
-			\textbf{Parameter:} Die zu versendende Nachricht und eine Liste aller Instanzen von BusDevice, die die Nachricht bekommen sollen. \\
+			\textbf{Parameter:} Die zu versendende Nachricht und eine Liste aller Instanzen von BusDevice, die die Nachricht bekommen sollen. 
 			\end{description}
 			
 		\subsection{Broker}
@@ -156,23 +156,23 @@
 		\method{getSubscribers(topic: Topic): List of Subscriptions}
 		Funktion, die die Liste aller Abonnenten auf ein bestimmtes Thema zurückgibt. \\
 		\textbf{Parameter:} Das Thema, auf welchem alle Abonnenten zurückgegeben werden sollen.	\\
-		\textbf{Rückgabewert:} Eine Liste aller Abonnenten auf das Thema.	\\
+		\textbf{Rückgabewert:} Eine Liste aller Abonnenten auf das Thema.	
 		
 
 		\method{getSubscriptions(object: BusDevice): List of Topics}
 		Funktion, die die Liste aller Abonnements einer bestimmten Instanz von BusDevice zurückgibt. \\
 		\textbf{Parameter:} Die Instanz von BusDevice, für die alle Abonnements zurückgegeben werden sollen.	\\
-		\textbf{Rückgabewert:} Eine Liste aller Themen, für die die Instanz von BusDevice Abonnements hält. 	\\
+		\textbf{Rückgabewert:} Eine Liste aller Themen, für die die Instanz von BusDevice Abonnements hält. 	
 		
 		\method{public subscribe(object: BusDevice, topic: Topic): Boolean}
 		Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription anlegt. \\
 		\textbf{Parameter:} Der Abonnent und das abonnierte Thema. \\
-		\textbf{Rückgabewert:}Boolean, der den Erfolg des Eintrags der Subscription angibt. \\
+		\textbf{Rückgabewert:}Boolean, der den Erfolg des Eintrags der Subscription angibt. 
 		
 		\method{public unsubscribe(object: BusDevice, topic: Topic): Boolean}
 		Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription löscht, sofern diese existiert. \\
 		\textbf{Parameter:} Der Abonnent und das un-abonnierte Thema. \\
-		\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema eingetragen ist. \\
+		\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema eingetragen ist. 
 		\end{description}
 		
 		\subsection{Request}
@@ -194,24 +194,24 @@
 	\label{Class:LevelDBAccess}
 	Die Klasse, die im Modul die Instanz von LevelUP hält und den konkreten Zugriff auf die Datenbank ausführt. \\
 	\begin{description}
-	\attr{currentDriver: Driver} Der momentan als Fahrer eingetragene Benutzer \\
-	\attr{maxCapacity: NaturalNumber} Die momentan gesetzte maximale Kapazität der Datenbank. \\
-	\attr{database: LevelUP} Die Instanz von LevelUP, die als Datenbank für das System benutzt wird. \\
+	\attr{currentDriver: Driver} Der momentan als Fahrer eingetragene Benutzer 
+	\attr{maxCapacity: NaturalNumber} Die momentan gesetzte maximale Kapazität der Datenbank. 
+	\attr{database: LevelUP} Die Instanz von LevelUP, die als Datenbank für das System benutzt wird. 
 	
 	\method{protected put(timestamp: Timestamp, topic: Topic, entry: DBEntry): Boolean}
 	Funktion, die eine Instanz von DBEntry mit einem Key aus  Thema und Zeitstempel in der Datenbank ablegt. \\
 	\textbf{Parameter:} Der Zeitstempel des Eingangs der Nachricht im Modul, das Thema der Nachricht sowie der konkrete Datenbankeintrag. \\
-	\textbf{Rückgabewert:} Boolean, der angibt. ob der Eintrag in der Datenbank abgelegt wurde. \\
+	\textbf{Rückgabewert:} Boolean, der angibt, ob der Eintrag in der Datenbank abgelegt wurde. 
 	
 	\method{protected put(driver: Driver, entry: DriverInfoEntry): Boolean}
 	Funktion, die eine Instanz von DriverInfoEntry mit einem Benutzer als Key in der Datenbank ablegt. \\
 	\textbf{Parameter:} Der Benutzer, dessen Fahrerinformationen geändert bzw. gespeichert werden sollen, sowie der konkrete Eintrag in die Datenbank. \\
-	\textbf{Rückgabewert:} Boolean, der angibt, ob der Eintrag in der Datenbank abgelegt wurde. \\
+	\textbf{Rückgabewert:} Boolean, der angibt, ob der Eintrag in der Datenbank abgelegt wurde. 
 	
-	\method{protected get(request: DBRequest): List of DBEntries}
+	\method{protected get(request: DBRequest): List of DBEntry}
 	Funktion, die eine Instanz von DBRequest entgegennimmt und eine Liste von dem Request entsprechenden Datenbankeinträgen zurückgibt. \\
 	\textbf{Parameter:} Eine Instanz von DBRequest \\
-	\textbf{Rückgabewert:} Eine Liste aller DBEntries aus der Datenbank, die dem Request entsprechen. \\
+	\textbf{Rückgabewert:} Eine Liste aller DBEntries aus der Datenbank, die dem Request entsprechen. 
 	
 	\method{private deleteOnMaxCapacity(): Void}
 	Funktion, die die in maxCapacity festgelegte Obergrenze der Datenbank überprüft und ggf. Einträge aus der Datenbank löscht. \\
@@ -224,59 +224,58 @@
 		
 	\section{User Interface}
 		\subsection{Website}
-		Da dies eine statische Webseite darstellt kann man es nicht als Objekt ansehen. Es besitzt zwei Frames die mit den gewünschten JS oder TS-Elementen gefüllt werden können.
-		
+		Da es sich um eine statische Website handelt, kann man dies nicht als Objekt betrachten. Es besitzt zwei Frames die mit den gewünschten JS oder TS-Elementen gefüllt werden können.
 		
 		\subsection{ViewFrame}
 		\label{Class:ViewFrame}
-		Abstrakte Superklasse für alle Views. Unter anderem das Dashboard, die Settings, die Karte und die Rückfahrkamera.
+		Abstrakte Oberklasse für alle Views. Dazu gehören unter anderem das Dashboard, die Settings, die Karte und die Rückfahrkamera.
 		    \begin{description}
 				\attr{private elements: List of elements}
-					Liste aller angezeigten Elemente.\\		    	
+					Liste aller angezeigten Elemente.
 		    	\method{abstract public resize(x: integer, y: integer): boolean}
-		    		Ändert die Größe des Frames, welches automatisch auch alle darin angezeigten Elemente anpasst.\\
+		    		Ändert die Größe des Frames und passt die Größe aller darin befindlichen Elemente der neuen Größe des Frames an.\\
 		    	
 		    \end{description}
 		
 		\subsection{StatusBarFrame}
 		\label{Class:StatusBarFrame}
-		Zweiter Anzeigeframe. Eine Leiste am oberen Rand der Website.
+		Zweiter Anzeigeframe in Form einer Leiste am oberen Rand der Website.
 		\begin{description}
 			\attr{private elements: List of elements}
 				Liste aller angezeigten Elemente.\\
 			\method{public addElement(e: Element, pos: Position): boolean}
 				Fügt ein neues Anzeigeelement zur Leiste hinzu. 
 				\textbf{Parameter:} Mit dem Parameter pos lässt sich die Position des Elements e auf der Leiste bestimmen.
-				\textbf{Rückgabewert:} Boolean der angibt ob das Hinzufügen funktioniert hat.
+				\textbf{Rückgabewert:} Boolean der angibt, ob das Hinzufügen des Elements funktioniert hat.
 			\method{public removeElement(e: Element): boolean}
-				Entfernt ein Anzeigeelement von der Leiste. 
+				Entfernt ein Anzeigeelement aus der Leiste. 
 				\textbf{Parameter:} Das zu entfernende Element e.
-				\textbf{Rückgabewert:} Boolean das angibt ob das Entfernen funktioniert hat.
+				\textbf{Rückgabewert:} Boolean der angibt, ob das Entfernen funktioniert hat.
 		\end{description}
 		
 		
 		\subsection{GridView}
 		\label{Class:GridView}
-		Das Dashboard. Die gesamte Anzeige besteht aus einem Grid. Als Serializable lässt sich sein Zustand speichern und wiederherstellen.
+		Das Dashboard. Die gesamte Anzeige besteht aus diesem Grid. Da die Klasse serialisierbar ist, lässt sich sein Zustand speichern und wiederherstellen.
 		\begin{description}
 			\attr{private gridster: Gridster}
-				Objekt des Plugins welches das gesamte Grid darstellt. 
+				Objekt des Plugins, welches das gesamte Grid darstellt. 
 			\method{public addWidget(:Widget, :Options): boolean}
-				Fügt ein Widget in das Grid hinzu.
-				\textbf{Parameter:} Das hinzuzufügende Widget und Optionen (z.B. Positions und Größenangaben).
-				\textbf{Rückgabewert:} Boolean das angibt ob das Hinzufügen ein Erfolg war.
+				Fügt ein Widget in das Grid hinzu. \\
+				\textbf{Parameter:} Das hinzuzufügende Widget und Optionen (z.B. Positions- und Größenangaben). \\
+				\textbf{Rückgabewert:} Boolean, der angibt, ob das Hinzufügen ein Erfolg war.
 			\method{public removeWidget(:Widget): boolean}
-				Entfernt ein Widget vom Grid
-				\textbf{Parameter:} Das zu entfernende Widget.
-				\textbf{Rückgabewert:} Boolean das angibt ob das Entfernen ein Erfolg war.
+				Entfernt ein Widget vom Grid \\
+				\textbf{Parameter:} Das zu entfernende Widget. \\
+				\textbf{Rückgabewert:} Boolean, der angibt, ob das Entfernen ein Erfolg war.
 		\end{description}
 		
 		\subsection{SettingsView}
 		\label{Class:SettingsView}
-		Die Einstellungsanzeige. Die Anzeige besteht aus mehreren Tabellen die bei Auswahl eines Elements eine Tiefergelegene öffnet.
+		Die Einstellungsanzeige. 
 		\begin{description}
 			\attr{private availableSignals: List}
-				Liste aller erhältlichen Signale \\
+				Liste aller verfügbaren Signale \\
 			\attr{private config: config}
 				Aktuelle Konfiguration im Config-File \\
 			\method{private changeConfig()}
@@ -285,27 +284,27 @@
 		
 		\subsection{Table}
 		\label{Class:Table}
-		Abstrakte Klasse einer Tabelle. Ermöglicht verschiedene Objekte in Zeilen und Spalten anzuzeigen. Generell soll immer eine ganze Zeile als Objekt hinzugefügt werden. Ein eigenes Zeilenobjekt muss dafür implementiert werden.
+		Abstrakte Klasse einer Tabelle. Die Klasse ermöglicht es, verschiedene Objekte in Zeilen und Spalten anzuzeigen. Generell soll immer eine ganze Zeile als Objekt hinzugefügt werden. Ein eigenes Zeilenobjekt muss dafür implementiert werden.
 		
 		\subsection{Widget}
 		\label{Class:Widget}
-		Entspricht den Vorgaben von JQuery ein neues Widget zu erstellen. Diese werden für das GridView benötigt. Es existieren außer die beschriebenen Funktionen weitere Mögliche die von JQuery bei bestimmten Aktionen aufgerufen werden.
+		Entspricht den Vorgaben von JQuery, ein neues Widget zu erstellen. Diese werden für das GridView benötigt. Es existieren außer den beschriebenen Funktionen noch solche, die von JQuery bei bestimmten Aktionen aufgerufen werden.
 		\begin{description}
 			\attr{private name: String}
-				Bezeichner für das Widget \\
+				Bezeichner für das Widget 
 			\method{abstract public \_create()}
-				Wird beim Erzeugen des Widgets aufgerufen. Zur Initialisierung von Variablen u.ä.\\
+				Wird beim Erzeugen des Widgets aufgerufen. Zur Initialisierung von Variablen u.ä.
 			\method{abstract public \_destroy()}
-				Wird beim Löschen des Widgets aufgerufen.\\
+				Wird beim Löschen des Widgets aufgerufen.
 		\end{description}
 		
 		\subsection{NumberDash}
 		\label{Class:NumberDash}
-			Überklasse für alle Dashes die einen Zahlenwert anzeigen.
+			Überklasse für alle Dashes, die einen Zahlenwert anzeigen.
 		
 		\subsection{BooleanDash}
 		\label{Class:BooleanDash}
-			Überklasse für alle Dashes die einen Wahrheitswert anzeigen.
+			Überklasse für alle Dashes, die einen Wahrheitswert anzeigen.
 		
 	\section{Konfiguration und erhältliche Signale}
 		\subsection{ConfigFileReader}
@@ -316,17 +315,17 @@
 					Die zu bearbeitende und zu lesende Datei
 				\method{setConfig(name: String, value: Value)}
 					Verändert eine Einstellung. 
-					\textbf{Parameter:} Der Name der Einstellung sowie der neue Wert dieser Einstellung.
+					\textbf{Parameter:} Der Name der Einstellung sowie der neue Wert dieser Einstellung. \\
 					\textbf{Rückgabewert:} Boolean das angibt ob es diese Einstellung bereits gibt.
 				\method{getConfig(name: String)}
 					Liest eine Einstellung aus.
-					\textbf{Parameter:} Der Name der Einstellung.
-					\textbf{Rückgabewert:} Der Wert der Einstellung oder null falls die Einstellung nicht existiert.
+					\textbf{Parameter:} Der Name der Einstellung. \\
+					\textbf{Rückgabewert:} Der Wert der Einstellung oder null.
 			\end{description}
 			
 		\subsection{SignalCollector}
 		\label{Class:SignalCollector}
-			Sammelt die Information welche Signale erhältlich sind. Reagiert auf bestimmte RequestMessages welche entweder das Hinzufügen oder das Auslesen dieser Signale ermöglicht. Ein Beispiel ist hier das der OBD-Schnittstelle, die auf Anfrage die gesamte Liste seiner Signale auf den Bus legen kann.
+			Registriert, welche Informationen erhältlich sind und reagiert auf bestimmte RequestMessages, entweder durch Hinzufügen oder Auslesen dieser Signale. Ein Beispiel ist hier das die OBD2-Schnittstelle, die auf Anfrage die gesamte Liste seiner Signale auf den Bus legen kann.
 			\begin{description}
 				\attr{signalsList}
 					Die Liste der erhältlichen Signale.
