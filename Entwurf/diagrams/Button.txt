@@ -1,0 +1,17 @@
+@startuml
+
+Class Button {
+-gasLevel: float
+-criticalLevel: float
+-state: State
+}
+
+abstract State {
++void changeView()
+}
+State o--right- Button
+State <|-down- MapState
+State <|-down- GasState
+State <|-down- WorkShopState
+
+@enduml
