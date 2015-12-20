@@ -1,18 +1,28 @@
 @startuml
 
 Class MapView <<Singleton>> {
--map:png
-+updateMap()
+-location: Location
++downloadMap()
++show()
+}
+
+Class MapWithWorkShopView{
++downloadMap()
++show()
+}
+
+Class MapWithGasView{
++downloadMap()
++show()
 }
 
 FrameView <|-down- MapView
-Button <|-down- MapView
 
-MapView <|-down- MapWithPOIView
+MapView <|-down- MapWithWorkShopView
 MapView <|-down- MapWithGasView
 
 MapWithGasView o--"1" ListGasStation
-MapWithPOIView o--"1" ListPOI
+MapWithWorkShopView o--"1" ListWorkShop
 
 Class GasStationItem{
 -String name
@@ -21,13 +31,13 @@ Class GasStationItem{
 -float distance
 }
 
-Class POIItem {
+Class WorkShopItem {
 -String name
 -String Address
 -float distance
 }
 
-ListPOI "1"*-down-"1.." POIItem
+ListWorkShop "1"*-down-"1.." WorkShopItem
 ListGasStation "1"*-down-"1.." GasStationItem
 
 @enduml
