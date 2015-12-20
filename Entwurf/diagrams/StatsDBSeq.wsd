@@ -10,36 +10,93 @@ participant MessageBus
 
 participant Broker
 
-
 participant "avgSpeedComputation: AverageComputation" as AVGSCALC
 
-
+participant DBReqFrom
 
 participant DBBusAccess
 
 Bob -> Terminal: showDash(avgSpeed)
 activate Terminal
 
-
-
 activate TerminalProxy
-
 TerminalProxy -> TerminalProxy: publish(avgSpeedReq)
 activate TerminalProxy
+
+TerminalProxy --> TerminalProxy:
+deactivate TerminalProxy
 
 TerminalProxy -> MessageBus: handleMessage(avgSpeedReq)
 activate MessageBus
 
-MessageBus -> Broker: getSubscribers(Topic.AVG_SPEED_REQ)
-activate Broker
+group distribute Message
 
-Broker --> MessageBus: subscribers
-deactivate Broker
+	MessageBus -> MessageBus: distribute(avgSpeedReq)
+	activate MessageBus
+
+	MessageBus -> Broker: getSubscribers(avgSpeedReq)
+	activate Broker
+
+	Broker --> MessageBus: subscribers
+	deactivate Broker
+
+	MessageBus --> MessageBus:
+	deactivate MessageBus
+
+end
 
 MessageBus -> AVGSCALC: handleMessage(avgSpeedReq)
 activate AVGSCALC
 
-AVGSCALC -> AVGSCALC: computeValue(avgSpeedReq.getValue())
+create DBReqFrom
+
+AVGSCALC -> DBReqFrom: <<create>> DBReqFrom(avgSpeedReq.begin())
+activate DBReqFrom
+DBReqFrom --> AVGSCALC: dbReqMsg
+deactivate DBReqFrom
+
+AVGSCALC -> AVGSCALC: publish(dbReqMsg)
+activate AVGSCALC
+AVGSCALC --> AVGSCALC:
+deactivate AVGSCALC
+
+AVGSCALC -> MessageBus: handleMessage(dbReqMsg)
+activate MessageBus
+MessageBus -> MessageBus: distribute(dbReqMsg)
+activate MessageBus
+MessageBus --> MessageBus:
+deactivate MessageBus
+MessageBus -> DBBusAccess: handleMessage(dbReqMsg)
+activate DBBusAccess
+
+create Statistic
+
+DBBusAccess -> Statistic: Statistic(Topic.SPEED, values)
+activate Statistic
+Statistic --> DBBusAccess: stat
+deactivate Statistic
+
+create StatisticMessage
+DBBusAccess -> StatisticMessage: <<create>> StatisticMessage(stat)
+activate StatisticMessage
+
+StatisticMessage --> DBBusAccess: statMsg
+deactivate StatisticMessage
+
+DBBusAccess -> MessageBus: handleMessage(statMsg)
+activate MessageBus
+
+MessageBus -> MessageBus: distribute(statMsg)
+activate MessageBus
+
+MessageBus --> MessageBus:
+deactivate MessageBus
+
+MessageBus -> AVGSCALC: handleMessage(statMsg)
+activate AVGSCALC
+
+
+AVGSCALC -> AVGSCALC: computeValue(avgSpeedReq)
 activate AVGSCALC
 AVGSCALC --> AVGSCALC: avgSpeed
 deactivate AVGSCALC
@@ -59,11 +116,10 @@ deactivate AVGSCALC
 AVGSCALC -> MessageBus: handleMessage(valueMessage)
 activate MessageBus
 
-MessageBus -> Broker: getSubscribers(Topic.AVG_SPEED_REQ)
-activate Broker
-
-Broker --> MessageBus: subscribers
-deactivate Broker
+MessageBus -> MessageBus: distribute(valueMessage)
+activate MessageBus
+MessageBus --> MessageBus
+deactivate MessageBus
 
 MessageBus -> TerminalProxy: handleMessage(valueMessage)
 activate TerminalProxy
@@ -72,6 +128,24 @@ TerminalProxy --> MessageBus:
 deactivate TerminalProxy
 
 MessageBus --> AVGSCALC:
+deactivate MessageBus
+
+AVGSCALC --> MessageBus
+deactivate AVGSCALC
+
+MessageBus --> DBBusAccess
+deactivate MessageBus
+
+DBBusAccess --> MessageBus
+deactivate DBBusAccess
+
+MessageBus --> AVGSCALC
+deactivate MessageBus
+
+AVGSCALC --> MessageBus
+deactivate AVGSCALC
+
+MessageBus --> TerminalProxy
 deactivate MessageBus
 
 

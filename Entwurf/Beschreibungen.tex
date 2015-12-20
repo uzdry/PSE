@@ -15,7 +15,7 @@ Die subscribten Daten werden vom Proxy über die PeerConnection an das Endgerät
 
 Aggregierte Funktionen und virtuelle Sensoren sind Instanzen einer Klasse 'VirtualSensor'. Sie abonnieren die benötigten Signale, berechnen neue Werte sobald die Signale ankommen, und legen diese dann als neues Signal wieder auf den Bus. 
 
-Zentral gespeichert werden alle Daten in einer LevelDB-Datenbank. Ihr vorgeschaltet ist eine Klasse die eine Schnittstelle zwischen Datenbank und Bus darstellt. In dieser werden alle Signale und Konfigurationsnachrichten abonniert und dann in der Datenbank gespeichert. Außerdem empfängt diese Klasse auch Befehle über den Bus und kann dann z.B. gewünschte Daten aus der Datenbank auf den Bus legen.
+Zentral gespeichert werden alle Daten in einer LevelDB-Datenbank. Ihr vorgeschaltet ist eine Klasse, die eine Schnittstelle zwischen Datenbank und Bus darstellt. In dieser werden alle Signale und Konfigurationsnachrichten abonniert und dann in der Datenbank gespeichert. Außerdem empfängt diese Klasse auch Befehle über den Bus und kann dann z.B. gewünschte Daten aus der Datenbank auf den Bus legen.
 
 Auf dem Endgerät wird der gleiche Datenbus genutzt wie auf dem Server. Auch hier gibt es einen Proxy mit einer PeerConnection.
 

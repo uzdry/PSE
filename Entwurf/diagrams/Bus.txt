@@ -54,37 +54,38 @@ class DBReqRange extends DBRequest {
 	-endDate: Date
 }
 
-abstract class BusAccess << Creator >> {
+abstract class BusDevice {
 	+publish(message: Message): Boolean
 	+{abstract}handleMessage(message: Message)
-	+subscribe(object: BusAccess, topic: Topic): Boolean
-	+unsubscribe(object: BusAccess, topic: Topic): Boolean
+	+subscribe(object: BusDevice, topic: Topic): Boolean
+	+unsubscribe(object: BusDevice, topic: Topic): Boolean
 	-createMessage(): Message
 }
 
 class Broker {
-	+getSubscribers(topic: Topic): List of Subscriptions
-	+getSubscriptions(object: BusAccess): List of BusAccess
-	+subscribe(object: BusAccess, topic: Topic): Boolean
-	+unsubscribe(object: BusAccess, topic: Topic): Boolean
+	+getSubscribers(topic: Topic): List of BusDevice
+	+getSubscriptions(object: BusDevice): List of Topic
+	+subscribe(object: BusDevice, topic: Topic): Boolean
+	+unsubscribe(object: BusDevice, topic: Topic): Boolean
 }
 
 class Subscription {
-	-subscriber: BusAccess
+	-subscriber: BusDevice
 	-subscribedTopic: Topic
 }
 
 class MessageBus {
-	+subscribe(object: BusAccess, topic: Topic)
-	+unsubscribe(object: BusAccess, topic: Topic)
+	+subscribe(object: BusDevice, topic: Topic)
+	+unsubscribe(object: BusDevice, topic: Topic)
 	+handleMessage(message: Message)
 	-distribute(message: Message)
 }
 
 MessageBus *--"1" Broker
 MessageBus o--"0..n" Message
-MessageBus o--"0..n" BusAccess 
+MessageBus o--"0..n" BusDevice 
+MessageBus "1"--* BusDevice
 Broker *--"0..n" Subscription
-BusAccess o--"0..n" Message
+BusDevice o--"0..n" Message
 
 @enduml
