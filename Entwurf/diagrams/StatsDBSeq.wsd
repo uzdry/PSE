@@ -1,7 +1,5 @@
 @startuml
 
-actor Bob
-
 participant Terminal
 
 participant TerminalProxy
@@ -16,8 +14,9 @@ participant DBReqFrom
 
 participant DBBusAccess
 
-Bob -> Terminal: showDash(avgSpeed)
-activate Terminal
+activate Terminal 
+Terminal -> TerminalProxy: request average speed
+note right: send a RequestMessage for average speed display via WebRTC
 
 activate TerminalProxy
 TerminalProxy -> TerminalProxy: publish(avgSpeedReq)
@@ -26,7 +25,7 @@ activate TerminalProxy
 TerminalProxy --> TerminalProxy:
 deactivate TerminalProxy
 
-TerminalProxy -> MessageBus: handleMessage(avgSpeedReq)
+TerminalProxy ->> MessageBus: handleMessage(avgSpeedReq)
 activate MessageBus
 
 group distribute Message
@@ -34,7 +33,7 @@ group distribute Message
 	MessageBus -> MessageBus: distribute(avgSpeedReq)
 	activate MessageBus
 
-	MessageBus -> Broker: getSubscribers(avgSpeedReq)
+	MessageBus ->> Broker: getSubscribers(avgSpeedReq)
 	activate Broker
 
 	Broker --> MessageBus: subscribers
@@ -45,12 +44,12 @@ group distribute Message
 
 end
 
-MessageBus -> AVGSCALC: handleMessage(avgSpeedReq)
+MessageBus ->> AVGSCALC: handleMessage(avgSpeedReq)
 activate AVGSCALC
 
 create DBReqFrom
 
-AVGSCALC -> DBReqFrom: <<create>> DBReqFrom(avgSpeedReq.begin())
+AVGSCALC ->> DBReqFrom: <<create>> DBReqFrom(avgSpeedReq.begin())
 activate DBReqFrom
 DBReqFrom --> AVGSCALC: dbReqMsg
 deactivate DBReqFrom
@@ -60,30 +59,30 @@ activate AVGSCALC
 AVGSCALC --> AVGSCALC:
 deactivate AVGSCALC
 
-AVGSCALC -> MessageBus: handleMessage(dbReqMsg)
+AVGSCALC ->> MessageBus: handleMessage(dbReqMsg)
 activate MessageBus
 MessageBus -> MessageBus: distribute(dbReqMsg)
 activate MessageBus
 MessageBus --> MessageBus:
 deactivate MessageBus
-MessageBus -> DBBusAccess: handleMessage(dbReqMsg)
+MessageBus ->> DBBusAccess: handleMessage(dbReqMsg)
 activate DBBusAccess
 
 create Statistic
 
-DBBusAccess -> Statistic: Statistic(Topic.SPEED, values)
+DBBusAccess ->> Statistic: Statistic(Topic.SPEED, values)
 activate Statistic
 Statistic --> DBBusAccess: stat
 deactivate Statistic
 
 create StatisticMessage
-DBBusAccess -> StatisticMessage: <<create>> StatisticMessage(stat)
+DBBusAccess ->> StatisticMessage: <<create>> StatisticMessage(stat)
 activate StatisticMessage
 
 StatisticMessage --> DBBusAccess: statMsg
 deactivate StatisticMessage
 
-DBBusAccess -> MessageBus: handleMessage(statMsg)
+DBBusAccess ->> MessageBus: handleMessage(statMsg)
 activate MessageBus
 
 MessageBus -> MessageBus: distribute(statMsg)
@@ -92,7 +91,7 @@ activate MessageBus
 MessageBus --> MessageBus:
 deactivate MessageBus
 
-MessageBus -> AVGSCALC: handleMessage(statMsg)
+MessageBus ->> AVGSCALC: handleMessage(statMsg)
 activate AVGSCALC
 
 
@@ -103,7 +102,7 @@ deactivate AVGSCALC
 
 create ValueMessage
 
-AVGSCALC -> ValueMessage: <<create>> ValueMessage(Topic.AVG_SPEED, avgSpeed)
+AVGSCALC ->> ValueMessage: <<create>> ValueMessage(Topic.AVG_SPEED, avgSpeed)
 activate ValueMessage
 ValueMessage --> AVGSCALC: valueMessage
 deactivate ValueMessage
@@ -113,7 +112,7 @@ activate AVGSCALC
 AVGSCALC --> AVGSCALC:
 deactivate AVGSCALC
 
-AVGSCALC -> MessageBus: handleMessage(valueMessage)
+AVGSCALC ->> MessageBus: handleMessage(valueMessage)
 activate MessageBus
 
 MessageBus -> MessageBus: distribute(valueMessage)
@@ -121,7 +120,7 @@ activate MessageBus
 MessageBus --> MessageBus
 deactivate MessageBus
 
-MessageBus -> TerminalProxy: handleMessage(valueMessage)
+MessageBus ->> TerminalProxy: handleMessage(valueMessage)
 activate TerminalProxy
 
 TerminalProxy --> MessageBus:
@@ -147,6 +146,10 @@ deactivate AVGSCALC
 
 MessageBus --> TerminalProxy
 deactivate MessageBus
+
+TerminalProxy --> Terminal: transmit value
+note right: transmit ValueMessage using WebRTC
+deactivate TerminalProxy
 
 
 @enduml
