@@ -4,10 +4,10 @@
 \chapter{Klassendiagramme}
 	\section{Bus}
 		
-  		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation aller Module ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von ''BusAccess'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusAccess'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Topics (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten) abonnieren. \\
-  		Diese Abbonements werden in der Klasse ''Broker'' verwaltet. Sendet ein Objekt von ''BusAccess'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
+  		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation aller Module ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von ''BusDevice'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusDevice'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Topics (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten) abonnieren. \\
+  		Diese Abbonements werden in der Klasse ''Broker'' verwaltet. Sendet ein Objekt von ''BusDevice'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
   		Die Oberklasse ''Message'' besitzt eine Reihe von erbenden Klassen. Dies ist nötig, um alle möglichen Typen von Nachrichten darzustellen: ''SensorValueMessage'' wird für das einfache versenden von Messwerten benutzt, ''ConfigFileRequest'' für Konfigurationsdateien usw. Dieser Aufbau ermöglicht das leichte Ergänzen um ggf. zusätzlich benötigte Nachrichtentypen. Ein besonderer Nachrichtentyp ist die DatabaseRequestMessage, die Anfragen an die Datenbank beinhaltet. Die Anfragen vom Typ ''DBRequest'' sind unterteilt in verschiedene Typen von Anfragen: DBReqRecent fordert die letzten n Einträge an, DBReqFrom alle Einträge seit einem Datum, und DBReqRange fordert alle Datenbankeinträge zwischen zwei Daten an. \\
-  		Das Konstrukt  der Klassen ''BusAccess'' sowie erbende Klassen, ''Message'' und die von ''Message'' erbenden Klassen ergeben gemeinsam das Entwurfsmuster der Fabrikmethode. 
+  		Das Konstrukt  der Klassen ''BusDevice'' sowie erbende Klassen, ''Message'' und die von ''Message'' erbenden Klassen ergeben gemeinsam das Entwurfsmuster der Fabrikmethode. 
   		
   		\begin{figure}[H]
   			\begin{center}
@@ -34,7 +34,7 @@
   				\caption{Virtuelle Sensoren Klassendiagramm}
   			\end{center}
   		\end{figure}
-  	Als Datenbank wurde, wie im Pflichtenheft spezifiziert, LevelDB benutzt. Die Access-Klasse für LevelDB erbt von einer ''DBAccess''-Oberklasse, um leichte Austauschbarkeit zu gewährleisten. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gehalten. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und Fahrer gespeichert, zum anderen fahrerbezogene Einträge, die präferierten Kraftstoff und eine Referenz auf die Konfiguration des virtuellen Armaturenbretts mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit DBBusAccess eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
+  	Als Datenbank wurde, wie im Pflichtenheft spezifiziert, LevelDB benutzt. Die Access-Klasse für LevelDB erbt von einer ''DBAccess''-Oberklasse, um leichte Austauschbarkeit zu gewährleisten. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gehalten. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und Fahrer gespeichert, zum anderen fahrerbezogene Einträge, die präferierten Kraftstoff und eine Referenz auf die Konfiguration des virtuellen Armaturenbretts mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit DBBusDevice eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
   	
 
 	\newpage
@@ -54,9 +54,9 @@
   	\section{User Interface}
 		Wie in \ref{Class:Website} zu sehen ist besteht ein Hauptteil des UserInterface aus dem ViewFrame der von verschiedenen Views vertreten werden kann. Hier sieht man den Aufbau des GridViews und des SettingViews. Das Grid nutzt eine Objekt der Klasse Gridster die aus der Bibliothek Gridster stammt. Das GridView besteht hauptsächlich aus diesem Objekt. Es ermöglicht verschiedene Widgets in einem Grid mit Elementen verschiedener Größen dynamisch anzeigen zu lassen.
 		
-		Hierbei sind die Widgets selbst Abonnenten des angezeigten Signals, weshalb diese die Abstrakte Klasse BusAccess implementieren müssen.
+		Hierbei sind die Widgets selbst Abonnenten des angezeigten Signals, weshalb diese die abstrakte Klasse BusDevice implementieren müssen.
 		
-		Über die SettingsView ist es möglich verschiedene Widgets in dieses Grid hinzuzufügen oder zu ändern. Weshalb sich das SettingView immer die Instanz des Grids als Objekt speichert. Dies kommt zum Einsatz wenn z.B. ein früherer Zustand des Serializable Grids wiederhergestellt werden soll. Um früher gespeicherte Konfigurationen vom Bus zu empfangen und neue Einstellungen an den Server zu schicken implementiert auch die SettingsView den BusAccess. 
+		Über die SettingsView ist es möglich verschiedene Widgets in dieses Grid hinzuzufügen oder zu ändern. Weshalb sich das SettingView immer die Instanz des Grids als Objekt speichert. Dies kommt zum Einsatz wenn z.B. ein früherer Zustand des Serializable Grids wiederhergestellt werden soll. Um früher gespeicherte Konfigurationen vom Bus zu empfangen und neue Einstellungen an den Server zu schicken implementiert auch die SettingsView den BusDevice. 
 		
 		
 		\begin{figure}[H]
@@ -87,8 +87,8 @@
   	
 \chapter{Klassen}
 	\section{Bus}
-	\subsection{BusAccess}
-	\label{Class:BusAccess} 
+	\subsection{BusDevice}
+	\label{Class:BusDevice} 
 		Eine abstrakte Klasse, deren erbende Klassen Zugriff auf das Bus-Modul haben.
 		\begin{description}
 			\attr{private messages: List of Messages} 
@@ -100,11 +100,11 @@
 				\textbf{Rückgabewert:} Boolean, der beschreibt, ob die Nachricht beim Bus angekommen ist.
 			\method{abstract public handleMessage(message: Message): Void}  
 				Funktion zum asynchronen Empfangen einer Nachricht von einer Instanz von MessageBus.\\ 
-			\method{public subscribe(object: BusAccess, topic: Topic): boolean} 
+			\method{public subscribe(object: BusDevice, topic: Topic): boolean} 
 				Funktion zum abonnieren von Nachrichten eines bestimmten Themas.\\ 
 				\textbf{Parameter:} Der Abonnent und das abonnierte Thema.\\ 
 				\textbf{Rückgabewert:} Boolean, der beschreibt, ob das Thema erfolgreich abonniert wurde.
-			\method{public unsubscribe(object: BusAccess, topic: Topic): boolean} 
+			\method{public unsubscribe(object: BusDevice, topic: Topic): boolean} 
 				Funktion zum Beenden eines Abonnements zu einem bestimmten Thema.\\ 
 				\textbf{Parameter:} Der Abonnent und das abonnierte Thema.\\ 
 				\textbf{Rückgabewert:} Boolean, der beschreibt, ob das Thema erfolgreich aus der Liste der Abonnements entfernt wurde.
@@ -129,23 +129,23 @@
 			\attr{private broker: Broker}
 				Der Broker des Busses; siehe Beschreibung der Broker-Klasse. \\
 				
-			\method{public subscribe(object: BusAccess, topic: Topic): Boolean}
-			Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription in der Broker-Instanz des MessageBus anlegt. \\
+			\method{public subscribe(object: BusDevice, topic: Topic): Boolean}
+			Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription in der Broker-Instanz des MessageBus anlegt. \\
 			\textbf{Parameter:} Der Abonnent und das abonnierte Thema. \\
 			\textbf{Rückgabewert:}Boolean, der den Erfolg des Eintrags der Subscription angibt. \\
 			
-			\method{public unsubscribe(object: BusAccess, topic: Topic): Boolean}
-			Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription in der Broker-Instanz des MessageBus löscht, sofern diese existiert. \\
+			\method{public unsubscribe(object: BusDevice, topic: Topic): Boolean}
+			Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription in der Broker-Instanz des MessageBus löscht, sofern diese existiert. \\
 			\textbf{Parameter:} Der Abonnent und das un-abonnierte Thema. \\
 			\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema im Broker eingetragen ist. \\
 			
 			\method{handleMessage(message: Message): Void}
-			Funktion, die asynchron eine Nachricht von einer Instanz von BusAccess empfängt, sich von der lokalen Broker-Instanz alle Subscriptions auf das Thema der Nachricht holt, und die Nachricht dann über einen Aufruf von distribute(message: Message) an Instanzen von BusAccess verteilt. \\
+			Funktion, die asynchron eine Nachricht von einer Instanz von BusDevice empfängt, sich von der lokalen Broker-Instanz alle Subscriptions auf das Thema der Nachricht holt, und die Nachricht dann über einen Aufruf von distribute(message: Message) an Instanzen von BusDevice verteilt. \\
 			\textbf{Parameter:} Die versendete Nachricht \\
 			
-			\method{distribute(message: Message, subscribers: List of BusAccess): Void}
-			Funktion, die eine Nachricht an alle angegebenen Instanzen von BusAccess versendet.
-			\textbf{Parameter:} Die zu versendende Nachricht und eine Liste aller Instanzen von BusAccess, die die Nachricht bekommen sollen. \\
+			\method{distribute(message: Message, subscribers: List of BusDevice): Void}
+			Funktion, die eine Nachricht an alle angegebenen Instanzen von BusDevice versendet.
+			\textbf{Parameter:} Die zu versendende Nachricht und eine Liste aller Instanzen von BusDevice, die die Nachricht bekommen sollen. \\
 			\end{description}
 			
 		\subsection{Broker}
@@ -159,18 +159,18 @@
 		\textbf{Rückgabewert:} Eine Liste aller Abonnenten auf das Thema.	\\
 		
 
-		\method{getSubscriptions(object: BusAccess): List of Topics}
-		Funktion, die die Liste aller Abonnements einer bestimmten Instanz von BusAccess zurückgibt. \\
-		\textbf{Parameter:} Die Instanz von BusAccess, für die alle Abonnements zurückgegeben werden sollen.	\\
-		\textbf{Rückgabewert:} Eine Liste aller Themen, für die die Instanz von BusAccess Abonnements hält. 	\\
+		\method{getSubscriptions(object: BusDevice): List of Topics}
+		Funktion, die die Liste aller Abonnements einer bestimmten Instanz von BusDevice zurückgibt. \\
+		\textbf{Parameter:} Die Instanz von BusDevice, für die alle Abonnements zurückgegeben werden sollen.	\\
+		\textbf{Rückgabewert:} Eine Liste aller Themen, für die die Instanz von BusDevice Abonnements hält. 	\\
 		
-		\method{public subscribe(object: BusAccess, topic: Topic): Boolean}
-		Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription anlegt. \\
+		\method{public subscribe(object: BusDevice, topic: Topic): Boolean}
+		Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription anlegt. \\
 		\textbf{Parameter:} Der Abonnent und das abonnierte Thema. \\
 		\textbf{Rückgabewert:}Boolean, der den Erfolg des Eintrags der Subscription angibt. \\
 		
-		\method{public unsubscribe(object: BusAccess, topic: Topic): Boolean}
-		Funktion, die für eine Instanz von BusAccess auf ein Thema eine Subscription löscht, sofern diese existiert. \\
+		\method{public unsubscribe(object: BusDevice, topic: Topic): Boolean}
+		Funktion, die für eine Instanz von BusDevice auf ein Thema eine Subscription löscht, sofern diese existiert. \\
 		\textbf{Parameter:} Der Abonnent und das un-abonnierte Thema. \\
 		\textbf{Rückgabewert:} Boolean, der angibt, ob keine Subscription (mehr) von dem angegebenen Abonnenten auf das angegebene Thema eingetragen ist. \\
 		\end{description}
@@ -181,8 +181,8 @@
 		
 		
 	\section{DBAccess}
-	\subsection{DBBusAccess}
-	\label{Class:DBBusAccess}
+	\subsection{DBBusDevice}
+	\label{Class:DBBusDevice}
 	Die Klasse, die im Modul DBAccess den Zugriff auf den Bus ermöglicht und Nachrichten an die Klasse LevelDBAccess weiterleitet. \\
 	\begin{description}
 	\method{public handleMessage(message: Message): Void}
