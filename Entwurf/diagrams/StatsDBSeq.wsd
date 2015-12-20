@@ -22,13 +22,10 @@ activate TerminalProxy
 TerminalProxy -> TerminalProxy: publish(avgSpeedReq)
 activate TerminalProxy
 
-TerminalProxy --> TerminalProxy:
-deactivate TerminalProxy
-
 TerminalProxy ->> MessageBus: handleMessage(avgSpeedReq)
 activate MessageBus
 
-group distribute Message
+group get subscribers from Broker
 
 	MessageBus -> MessageBus: distribute(avgSpeedReq)
 	activate MessageBus
@@ -38,10 +35,6 @@ group distribute Message
 
 	Broker --> MessageBus: subscribers
 	deactivate Broker
-
-	MessageBus --> MessageBus:
-	deactivate MessageBus
-
 end
 
 MessageBus ->> AVGSCALC: handleMessage(avgSpeedReq)
@@ -56,15 +49,11 @@ deactivate DBReqFrom
 
 AVGSCALC -> AVGSCALC: publish(dbReqMsg)
 activate AVGSCALC
-AVGSCALC --> AVGSCALC:
-deactivate AVGSCALC
 
 AVGSCALC ->> MessageBus: handleMessage(dbReqMsg)
 activate MessageBus
 MessageBus -> MessageBus: distribute(dbReqMsg)
 activate MessageBus
-MessageBus --> MessageBus:
-deactivate MessageBus
 MessageBus ->> DBBusAccess: handleMessage(dbReqMsg)
 activate DBBusAccess
 
@@ -88,9 +77,6 @@ activate MessageBus
 MessageBus -> MessageBus: distribute(statMsg)
 activate MessageBus
 
-MessageBus --> MessageBus:
-deactivate MessageBus
-
 MessageBus ->> AVGSCALC: handleMessage(statMsg)
 activate AVGSCALC
 
@@ -109,28 +95,36 @@ deactivate ValueMessage
 
 AVGSCALC -> AVGSCALC: publish(valueMessage)
 activate AVGSCALC
-AVGSCALC --> AVGSCALC:
-deactivate AVGSCALC
 
 AVGSCALC ->> MessageBus: handleMessage(valueMessage)
 activate MessageBus
 
 MessageBus -> MessageBus: distribute(valueMessage)
 activate MessageBus
-MessageBus --> MessageBus
-deactivate MessageBus
 
 MessageBus ->> TerminalProxy: handleMessage(valueMessage)
 activate TerminalProxy
 
+TerminalProxy -> Terminal: transmit value
+note right: transmit ValueMessage using WebRTC
+
 TerminalProxy --> MessageBus:
 deactivate TerminalProxy
 
-MessageBus --> AVGSCALC:
+MessageBus --> MessageBus:
 deactivate MessageBus
+
+MessageBus --> AVGSCALC
+deactivate MessageBus
+
+AVGSCALC --> AVGSCALC
+deactivate AVGSCALC
 
 AVGSCALC --> MessageBus
 deactivate AVGSCALC
+
+MessageBus --> MessageBus
+deactivate MessageBus
 
 MessageBus --> DBBusAccess
 deactivate MessageBus
@@ -138,18 +132,20 @@ deactivate MessageBus
 DBBusAccess --> MessageBus
 deactivate DBBusAccess
 
+MessageBus --> MessageBus
+deactivate MessageBus
+
 MessageBus --> AVGSCALC
 deactivate MessageBus
 
 AVGSCALC --> MessageBus
 deactivate AVGSCALC
 
-MessageBus --> TerminalProxy
+MessageBus --> MessageBus
 deactivate MessageBus
 
-TerminalProxy --> Terminal: transmit value
-note right: transmit ValueMessage using WebRTC
-deactivate TerminalProxy
+MessageBus --> TerminalProxy
+deactivate MessageBus
 
 
 @enduml
