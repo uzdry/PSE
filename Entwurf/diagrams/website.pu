@@ -1,37 +1,61 @@
 @startuml
 
-class Website <<(W,#FF7700)HTML>>{
+class Proxy{
+	
 }
 
-class StatusBarFrame {
-	-elements: List of elements
-	+addElement(e: Element, pos: Position): boolean
-	+removeElement(e: Element) boolean
-	+changeView(:View): boolean
+class Collection{
+	+add( :DataModel)
+	+remove( :DataModel)
+	+get(id: String)
+	. . . 
 }
 
-abstract class ViewFrame {
-	-elements: List of elements
-	+{abstract} resize(x: integer, y: integer)
+class DataModel <<Serializable>>{
+	+id: String
+	+name: String
+	-data: List of values
+	bind(event: String)
 }
 
-class MapView extends ViewFrame{
-. . .
+abstract class View{
+	{abstract} render()
 }
 
-class ParkingView extends ViewFrame{
-. . .
+class Frame{
+
 }
 
-class GridView extends ViewFrame{
-. . .
+class Dashboard <<Serializable>> implements View {
+	+render()
+	
 }
 
-class SettingsView extends ViewFrame{
-. . .
+
+class WidgetFactory{
+	-widgetPrototypes: List with Widgets
+	+createWidget(WidgetPrototypeID: String, DataStreamID: String)
+	+addWidgetPrototype( :Widget ) 
 }
 
-Website "1"*--"1" StatusBarFrame
-Website "1"*--"1" ViewFrame
+abstract class Widget <<Serializable>> implements View{
+	{abstract} +sizes: List of vertices
+	{abstract} +widgetPrototypeID: String
+	{abstract} +widgetName
+}
+
+
+
+Dashboard o-- WidgetFactory
+WidgetFactory --> Widget: <<creates>>
+
+
+Collection o-- "*" DataModel
+Dashboard o-- "*" Widget
+View o-- DataModel
+View o-- Collection
+Proxy o-- Collection
+
+Frame o-- Dashboard
 
 @enduml
