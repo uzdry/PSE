@@ -1,4 +1,4 @@
-///<reference path="BackboneToTs.ts" />
+///<reference path="../typings/backbone/backbone.d.ts" />
 ///<reference path="Widget.ts" />
 ///<reference path="Dashboard.ts" />
 ///<reference path="DataModel.ts" />
