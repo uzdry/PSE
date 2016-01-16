@@ -168,20 +168,21 @@ import levelup = require("levelup");
         }
     }
 
-     //TODO: extends BusDevide
-    export class DBBusDevice {
+    class DBBusDevice extends BusDevice {
 
         private dbAccess: LevelDBAccess;
 
         constructor() {
+            super();
             this.dbAccess = new LevelDBAccess(this);
 
         }
 
-        public handleMessage(message: any) : any {
-            //TODO: implement message handling
+        public handleMessage(m: Message): void {
+            if (m.getTopic() !== DBRequestMessage.TOPIC) {
+                throw new Error('No correct Message');
+            }
         }
-
 
     }
 
