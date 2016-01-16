@@ -1,13 +1,9 @@
-//import {Map} from "./Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/typescriptCompiler/external/lib.es6";
-/**
- * Created by valentin on 10/01/16.
- */
-
+///<reference path="/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/typescriptCompiler/external/lib.es6.d.ts"/>
 
 import Value from "./Utils";
 import DBReqest from "./Utils";
 
-export class Topic {
+class Topic {
     private id:number;
     private name:string;
 
@@ -19,8 +15,12 @@ export class Topic {
         this.name = pName;
     }
 
-    getID():number {
+    public getID():number {
         return this.id;
+    }
+
+    public equals(topic: Topic) {
+        return this.getID() === topic.getID();
     }
 
 }
@@ -37,9 +37,9 @@ class Message {
     }
 }
 
-export default class BusDevice {
-    broker:Broker;
-    id:number;
+class BusDevice {
+    private broker:Broker;
+    private id:number;
     static cnt:number = 0;
 
     constructor() {
@@ -75,15 +75,18 @@ class Broker {
     private subs:{[tid: number]:Array<BusDevice>} = <any>[];
     private static instance:Broker;
 
-    constructor() {
+    bds: Set<BusDevice>;
+    private subscribers: Map<Topic, Set<BusDevice>>;
 
+    constructor() {
+        this.subscribers = new Map<Topic, Set<BusDevice>>();
     }
 
     public static get():Broker {
         if (this.instance == null) {
             this.instance = new Broker();
         }
-        return this.instance;
+        return Broker.instance;
     }
 
     public handleMessage(m:Message):void {
@@ -91,51 +94,58 @@ class Broker {
     }
 
     public subscribe(topic:Topic, sub:BusDevice):void {
-
-        if (!this.subs[topic.getID()]) {
-            this.subs[topic.getID()] = new Array<BusDevice>();
+        if (this.subscribers.get(topic) == null) {
+            this.subscribers.set(topic, new Set<BusDevice>());
+            console.log('Set created');
         }
 
-        this.subs[topic.getID()].push(sub);
+        this.subscribers.get(topic).add(sub);
+
+        console.log(this.subscribers.get(topic).values());
+
+
     }
 
     public unsubscribe(topic:Topic, sub:BusDevice):void {
 
-        console.log(this.subs[topic.getID()].indexOf(sub) + " " + this.subs[topic.getID()].length);
+        this.subscribers.get(topic).delete(sub);
 
-        var index = this.subs[topic.getID()].indexOf(sub);
-        this.subs[topic.getID()].splice(index, 1);
-
-        for (var s in this.subs[topic.getID()]) {
-            console.log(s.toString());
-        }
+        console.log(this.subscribers.get(topic).values());
 
     }
 
     private distribute(m:Message) {
-        if (!this.subs[m.getTopic().getID()]) {
-            return;
+
+        for (var i in this.subscribers.get(m.getTopic()).values()) {
+            i.handleMessage();
         }
-        for (var bd in this.subs[m.getTopic().getID()]) {
-            bd.handleMessage(m);
-        }
+
     }
 }
 
 class DBRequestMessage extends Message {
-    req: DBReqest;
-    static TOPIC = new Topic(10, "Database request");
+    private req: DBReqest;
+    static TOPIC = new Topic(10, "Database request message");
 
     constructor(pReq: DBReqest) {
         super(DBRequestMessage.TOPIC);
         this.req = pReq;
     }
-
 }
 
 class SettingsMessage extends Message {
-    configs: {[tid: number]: Value};
+    private configs: Map<Topic, Value>;
+    static TOPIC = new Topic(20, "Settings message");
+
+    constructor() {
+        super(SettingsMessage.TOPIC);
+        this.configs = new Map<Topic, Value>();
+    }
+
+    getConfigs(): Map<Topic,Value> {
+        return this.configs;
+    }
+
 }
 
-
-
+export {BusDevice, Topic, Message, DBRequestMessage};

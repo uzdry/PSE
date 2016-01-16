@@ -1,3 +1,4 @@
+
 export default class Value {
     private value: number;
     private identifier: string;
@@ -6,5 +7,9 @@ export default class Value {
         this.value = pValue;
         this.identifier = pID;
     }
+
+}
+
+class DBReqest {
 
 }

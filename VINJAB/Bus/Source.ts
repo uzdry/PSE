@@ -1,12 +1,19 @@
 
-import BusDevice from "./Bus";
+import {BusDevice, Message} from "./Bus";
 /**
  * Created by valentin on 12/01/16.
  */
 
 
-export default class Source extends BusDevice {
+class Source extends BusDevice {
     constructor() {
         super();
     }
+
+    public handleMessage(m: Message): void {
+
+    }
+
 }
+
+export {Source};
