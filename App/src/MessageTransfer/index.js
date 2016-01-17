@@ -14,12 +14,12 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
         console.log('user disconnected');
     });
-    socket.on('chat message', function(msg){
-        console.log('The Client is asking for the message with ID ' + msg );
+    socket.on('messageID', function(msg){
+        console.log('messageID' + ": " + msg );
 
         //processing the message and get the message value in the database
 
-        io.emit('chat message', "the asked message (" + msg  + ") is blablabla.");
+        io.emit('messageID', "the asked message (" + msg  + ") is blablabla.");
     });
 });
 
