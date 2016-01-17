@@ -1,8 +1,8 @@
 {
-  "name": "socket-chat-example",
+  "name": "Data-Transfer",
   "version": "0.0.1",
-  "description": "my first socket.io app",
-  "dependencies": {
+  "description": "To Transfer Data",
+  "dependencieTransfers": {
     "express": "^4.10.2",
     "socket.io": "^1.4.4"
   }
