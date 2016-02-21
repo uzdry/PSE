@@ -4,7 +4,7 @@
 \chapter{Klassendiagramme}
 	\section{Bus}
 		
-  		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation zwischen allen Modulen ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von der abstrakten Klasse ''BusDevice'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusDevice'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Topics (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten) abonnieren und Abonnements beenden. \\
+  		In diesem Diagramm ist der Aufbau des Moduls ''Bus'' zu sehen. Die Kommunikation zwischen allen Modulen ist entkoppelt und findet größtenteils über den Austausch von Nachrichten verschiedener Typen über den Bus statt. Um mit dem Bus arbeiten zu können, muss ein Modul eine Klasse besitzen, die von der abstrakten Klasse ''BusDevice'' erbt. Der Bus funktioniert als eine Variation des Beobachter-Entwurfsmusters. Eine von ''BusDevice'' erbende Klasse kann über subscribe() bzw. unsubscribe() auf dem ''MessageBus'' Nachrichten eines bestimmten Themas (``Topic'') (Sensortyp, Datenbanknachrichten, Konfigurationsnachrichten, ...) abonnieren und Abonnements beenden. \\
   		Diese Abonnements werden in der Klasse ''Broker'' verwaltet. Sendet eine Instanz von ''BusDevice'' über publish() eine Nachricht an ''MessageBus'', so holt sich letzterer von seinem Broker eine Liste über alle Abonnements für das Topic der Nachricht und sendet diese dann an alle abonnierenden Objekte. Das versenden einer Nachricht sowie deren Empfang sind asynchrone Funktionsaufrufe. \\
   		Die abstrakte Klasse ''Message'' besitzt eine Reihe von erbenden Klassen. Dies ist nötig, um alle möglichen Typen von Nachrichten darzustellen: ''SensorValueMessage'' wird für das einfache versenden von Messwerten benutzt, ''ConfigFileRequest'' für Konfigurationsdateien usw. Dieser Aufbau ermöglicht das leichte Ergänzen um ggf. zusätzlich benötigte Nachrichtentypen. Ein besonderer Nachrichtentyp ist die 'DatabaseRequestMessage', die Anfragen an die Datenbank beinhaltet. Die Anfragen vom Typ ''DBRequest'' sind unterteilt in verschiedene Typen von Anfragen: DBReqRecent fordert die letzten n Einträge an, DBReqFrom alle Einträge seit einem bestimmten Datum, und DBReqRange fordert alle Datenbankeinträge zwischen zwei Daten an. \\
   		Das Konstrukt der Klassen ''BusDevice'' sowie erbende Klassen, ''Message'' und die von ''Message'' erbenden Klassen ergeben gemeinsam das Entwurfsmuster der Fabrikmethode.
@@ -18,17 +18,17 @@
   	
   	\newpage
   	\section{Virtuelle Sensoren}
-		Virtuelle Sensoren berechnen aggregierte Funktionen aus Sensorwerten. Die Klasse ''VirtualSensor'' ist ein BusDevice. Es gibt (grundlegend unterschiedliche) Arten von Virtuelle Sensoren. Der momentane Benzinverbrauch ist ein Live-Datum, welches aus mehreren Live-Sensordaten berechnet wird. Die generierten Daten sind insbesondere unabhängig vom Zustand der Datenbank. Ein virtueller Sensor, der einen Durchschnittswert über eine bestimmte Zeit berechnet, benötigt Daten aus der Datenbank. Die Anfrage wird über den Bus geschickt (~\ref{vsseq}). Der virtuelle Sensortyp ''TopicOverTime'' schickt nach einem Datenbankrequest nacheinander Messages mit Tupeln aus Zeit und Wert auf den Bus. Ein solcher Virtueller Sensor (wie Durchschnittswert und ''TopicOverTime'') ist abhängig vom Zustand der Datenbank.
+		Virtuelle Sensoren berechnen aggregierte Funktionen aus Sensorwerten. Die Klasse ''VirtualSensor'' ist ein BusDevice. Es gibt (grundlegend unterschiedliche) Arten von Virtuellen Sensoren. Der momentane Benzinverbrauch ist ein Live-Datum, welches aus mehreren Live-Sensordaten berechnet wird. Die generierten Daten sind insbesondere unabhängig vom Zustand der Datenbank. Ein virtueller Sensor, der einen Durchschnittswert über eine bestimmte Zeit berechnet, benötigt Daten aus der Datenbank. Die Anfrage wird über den Bus geschickt (~\ref{vsseq}). Der virtuelle Sensortyp ''TopicOverTime'' schickt nach einem Datenbankrequest nacheinander Messages mit Tupeln aus Zeit und Wert auf den Bus. Ein solcher Virtueller Sensor (wie Durchschnittswert und ''TopicOverTime'') ist abhängig vom Zustand der Datenbank.
 
 		Die Berechnung einer zustandsabhängigen aggregierten Funktion erfolgt durch eine einmalige Initialisierung des Virtuellen Sensors mit Daten aus der Datenbank. Danach werden die Daten direkt vom virtuellen Sensor inkrementell berechnet.
 
 		Es gibt die virtuellen Sensoren:
 		\begin{itemize}
-			\item{TopicOverTime} Die einfachste Art eines zustandsabhängigen virtuellen Sensors. Schickt, wenn requested, Tupel aus Zeit und Wert des spezifierten Topics.
-			\item{TripMileage} Berechnet den Kilometerstand der Fahrt ab einem spezifiziertem Zeitpunkt.
-			\item{FuelConsumption} Berechnet den Momentanverbrauch
-			\item{RemainingMiles} Berechnet die verbleibenden Kilometer. Die Berechnung ist abhängig vom Fahrverhalten des aktuellen Fahrers.
-			\item{AverageComputation} Liefert den Durchschnittswert eines spezifizierten Topics.
+			\item{TopicOverTime:} Die einfachste Art eines zustandsabhängigen virtuellen Sensors. Schickt, wenn requested, Tupel aus Zeit und Wert des spezifierten Topics.
+			\item{TripMileage:} Berechnet den Kilometerstand der Fahrt ab einem spezifiziertem Zeitpunkt.
+			\item{FuelConsumption:} Berechnet den Momentanverbrauch
+			\item{RemainingMiles:} Berechnet die verbleibenden Kilometer. Die Berechnung ist abhängig vom Fahrverhalten des aktuellen Fahrers.
+			\item{AverageComputation:} Liefert den Durchschnittswert eines spezifizierten Topics.
 		\end{itemize}
 
 		\begin{figure}[H]
@@ -46,13 +46,13 @@
   				\caption{Klassendiagramm des Datenbankzugriffs}
   			\end{center}
   		\end{figure}
-  	Als Datenbanksystem wurde, wie im Pflichtenheft spezifiziert, LevelDB benutzt. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gespeichert. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und derzeitigem Fahrer gespeichert. Zum anderen existieren fahrerbezogene Einträge, die den präferierten Kraftstoff des Fahrers sowie eine Referenz auf die Konfiguration des virtuellen Armaturenbretts beinhalten und mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit 'DBBusDevice' eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
+  	Als Datenbanksystem wird, wie im Pflichtenheft spezifiziert, LevelDB benutzt. In der LevelDBAccess-Klasse wird außer der Referenz auf die LevelUp-Instanz auch der aktuelle Fahrer sowie die spezifizierte maximale Kapazität der Datenbank gespeichert. \\ In der Datenbank, im Fall von LevelDB ein einfacher Key-Value-Store, werden zwei Typen von Objekten gehalten: Zum einen werden mit der Zeit und dem Typ des Sensors als Key Objekte von Sensorwerten und derzeitigem Fahrer gespeichert. Zum anderen existieren fahrerbezogene Einträge, die den präferierten Kraftstoff des Fahrers sowie die Konfiguration des virtuellen Armaturenbretts beinhalten und mit der Identifikation des Fahrers als Key gespeichert werden. Zur Kommunikation mit anderen Modulen besitzt der Datenbankzugriff mit 'DBBusDevice' eine Klasse, die den Zugang zum Bus möglich macht und Nachrichten vom Bus dekodiert. 
   	
   	\newpage
   	\section{ConfigFileReader \& AvailableSignals}
-  		Verschiedene selten geänderte Informationen werden auch in einer Konfigurationsdatei gespeichert. Diese Informationen kann der ConfigFileReader ändern. Er reagiert auf bestimmte Requests auf dem Messagebus.
+  		Verschiedene, selten geänderte Informationen werden in einer Konfigurationsdatei gespeichert. Diese Informationen kann der ConfigFileReader ändern. Er reagiert auf bestimmte Requests auf dem Messagebus.
   		
-  		Eine weitere wichtige Information ist welche Datensignale allgemein zur Verfügung stehen. Dies wird im SignalCollector gespeichert. Er reagiert ebenso auf bestimmte Signale auf dem Bus
+  		Eine weitere wichtige Information ist, welche Datensignale allgemein zur Verfügung stehen. Dies wird im SignalCollector gespeichert. Er reagiert ebenso auf bestimmte Signale auf dem Bus.
   		\begin{figure}[H]
   			\begin{center}
  				\includegraphics[width=0.8\textwidth]{diagrams/Classes_Config.png}
@@ -64,7 +64,7 @@
 	\newpage
   	\section{Website}
   	\label{Class:Website}
-		Hier ist zu sehen wie die Seite allgemein aufgebaut ist. Die Website besteht aus zwei Frames. In einem Frame wird die Statusleiste angezeigt, im anderen werden können verschiedene Sichten angezeigt werden, darunter unter anderem das GridView, auf welchem die Dashes angezeigt werden. Für weiteres siehe: \nameref{Class:GridView}, \nameref{Class:SettingsView}.
+		Im folgenden Diagramm ist dargestellt, wie die Website allgemein aufgebaut ist. Die Seite besteht aus zwei Frames. In einem Frame wird die Statusleiste angezeigt, im anderen werden können verschiedene Sichten angezeigt werden, darunter unter anderem das GridView, auf welchem die Dashes angezeigt werden. Für weiteres siehe: \nameref{Class:GridView}, \nameref{Class:SettingsView}.
 		
 		Die Elemente der Statusleiste können unter anderem Text, Knöpfe und Icons sein.
 		\begin{figure}[H]
@@ -76,7 +76,7 @@
   	
   	\newpage
   	\section{User Interface}
-		Wie in \ref{Class:Website} zu sehen ist besteht ein Hauptteil des User Interface aus dem ViewFrame, der von verschiedenen Views vertreten werden kann. Hier sieht man den Aufbau des GridViews und des SettingViews. Das Grid nutzt ein Objekt der Klasse 'Gridster' aus der Bibliothek 'Gridster'. Das GridView besteht hauptsächlich aus diesem Objekt. Es ermöglicht die Anzeige verschiedener Widgets in einem Grid mit Elementen verschiedener Größe.
+		Wie in \ref{Class:Website} zu sehen ist, besteht ein Hauptteil des User Interface aus dem ViewFrame, der von verschiedenen Views vertreten werden kann. Im Folgenden sieht man den Aufbau des GridViews und des SettingViews. Das Grid nutzt ein Objekt der Klasse 'Gridster' aus der Bibliothek 'Gridster'. Das GridView besteht hauptsächlich aus diesem Objekt. Es ermöglicht die Anzeige verschiedener Widgets in einem Grid mit Elementen verschiedener Größe.
 		
 		Hierbei sind die Widgets selbst Abonnenten des angezeigten Signals, weshalb sie die abstrakte Klasse BusDevice implementieren müssen.
 		
@@ -91,10 +91,10 @@
   	
 		\newpage
 		\section{Einparkhilfe Ultraschallsensoren}
-		Keine Berechnungen sind auf dem Server für die Ultraschallsensoren notwendig. Die neue Werte werden ständig via WebRTC auf das Endgerät geschickt und dort werden sie interpretiert. Auf dem Endgerät werden auch keine Berechnungen durchgeführt, es werden lediglich Messwerte (Distanz) in Farben umgewandelt (ProximityDisplayRefresher).
+		Auf dem Server sind keine Berechnungen für die Ultraschallsensoren notwendig. Die neuen Werte werden ständig via WebRTC auf das Endgerät geschickt und dort interpretiert. Auf dem Endgerät werden auch keine Berechnungen durchgeführt, es werden lediglich Messwerte (Distanz) in Farben umgewandelt (ProximityDisplayRefresher).
 
 		\section{Einparhilfe Lenkradposition}
-Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Client-Prinzip). Bei einer Änderung der Lenkradposition wird der Pfad (Path) neu berechnet. Der PathCalculator erzeugt einen neuen Pfad. Die PKW-bezogene Daten, die in Settings gespeichert sind werden dafür verwendet (carWidth, ... usw.). Falls die Daten nicht vorhanden sind, werden die von der Datenbank geholt. Danach wird der Pfad projiziert (es wird ein Pfad mit den neuen Daten erzeugt) und wird berechnet, wie die Kurve auf dem Bildschirm angezeigt werden soll. Die benötigte Daten sind ebenfalls in Settings gespeichert (camPosition, ... usw.). Danach wird der Pfad auf den Bus gelegt und Richtung Endgerät weitergeleitet. Auf dem Endgerät erfolgen keine Berechnungen. Wenn die Daten (SVG-Path-Koordinaten oder Koordinaten für Bezierkurven) ankommen, wird das SVG-Bild neu gezeichnet (PathRefresher).
+Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Client-Prinzip). Bei einer Änderung der Lenkradposition wird der Pfad (Path) neu berechnet. Der PathCalculator erzeugt einen neuen Pfad. Die PKW-bezogenen Daten, die in Settings gespeichert sind werden dafür verwendet (carWidth, ... usw.). Falls die Daten nicht vorhanden sind, werden sie von der Datenbank geholt. Danach wird berechnet, wie die Kurve auf dem Bildschirm angezeigt werden soll. Die benötigte Daten sind ebenfalls in Settings gespeichert (camPosition, ... usw.). Danach wird der Pfad auf den Bus gelegt und Richtung Endgerät weitergeleitet. Auf dem Endgerät erfolgen keine Berechnungen. Wenn die Daten (SVG-Path-Koordinaten oder Koordinaten für Bezierkurven) ankommen, wird das SVG-Bild neu gezeichnet (PathRefresher).
   	
 		\newpage
   	\section{Einparkhilfe Serverseite}
@@ -117,7 +117,7 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 		\section{Einparkhilfe Clientseite}
 	\subsection{NodeComponent}
 	\label{Abstract Class:NodeComponent}
-		Eine DOM-Komponente, es kann entweder Kompositum oder Blatt sein (Kompositum-Entwurfsmuster).
+		Eine DOM-Komponente, entweder Kompositum oder Blatt (Kompositum-Entwurfsmuster).
 		\begin{description}
 			\attr{public parentNode: NodeComponent}
 				Der Elternknoten dieser NodeComponent.
@@ -160,13 +160,13 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 
 	\subsection{ScreenManager}
 	\label{Class:ScreenManager}
-		Verwaltet die gesamte Darstellung, zeichnet die grafische Elemente
+		Verwaltet die gesamte Darstellung, zeichnet die grafischen Elemente
 		\begin{description}
 			\method{public draw(parentNode: NodeComponent)}
-				Zeichnet alle Anzeigeelemente auf den Bildschirm und initialisiert die Webkamera.\\
-				\textbf{Parameter:} Der Elternknoten, wo die Anzeigeelemente gezeichnet werden sollen.
+				Zeichnet alle Anzeigeelemente auf den Bildschirm und initialisiert die Webcam.\\
+				\textbf{Parameter:} Der Elternknoten, in dem die Anzeigeelemente gezeichnet werden sollen.
 			\method{erase()}
-				Löscht alle Anzeigeelemente und stoppt die Webkamera-Videoübertragung.
+				Löscht alle Anzeigeelemente und stoppt die Videoübertragung.
 		\end{description}
 
 	
@@ -182,7 +182,7 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 		
 	\subsection{PathIterator}
 	\label{Interface:PathIterator}
-		Das Interface für den Pfad-Iteratoren.
+		Das Interface für den Pfad-Iterator.
 		\begin{description}
 			\method{public getFirst(): Vec2}
 				Holt den ersten Punkt des Pfades.
@@ -197,8 +197,8 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 		Eine Path-Implementierung, kann verwendet werden um effizient kreisförmige Pfade zu beschreiben. Damit können die einzelne Punkte des Pfades bei Bedarf einfach berechnet werden.
 		\begin{description}
 			\method{public getCoordinates(rotation: Angle) : Vec2}
-				Holt den Koordinaten eines Punktes, der sich auf dem Kreis befindet. Der Punkt ist wie folgt spezifiziert: es gibt ein Vektor, der vom Mittelpunkt des Kreises zu dem Pfad-Startpunkt zeigt (der Startpunkt ist auf der Kreislinie). Dieser Vektor wird dann gedreht (um "rotation") und der Punkt zu dem der Vektor dann zeigt soll zurückgegeben werden. Der Iterator soll die Funktion falls getFirst() aufgerufen wurde mit rotation=0 aufrufen. Bei getNext() soll der Winkel jeweils inkrementiert werden.
-				\textbf{Parameter:}	Die Drehung des Vektors. Alle mögliche Winkel sind gültig.\\
+				Holt die Koordinaten eines Punktes, der sich auf dem Kreis befindet. Der Punkt ist wie folgt spezifiziert: es gibt ein Vektor, der vom Mittelpunkt des Kreises zu dem Pfad-Startpunkt zeigt (der Startpunkt ist auf der Kreislinie). Dieser Vektor wird dann gedreht (um "rotation") und der Punkt zu dem der Vektor dann zeigt soll zurückgegeben werden. Der Iterator soll die Funktion mit rotation=0 aufrufen, falls getFirst() aufgerufen wurde. Bei getNext() soll der Winkel jeweils inkrementiert werden.
+				\textbf{Parameter:}	Die Drehung des Vektors. Alle möglichen Winkel sind gültig.\\
 				\textbf{Rückgabewert:} Die Koordinaten des Punktes auf der Kreislinie.
 		\end{description}
 	
@@ -212,7 +212,7 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 		\begin{description}
 			\method{public getCoordinates(index: int) : Vec2}
 				Holt den n-ten Punkt des Polygonzuges, falls index = n.
-				\textbf{Parameter:}Spezifiziert den Punkt im Polygonzug. Falls der Polygonzug aus m Punkten besteht, dann sind die index-Werte zwischen 0 und m-1 gültig. Falls der index-Parameter ungültig ist, soll null zurückgegeben werden.\\
+				\textbf{Parameter:} Spezifiziert den Punkt im Polygonzug. Falls der Polygonzug aus m Punkten besteht, dann sind die index-Werte zwischen 0 und m-1 gültig. Falls der index-Parameter ungültig ist, soll null zurückgegeben werden.\\
 				\textbf{Rückgabewert:} Die Koordinaten des Punktes.
 			\method{public getLength()}
 				Holt den Anzahl der Punkte im Polygonzug.
@@ -242,7 +242,7 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 
 	\subsection{Settings}
 	\label{class:Settings}
-		Hier werden die Kraftfahrzeug- und Kamerabezogene Parameterwerte bei Bedarf von der Datenbank geholt und gepuffert.
+		Hier werden die Kraftfahrzeug- und Kamerabezogenen Parameterwerte bei Bedarf von der Datenbank geholt und gepuffert.
 		\begin{description}
 			\attr{public carWidth : double}
 				Die Breite des Fahrzeugs in Meter.
@@ -264,10 +264,10 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 
 	\subsection{PathCalculator}
 	\label{class:PathCalculator}
-		Hört den Bus ab und falls die Position des Lenkrads geändert wurde, erzeugt einen neuen Pfad und leitet denen an das Endgerät weiter.
+		Hört den Bus ab und erzeugt einen neuen Pfad, und leitet diesen an das Endgerät weiter, falls die Position des Lenkrads geändert wurde.
 			\begin{description}
 				\method{private createPath(steeringWheelPosition : Angle) : Path}
-					Erzeugt einen Pfad der die Bewegung des Fahrzeugs in der Zukunft beschreibt. Der Pfad ist in Fahrzeugkoordinatensystem. Die zwei gespeicherte Koordinaten sind entlang der x- und z-Achsen, die y-Koordinaten sind 0 für alle Punkte und müssen deswegen nicht gespeichert werden.
+					Erzeugt einen Pfad der die Bewegung des Fahrzeugs in der Zukunft beschreibt. Der Pfad ist im Fahrzeugkoordinatensystem angegeben. Die zwei gespeicherten Koordinaten sind entlang der x- und z-Achsen, die y-Koordinaten sind 0 für alle Punkte und müssen deswegen nicht gespeichert werden.
 					\textbf{Parameter:} Die Position des Lenkrads (Uhrzeigersinn).
 					\textbf{Rückgabewert:} Der Pfad, der die Bewegung des Fahrzeugs in der Zukunft beschreibt.
 				\method{private projectPathToScreen(path : Path) : Path}
@@ -548,7 +548,7 @@ Die Berechnungen der Einparkhilfe werden auf dem Server durchgeführt (Thin-Clie
 	\section{Konfiguration und erhältliche Signale}
 		\subsection{ConfigFileReader}
 		\label{Class:ConfigFileReader}
-			Ermöglicht das Lesen und Schreiben einer Konfigurations-Datei über den Datenbus. Es reagiert auf bestimmte RequestMessages.
+			Ermöglicht das Lesen und Schreiben einer Konfigurations-Datei über den Datenbus. Er reagiert auf bestimmte RequestMessages.
 			\begin{description}
 				\attr{private configFile: File}
 					Die zu bearbeitende und zu lesende Datei

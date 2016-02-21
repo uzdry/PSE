@@ -12,7 +12,7 @@ Die Rohdaten stammen unter anderem vom OBD2-Blutooth-Modul, dass über einen Pro
 Auf dem Server gibt es für jedes Endgerät ein Objekt, welches das physische Gerät repräsentiert. Diese Objekte sind Instanzen einer Klasse 'Proxy' und abonnieren die benötigten Signale auf dem Nachrichtenbus. \\
 Außerdem besitzt jeder Proxy ein eigenes Objekt der Klasse 'PeerConnection', welches für die Verbindung zwischen Server und Client zuständig ist. \\
 Die abonnierten Daten werden vom Proxy über die PeerConnection an das Endgerät verschickt. Kommen Informationen oder Anweisungen vom Endgerät über die PeerConnection am Proxy an, werden diese auf den Bus gelegt. \\
-Aggregierte Funktionen und virtuelle Sensoren erben als Klassen von einer Oberklasse 'VirtualSensor'. Sie abonnieren die benötigten Nachrichten, berechnen daraus neue (virtuelle) Sensorwerte und stellen diese als neue Nachricht über den Bus zur Verfügung. \\
+Aggregierte Funktionen erben als Klassen von einer Oberklasse 'VirtualSensor'. Sie abonnieren die benötigten Nachrichten, berechnen daraus neue (virtuelle) Sensorwerte und stellen diese als neue Nachricht über den Bus zur Verfügung. \\
 
 Zentral gespeichert werden alle Daten in einer LevelDB-Datenbank. Die Datenbank ist über ein Modul 'DBAccess' in die Software integriert, welches Zugang zum Bus und die Konvertierung der Nachrichten in Datenbankanfragen bzw. die Konvertierung von Ergebnissen von Queries an die Datenbank in Nachrichten ermöglicht. \\
 
