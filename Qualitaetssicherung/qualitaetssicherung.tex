@@ -1,0 +1,97 @@
+% Version 0.1
+\documentclass[a4paper,oneside,10pt]{report}
+
+\usepackage{subfiles}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[cc]{titlepic}
+
+\begin{document}
+
+\pagestyle{empty}
+
+
+\title{Pflichtenheft PSE - VINJAB: Resultate der Qualitätssicherung}
+\author{Jonas Haas 
+			\and Nicolas Schreiber
+			\and Valentin Springsklee
+			\and Yimeng Zhu
+			\and David Grajzel}
+\maketitle
+
+%% Inhaltsverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents %Inhaltsverzeichnis
+\cleardoublepage %Das erste Kapitel soll auf einer ungeraden Seite beginnen.
+
+\pagestyle{plain} %%Ab hier die Kopf-/Fusszeilen: headings / fancy / ...
+
+
+
+\chapter{Einführung}\label{einfuehrung}
+
+\subfile{einfuehrung/einfuehrung}
+\newpage
+
+
+\chapter{Statische Code-Analyse}\label{statischeanalyse}
+
+\subfile{statischeanalyse/zusammenfassung}
+\newpage
+
+
+\chapter{Unit Tests}\label{unittests}
+
+\subfile{unittests/bus}
+\newpage 
+\subfile{unittests/datenbank}
+\newpage
+\subfile{unittests/proxy_und_terminal}
+\newpage
+\subfile{unittests/ui}
+\newpage
+\subfile{unittests/karte}
+\newpage
+\subfile{unittests/rueckfahrkamera}
+\newpage
+\subfile{unittests/settings}
+\newpage
+
+
+\chapter{Manuelle Tests}\label{manuelletests}
+
+\subfile{manuelletests/ui}
+\newpage
+
+
+\chapter{Testszenarien}\label{testszenarien}
+
+%% Klar: die Testszenarien, die wir durchführen, werden sinnvoller benannt...
+\subfile{testszenarien/testszenario_01}
+	
+\subfile{testszenarien/testszenario_02}
+\newpage
+
+
+\chapter{Benchmarks}\label{benchmarks}
+
+\subfile{benchmarks/benchmark_01}
+
+\subfile{benchmarks/benchmark_02}
+\newpage
+
+
+%% Abbildungsverzeichnis
+\clearpage
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+
+%% Tabellenverzeichnis
+\clearpage
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\listoftables
+
+\appendix
+
+\end{document}
