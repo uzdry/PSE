@@ -4,24 +4,33 @@
 
 \section{UI}
 
-	\subsection{Fehlername}
+	\subsection{Datamodel Werte nicht definiert}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: Error: "topic is undefined" bei erstellen eines Datenmodells
 			\item
-			Grund:
+			Grund: Bei einem undefinierten Signalname versucht der PostalBus auf null zu subscriben. Dies warf natürlich einen Error.
 			\item
-			Behebung:
+			Behebung: Übeprüfe vor subscribe auf 'undefined'
 		\end{itemize}
 		
-	\subsection{Fehlername}
+	\subsection{Grid nicht zerstörbar}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: Bei löschen des HTML-Elements und erneuten erzeugen treten Fehler im Hinzufügen von Widgets auf. 
 			\item
-			Grund:
+			Grund: Das Grid selbst wird nicht gelöscht. Nur die Stelle an der es angezeigt wird, wird gelöscht.
 			\item
-			Behebung:
+			Behebung: Zerstöre auch das Grid
 		\end{itemize}
 		
+	\subsection{Gauge Widget highlights fehlen}
+	\begin{itemize}
+		\item
+		Symptom: Beim erzeugen von verschiedenen Gauges gibt es einen Fehler, dass "high" nicht definiert sei.
+		\item
+		Grund: Manchmal fehlen die highlights in der signals.xml. Dort fehlen dann auch die ticks.
+		\item
+		Behebung: Überprüfe die Werte und setze sie zur Not auf Standartwerte. Diese Standartwerte sind in der Datei einstellbar.
+	\end{itemize}	
 \end{document}
