@@ -33,4 +33,34 @@
 		\item
 		Behebung: Überprüfe die Werte und setze sie zur Not auf Standartwerte. Diese Standartwerte sind in der Datei einstellbar.
 	\end{itemize}	
+	
+	\subsection{signals.xml finden}
+	\begin{itemize}
+		\item
+		Symptom: In den Tests wird die signals.xml Datei nicht gefunden.
+		\item
+		Grund: Der Pfad der signals.xml war relativ zu dashboard.js.
+		\item
+		Behebung: Der Pfad wurde auf relativ zum root-Verzeichnis des Projektes gewählt.
+	\end{itemize}	
+	
+	\subsection{Erster Wert in Gauges}
+	\begin{itemize}
+		\item
+		Symptom: Die Gauges zeigen bis zum ersten Update eines Wertes die falschen Werte an.
+		\item
+		Grund: Beim erstellen des Widgets wird der aktuelle Wert nicht in das Gauge geschrieben.
+		\item
+		Behebung: Schreibe den aktuellen Wert bei der Initialisierung in das Gauge.
+	\end{itemize}	
+	
+	\subsection{Chrome leert Array}
+	\begin{itemize}
+		\item
+		Symptom: Beim erstellen eines Widgets kann die Konfiguration davon nicht finden. Dieses Problem tritt nur mit Chrome auf.
+		\item
+		Grund: Unbekannt | Das Array wird nach dem erstellen irgendwie geleert.
+		\item
+		Behebung: Das Array mit den Konfigurationen ist jetzt statisch. Das bedeutet jedoch auch, dass Signalkonfigurationen in allen WidgetFactories gleich sind. 
+	\end{itemize}	
 \end{document}
