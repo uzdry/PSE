@@ -4,6 +4,8 @@
 
 \section{UI}
 
+	
+
 	\subsection{Allgemeine Widget-Funktion}
 		\begin{itemize}
 			\item
@@ -38,23 +40,61 @@
 			\end{itemize}
 		\end{itemize}
 		
-	\subsection{Beispiel - Testname 2}
+	\subsection{Dashboard-Konfiguration}
 		\begin{itemize}
 			\item
-			Eine kurze Zusammenfassung. Was wird getestet, warum... usw.
+			Man testet ob die Dashboard-Konfiguration gespeichert wird. Und ob man diese wieder aufrufen kann.
 			\item
-			Vorbedingung: (Beispiel: manche UI Elemente müssen schon geöffnet sein)
+			Vorbedingung: Der Server muss laufen (Optional: Internetverbindung für Google Maps)
 			\item
-			Nachbedingung (Erfolg): (Beispiel: dies und das wird angezeigt)
+			Nachbedingung (Erfolg): Die gewählte Konfiguration wird wieder angezeigt.
 			\item
-			Nachbedingung (Fehlschlag): (Beispiel: wird nicht angezeigt, stürzt ab...)
+			Nachbedingung (Fehlschlag): Eine andere oder keine Konfiguration wird angezeigt
 			\item
 			Beschreibung/Testschritte:
 			\begin{itemize}
 				\item
-				Schritt eins...
+				Öffne im Browser 10.10.0.1:8000
 				\item
-				Schritt zwei
+				Wechsle in den Edit-Modus über den passenden Button.
+				\item
+				Wähle zufällig ein Signal über das obere Dropdown Menü
+				\item
+				Wähle zufällig ein Widget im unteren Dropdown Menü
+				\item
+				Klicke auf den "Add"-Button
+				\item
+				Verschiebe das Widget an eine zufällige Stelle
+				\item
+				Wiederhole die letzten 4 Schritte beliebige male
+				\item 
+				Wechsle wieder in den Dashboard-Modus
+				\item
+				Lade die Homepage neu
 			\end{itemize}
 		\end{itemize}
+		
+	\subsection{Replay Modus}
+		\begin{itemize}
+			\item
+			Man testet ob der Replay-Modus funktioniert. Also ob man auf Befehl eine vergangene Fahrt anzeigen lassen kann.
+			\item
+			Vorbedingung: Der Server muss laufen (Optional: Internetverbindung für Google Maps) und er muss bereits mindestens eine Fahrt hinter sich haben.
+			\item
+			Nachbedingung (Erfolg): Nach spätestens ein paar Sekunden werden Daten einer vergangenen Fahrt angezeigt.
+			\item
+			Nachbedingung (Fehlschlag): Es werden entweder keine neuen Daten mehr angezeigt oder weiterhin die aktuellen Live-Daten.
+			\item
+			Beschreibung/Testschritte:
+			\begin{itemize}
+				\item
+				Öffne im Browser 10.10.0.1:8000
+				\item
+				Wechsle in den Replay-Modus über den passenden Button.
+				\item
+				Wähle zufällig eine Fahrt über das Dropdown Menü
+				\item
+				Klicke auf den "Start"-Button
+			\end{itemize}
+		\end{itemize}	
 \end{document}
