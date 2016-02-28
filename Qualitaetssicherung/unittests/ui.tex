@@ -57,10 +57,20 @@
 	\subsection{Chrome leert Array}
 	\begin{itemize}
 		\item
-		Symptom: Beim erstellen eines Widgets kann die Konfiguration davon nicht finden. Dieses Problem tritt nur mit Chrome auf.
+		Symptom: Beim Erstellen eines Widgets kann die Konfiguration davon nicht finden. Dieses Problem tritt nur mit Chrome auf.
 		\item
 		Grund: Unbekannt | Das Array wird nach dem erstellen irgendwie geleert.
 		\item
 		Behebung: Das Array mit den Konfigurationen ist jetzt statisch. Das bedeutet jedoch auch, dass Signalkonfigurationen in allen WidgetFactories gleich sind. 
+	\end{itemize}	
+	
+	\subsection{Lerres Grid nicht serializable}
+	\begin{itemize}
+		\item
+		Symptom: Ein leeres Grid hat nur "]" als Rückgabewert bei der serialize-Funktion.
+		\item
+		Grund: Die For-Schleife berücksichte keine leeren Arrays.
+		\item
+		Behebung: Bei einem leeren Array "[]" zurückgeben. 
 	\end{itemize}	
 \end{document}
