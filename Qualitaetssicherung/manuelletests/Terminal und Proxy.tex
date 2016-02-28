@@ -1,0 +1,69 @@
+\documentclass[qualitaetssicherung.tex]{subfiles}
+
+\begin{document}
+
+\section{Terminal und Proxy testen}
+
+	\subsection{Server und Client verbinden}
+		\begin{itemize}
+			\item
+			Es ist die Verbindungaufbau zwischen den Server und Endgerät zu testen, indem
+			man durch ein Browser den Server anfragt und schaut, ob die
+			Startkonfiguration erfolgreich angezeigt werden kann.
+			\item
+			Vorbedingung: Der Server ist Startet. Ein Endgerät ist durch WLAN mit der
+			Server verbunden.
+			\item
+			Nachbedingung (Erfolg): Die Startkonfiguration der Dashboards werden im
+			Browser angezeigt.
+			\item
+			Nachbedingung (Fehlschlag): Im Browser wird die Startkonfiguration nicht
+			richtig angezeigt.
+			\item
+			Beschreibung/Testschritte:
+			\begin{itemize}
+				\item
+				Schritt eins: Der Benutzer startet den Server im Rasberry-PI.
+				\item
+				Schritt zwei: Der Benutzer verbindet sein Endgerät durch WLAN mit dem
+				Server.
+				\item  
+				Schritt drei: Der Benutzer öffnet den Browser und geht zur Addresse des
+				Servers.
+			\end{itemize}
+		\end{itemize}
+		
+	\subsection{Multibenutzer}
+		\begin{itemize}
+			\item
+			Es ist die Fähigkeit, dass die Software mit mehreren Benutzern laufen kann.
+			\item
+			Vorbedingung: Der Server ist Startet und kann die Daten über ein Auto
+			einsammlen durch OBD-Bluetooth-Adapter. Mehrere Endgeräte sind durch WLAN
+			mit der Server verbunden. Der Fahrer fährt mit dem Auto.
+			\item
+			Nachbedingung (Erfolg): Die Endgeräte können die echtzeitige Daten über das
+			Auto nach Wunsch anzeigen.
+			\item
+			Nachbedingung (Fehlschlag): Die Endgeräte können die Daten nicht richtig
+			anzeigen.
+			\item
+			Beschreibung/Testschritte:
+			\begin{itemize}
+				\item
+				Schritt eins: Der Fahrer steckt das OBD-Bluetooth-Adapter in das Auto
+				ein und lässt das Auto anzünden.
+				\item
+				Schritt zwei: Der Fahrer startet den Server auf dem Rasberry PI.
+				\item
+				Schritt zwei: Der Benutzer verbindet seine Endgeräte mit dem Server.
+				\item 
+				Schritt Drei: Der Benutzer öffnet die Browser in verschiedenen Geräte
+				und geht die Addresse zur Server.
+				\item 
+				Schritt Vier: Der Benutzer fordert unterschiedliche Widgets in
+				Endgeräte und überprüfen, ob die angekommenen Daten mit Realität
+				übereinstimmen.
+			\end{itemize}
+		\end{itemize}
+\end{document}
