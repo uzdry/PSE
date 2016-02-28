@@ -66,4 +66,14 @@
 				übereinstimmen.
 			\end{itemize}
 		\end{itemize}
+			\subsection{Client Value Subscriptions}
+		\begin{itemize}
+			\item Lässt sich der User einen bislang nicht gezeigten Wert anzeigen, wird dieser auch auf Server Seite (vom Proxy des entsprechenden Clients) subscribed.
+			\item Wenn der Client die Verbindung trennt, soll der Proxy auf Server-Seite gelöscht werden. Davor sollen aber alle Subscriptions des Proxy gelöscht werden. Die Methode \code{unsubscribeAll(): void} der Klasse Buss wird in den Unit-Tests abgedeckt.  ~\ref{}
+			\item Vorbedingung: Es ist mindestens ein Client mit dem Server verbunden sein, der mindestens einen Wert anzeigen.
+			\item
+			Nachbedingung (Erfolg): Für kein \code{Topic topic} ist Der Proxy im Array \code{Broker.get().subscribers[topic]} enthalten
+			\item
+			Nachbedingung (Fehlschlag): in der Hashmap \code{Broker.get().subscribers} taucht eine Referenz auf einen Proxy auf, der keine Kommunikation zu einem Client hat.
+		\end{itemize}
 \end{document}
