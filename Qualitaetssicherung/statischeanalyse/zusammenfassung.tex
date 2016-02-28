@@ -2,11 +2,11 @@
 
 \begin{document}
 
-\section{Ziele}
-Welche Ziele wir uns gesetzt haben (z.B. wir wollen max. 0.01 Warnung pro Code-zeile haben... usw.)
+\section{Ziele und Resultate}
+Wir haben die statische Code-Analyse durchgeführt und versucht dabei die Anzahl der Warnungen zu minimieren. Es ist aber zu beachten, dass wir die statische Code-Analyse nur als Hilfe betrachten und es gehört nicht zu unseren Zielen alle Warnungen zu unterdrücken. In vielen Fällen machen die Warnungen keinen Sinn und obwohl man die unterdrücken kann, wäre das Endergebnis schlechter. In solchen Situationen haben wir nichts unternommen.
 
 \section{Resultate}
-Statistiken, haben wir unsere Ziele erreicht? ... usw.
+Hier sieht man eine kurze Zusammenfassung, welche und wie viele Fehler wir behoben haben.
 
 \subsection{Einparkhilfe}
 			Die häufigste Fehler waren:
@@ -33,7 +33,7 @@ Statistiken, haben wir unsere Ziele erreicht? ... usw.
 			Die häufigste Fehler waren:
 			\begin{itemize}
 				\item Typo, myvariable wurde statt myVariable verwendet.
-				\item Typos in String konstanten und in HTML eingaben (z.B. tbody in document.createElement('tbody');)
+				\item Typos in String Konstanten und in HTML-Parametern (z.B. tbody in document.createElement('tbody');)
 			\end{itemize}
 			\begin{center}
 					\begin{tabular}{| l | l | l | l | l |}
@@ -52,8 +52,8 @@ Statistiken, haben wir unsere Ziele erreicht? ... usw.
 \subsection{BluetoothOBD}
 			Die häufigste Fehler waren:
 			\begin{itemize}
-				\item Der Inspector kann vielen Befehl nicht erkennen. Deswegen werden keine
-				Warnung behoben.
+				\item Der Inspektor kann viele Befehle nicht erkennen. Deswegen sind keine
+				Warnungen behoben worden.
 			\end{itemize}
 			\begin{center}
 					\begin{tabular}{| l | l | l | l | l |}
@@ -97,8 +97,8 @@ Statistiken, haben wir unsere Ziele erreicht? ... usw.
 \subsection{Server}
 			Die häufigste Fehler waren:
 			\begin{itemize}
-				\item Der Code Inspector kennt kein Deutsch. Die deutsche Wörte wird als
-				falsches Buchstabieren gezeichnet.
+				\item Der Code Inspektor kennt kein Deutsch. Die deutsche Wörte werden als
+				"falsch buchstabiert" gezeichnet.
 			\end{itemize}
 			\begin{center}
 					\begin{tabular}{| l | l | l | l | l |}
@@ -113,7 +113,7 @@ Statistiken, haben wir unsere Ziele erreicht? ... usw.
 \subsection{Server Starter}
 			Die häufigste Fehler waren:
 			\begin{itemize}
-				\item Der Name der Datenbank LevelUp kann vom Code Inspector nicht erkannt.
+				\item Der Name der Datenbank LevelUp wird vom Code Inspektor nicht erkannt.
 			\end{itemize}
 			\begin{center}
 					\begin{tabular}{| l | l | l | l | l |}
