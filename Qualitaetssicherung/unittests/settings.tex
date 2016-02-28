@@ -4,24 +4,86 @@
 
 \section{Settings}
 
-	\subsection{Fehlername}
+	\subsection{Settings directory append child/set parent Problem}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: The set parent Funktion arbeitete nicht, wie gewünscht, beim Elternknoten wurde das Kind nicht hinzugefügt, wenn die Funktion set parent beim Kindknoten aufgerufen wurde. 
 			\item
-			Grund:
+			Grund: Fehlerhafte Implementierung, kein Aufruf der Funktion append child des Elternknotens.
 			\item
-			Behebung:
+			Behebung: Jetztige auf eine funktionierende Implementierung geändert.
 		\end{itemize}
-		
-	\subsection{Fehlername}
+	
+	\subsection{Settings (L/N) Parameter mit Client side buffer == null}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: Settings List und Numeric (L/N) Parameter SetValue Funktion stürzt ab, wenn die Klasse SettingsLParameter mit ClientSideBuffer == null initialisiert wurde.
 			\item
-			Grund:
+			Grund: Es wird nicht im Constructor und auch nicht in der Funktion geprüft, ob ClientSideBuffer undeclared oder null ist.
 			\item
-			Behebung:
+			Behebung: Codezeile, die prüft ob ClientSideBuffer null ist wurde hinzugefügt.
+		\end{itemize}
+	
+	\subsection{Settings List Parameter MVC View Aktualisierung}
+		\begin{itemize}
+			\item
+			Symptom: Wenn man setValue() in Settings List Parameter (Controller) aufruft, dann soll der Wert in View und Model entsprechend geändert werden. Im Model erfolgt die Änderung, die Anzeige ändert sich jedoch nicht.
+			\item
+			Grund: Code-Zeile, die bei einer Wertänderung das Modell auch ändert ist nicht vorhanden.
+			\item
+			Behebung: Fehlende Code-Zeile wurde hinzugefügt.
 		\end{itemize}
 		
+	\subsection{Settings Parameter MVC View Index}
+		\begin{itemize}
+			\item
+			Symptom: Wenn man beim Controller das letzte Element auswählt, dann soll es in View auch ausgewählt werden. Liest man jedoch selectedIndex zurück, bekommt man den Wert -1, statt zum Beispiel 5, wenn die Liste 5 Elemente hat. 
+			\item
+			Grund: Index fängt in View bei 0 an.
+			\item
+			Behebung: Die Zeile, die den Wert von selectedIndex auf n setzt wurde geändert, so wird jetzt den Wert auf n-1 gesetzt. Hinweis: die Liste der Elemente fängt in XML Dateien weiterhin bei 1 an.
+		\end{itemize}
+		
+	\subsection{Settings Parameter get Full Uid wenn Parent == null}
+		\begin{itemize}
+			\item
+			Symptom: Funktion getFullUid() in SettingsParameter stürzt beim Aufruf ab, wenn SettingsParameter mit Parent == null initialisiert wurde, also wenn setParent() nicht früher aufgerufen wird.
+			\item
+			Grund: Die Funktion greift auf this.parent zu, was in diesem Fall noch nicht auf einen Wert != null gesetzt wurde, weil man früher die Funktion setParent() nicht aufgerufen hat.
+			\item
+			Behebung: Es wird in getFullUid() geprüft ob man den Elternknoten schon auf einen gültigen Wert gesetzt hat. Wenn nicht dann wird 
+		\end{itemize}
+		
+	\subsection{Settings Parameter Elternknoten ist nicht definiert}
+		\begin{itemize}
+			\item
+			Symptom: Funktion getParent() wird aufgerufen und man bekommt undefined statt null zurück, wenn man früher den Elternknoten nicht explizit definiert hat.
+			\item
+			Grund: Es gibt keinen Initialwert von this.parent, solange es nicht explizit auf einen Wert (auch null) gesetzt wird, ist es undefined.
+			\item
+			Behebung: This.parent wird immer mit null initialisiert.
+		\end{itemize}
+		
+	\subsection{Settings Numeric Parameter Min/Max Limiter}
+		\begin{itemize}
+			\item
+			Symptom: Wenn der Initialwert außerhalb von [Min, Max] liegt, wird es auf [Min, Max] abgebildet. Setzt man jedoch mit setValue() den Wert, werden die Mindestwert/Maximalwert Attribute nicht berücksichtigt und man kann den Attribut Wert beliebig setzen.
+			\item
+			Grund: Es wird in setValue() nicht geprüft, ob der Wert, den man jetzt eingibt gültig ist (ob es innerhalb [Min, Max] liegt.
+			\item
+			Behebung: Entsprechende Code-Zeilen addiert, wenn der Eingabewert ausserhalb [Min, Max] liegt, wird es auf Min (falls Wert < Min) oder Max (falls Wert > Max) gesetzt.
+		\end{itemize}
+		
+\subsection*{Resultate / Statistiken}
+		Hier sind die Testresultate zu sehen. Es ist dabei zu beachten, dass GUI-Klassen und solche Adapter-Klassen, die eine komplexe Umgebung/Initialisierung brauchen evtl. nicht (vollständig) abgedeckt sind.
+\begin{center}
+    \begin{tabular}{| l | l | l | l | l |}
+    \hline
+    Dateiname & Abdeckung & Jasmine Expects & Code LOC & Spec LOC\\ \hline
+    CompositeStructure & 94.58\% & 58 & 612 & 165 \\ \hline
+		SettingsData & 99.07\% & 58 & 188 & 252 \\
+    \hline
+    \end{tabular}
+\end{center}
+	
 \end{document}
