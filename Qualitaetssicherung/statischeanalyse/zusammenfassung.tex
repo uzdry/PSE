@@ -8,4 +8,42 @@ Welche Ziele wir uns gesetzt haben (z.B. wir wollen max. 0.01 Warnung pro Code-z
 \section{Resultate}
 Statistiken, haben wir unsere Ziele erreicht? ... usw.
 
+\subsection{Einparkhilfe}
+			Die häufigste Fehler waren:
+			\begin{itemize}
+				\item Variable x redundant in solchen Zeilen: var x = func(); return x; (statt return func();)
+				\item Typo, myvariable wurde statt myVariable verwendet.
+			\end{itemize}
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Modul & Warnungen & Davon behoben & LOC & Hinweis\\ \hline
+					Communicator & 2 & 1 & 29 & Verzeichnisname nicht geändert \\ \hline
+					Format & 4 & 4 & 160 & - \\ \hline
+					Geometry & 12 & 12 & 397 & - \\ \hline
+					ParkingSensorStarter & 28 & 2 & 166 & XML lowercase Namen ignoriert \\ \hline
+					Primitive & 1 & 1 & 107 & - \\ \hline
+					PSGUI & 20 & 16 & 165 & - \\ \hline
+					Visualization & 11 & 9 & 300 & - \\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
+			
+\subsection{Settings}
+			Die häufigste Fehler waren:
+			\begin{itemize}
+				\item Typo, myvariable wurde statt myVariable verwendet.
+				\item Typos in String konstanten und in HTML eingaben (z.B. tbody in document.createElement('tbody');)
+			\end{itemize}
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Modul & Warnungen & Davon behoben & LOC & Hinweis\\ \hline
+					CompositeStructure & 41 & 38 & 618 & Alte Kommentare, 25x ruid Typo. \\ \hline
+					Renderer & 17 & 10 & 404 & HTML String Typos nicht geändert. \\ \hline
+					SettingsData & 4 & 1 & 188 & No Typo error in word splitted. \\ \hline
+					TSettings & 55 & 40 & 383 & Typos in Strings nicht geändert. \\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
 \end{document}
