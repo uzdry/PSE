@@ -4,24 +4,64 @@
 
 \section{Rückfahrkamera}
 
-	\subsection{Fehlername}
+	\subsection{RGB Objekte dürfen nur mit drei bytes initialisiert werden.}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: Es war möglich RGB Objekte mit r/g/b Werten außerhalb [0,255] zu initialisieren.
 			\item
-			Grund:
+			Grund: Es gab keinen min/max Limiter im Constructor.
 			\item
-			Behebung:
+			Behebung: Constructor angepasst, jetzt werden alle Werte auf [0,255] abgebildet (truncated).
 		\end{itemize}
 		
-	\subsection{Fehlername}
+	\subsection{RGB Objekte sind doch keine RGG Objekte.}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: Man initialisierte RGB mit r/g/b und bei Nachfrage bekam die Werte r/g/g zurück.
 			\item
-			Grund:
+			Grund: Constructor hat this.blue auf Math.max(0, this.green) gesetzt.
 			\item
-			Behebung:
+			Behebung: Tippfehler korrigiert.
+		\end{itemize}
+	\subsection{Geometry.Vec4 initialisierung mit null war fehlerhaft}
+		\begin{itemize}
+			\item
+			Symptom: Man initialisierte Geometry.Vec4 mit NULL und getValues gab NULL zurück, statt (0,0,0,0).
+			\item
+			Grund: Reihenfolge der Code-Zeilen im Konstruktor vertauscht.
+			\item
+			Behebung: Reihenfolge der Zeilen korrigiert.
+		\end{itemize}
+	\subsection{Geometry.Vec4 Zugriff auf null trotz Gegenmaßnahmen}
+		\begin{itemize}
+			\item
+			Symptom: Zugriff auf Attributwert null, obwohl if (!null == true).
+			\item
+			Grund: Zwei if() statements nacheinander sahen folgt aus: if(null), if(…). Man sollte aber an dieser Stelle if(null), else if(…) verwenden.
+			\item
+			Behebung: If auf else if geändert.
+		\end{itemize}
+	\subsection{ArrayNormalizer verkürzt Arrays nicht}
+		\begin{itemize}
+			\item
+			Symptom: Array der Länge 3 wird eingegeben, ArrayNormalizer soll dies auf Länge 2 normalisieren, die Ausgabe hat trotzdem die Länge 3.
+			\item
+			Grund: Fallunterscheidung fehlt, Fall 1: Ziellänge < Eingabelänge (in diesem Fall soll der Array verlängert werden), Fall 2: Ziellänge > Eingabelänge (hier soll der Array gekürzt werden).
+			\item
+			Behebung: Fallunterscheidung hinzugefügt.
 		\end{itemize}
 		
+		\subsection*{Resultate / Statistiken}
+		Hier sind die Testresultate zu sehen. Es ist dabei zu beachten, dass GUI-Klassen und solche Adapter-Klassen, die eine komplexe Umgebung/Initialisierung brauchen evtl. nicht (vollständig) abgedeckt sind.
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Dateiname & Abdeckung & Jasmine Expects & Code LOC & Spec LOC\\ \hline
+					Format & 100.00\% & 24 & 160 & 162\\ \hline
+					Geometry & 100.00\% & 265 & 397 & 612 \\ \hline
+					Primitive & 100.00\% & 61 & 107 & 137\\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
+
 \end{document}

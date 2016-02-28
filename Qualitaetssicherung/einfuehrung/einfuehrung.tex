@@ -2,26 +2,37 @@
 
 \begin{document}
 
+\section{Statistiken}\label{statistiken}
 \section{Werkzeuge}\label{werkzeuge}
 \begin{itemize}
 	\item
-	Jasmine
-	\begin{itemize}
-		\item
-		jasmine-jquery
-	\end{itemize}
+
+	Jasmine\newline	
+	Um unsere Testfälle einfach und automatisiert durchlaufen lassen zu können, haben wir uns entschlossen eine bekannte Javascript-Testumgebung zu verwenden, die Jasmine heißt. Man schreibt man die Testfälle in Typescript und danach führt man Jasmine aus: man soll in einer HTML Datei die Javascript Dateien von Jasmine, die Testdateien und die zu testende Dateien referenzieren. Wenn man die HTML Datei öffnet, werden die Tests durchgeführt und die Resultate automatisch angezeigt.
+	
+	\begin{figure}
+    \textbf{Jasmine}\par\medskip
+    \includegraphics[width=0.99\textwidth]{Images/jasmine-example.png}
+    \caption{So werden die Testresultate in Chrome dargestellt}
+	\end{figure}
+	
 	\item
-	Karma
-	\begin{itemize}
-		\item
-		karma-chrome-launcher
-		\item
-		karma-firefox-launcher
-		\item
-		karma-jasmine
-		\item
-		karma-jasmine-jquery
-	\end{itemize}
+	Karma\newline
+	Damit wir wissen, welche Code-Zeilen wir schon überprüft haben ist es von Vorteil ein Werkzeug zu haben, das uns die Codeabdeckung anzeigt und uns beim Schreiben von Testfällen unterstützt. Als Tool zur Messung der Codeabdeckung haben wir Karma (verwendet intern Istanbul) ausgewählt.
+	
+	\begin{figure}
+    \textbf{Karma-Übersicht}\par\medskip
+    \includegraphics[width=0.99\textwidth]{Images/karma-example-1.png}
+    \caption{Codeabdeckung bei den einzelnen Modulen}
+	\end{figure}
+	
+	\begin{figure}
+    \textbf{Karma-Abdeckung}\par\medskip
+    \includegraphics[width=0.99\textwidth]{Images/karma-example-1.png}
+    \caption{Die nicht abgedeckte Codezeilen werden rot markiert}
+	\end{figure}
+	
+
 \end{itemize}
 		
 \end{document}

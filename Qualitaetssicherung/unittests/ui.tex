@@ -73,4 +73,28 @@
 		\item
 		Behebung: Bei einem leeren Array "[]" zurückgeben. 
 	\end{itemize}	
+	
+\subsection*{Resultate / Statistiken}
+	Hier sind die Testresultate der UI-Elemente zu sehen.
+	Man muss beachten, dass dies wirklich nur die Unit-Tests beinhaltet. Die Coverage von Manuellen Tests ist dabei nicht mitinbegriffen. Diese sind vor allem bei den UserInterface-Tests jedoch ein maßgeblicher Teil.
+	Ein weiteres Problem ist, dass durch das Compilen von Typescript-Code in Javascript-Code am Anfang der Datei nötige jedoch nicht von Jasmine genutzte Zeilen stehen die im Coverage auch nicht berücksichtigt werden.
+	\begin{center}
+		\begin{tabular}{| l | l | l | l | l |}
+			\hline
+			Dateiname & Abdeckung & Jasmine Expects & Code LOC & Spec LOC\\ \hline
+			Map 			&  60\% & 24 & 160 & 162\\ \hline
+			dashboard 		&  50\% & 265 & 397 & 612 \\ \hline
+			dataCollection 	&  74\% & 61 & 107 & 137\\ \hline
+			dataModel    	&  79\% & 61 & 107 & 137\\ \hline
+			grid		 	&  47\% & 61 & 107 & 137\\ \hline
+			widget		 	&  81\% & 61 & 107 & 137\\ \hline
+			widgetFactory 	&  93\% & 61 & 107 & 137\\ \hline
+			lineChartWidget &  89\% & 61 & 107 & 137\\ \hline
+			percentGaugeWidget 	&  90\% & 61 & 107 & 137\\ \hline
+			speedGaugeWidget 	&  90\% & 61 & 107 & 137\\ \hline
+			textWidget  	& 100\% & 61 & 107 & 137\\ \hline
+			\hline
+		\end{tabular}
+	\end{center}
+	
 \end{document}
