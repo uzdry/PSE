@@ -1,0 +1,31 @@
+\documentclass[qualitaetssicherung.tex]{subfiles}
+
+\begin{document}
+
+\section{Bluetooth OBD}
+
+	\subsection{NO DATA Object empfangen}
+		\begin{itemize}
+			\item
+			Symptom: Bluetooth antwortet mit einem Object, das nur NO DATA Information
+			enthält.
+			\item
+			Grund: Die Befehle der Anforderung der Daten sind zu schnell nach OBD
+			geschickt.
+			\item
+			Behebung: Ein Befehl wird erst nach OBD geschickt, wenn die Antwort der
+			letzten Anfrage ankommt.
+		\end{itemize}
+		
+	\subsection{Falsche Daten empfangen}
+		\begin{itemize}
+			\item
+			Symptom: Die Drehzahl ist nicht mit dem Realität entspricht.
+			\item
+			Grund: Die Umrechnung der empfangenen Daten ist nicht korrekt.
+			\item
+			Behebung: Die Umrechnung der entsprechenden Daten ist nach richtiger Formel
+			korrigiert.
+		\end{itemize}
+		
+\end{document}
