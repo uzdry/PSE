@@ -4,23 +4,23 @@
 
 \section{UI}
 
-	\subsection{Allgemeine Schwierigkeiten}
+	\subsection*{Allgemeine Schwierigkeiten}
 		Mehrere der genutzten Bibliotheken stellen eine Erweiterung von JQuery dar. Diese Erweiterung scheint jedoch nicht mit Karma zu funktionieren. Ohne Karma treten diese Probleme nicht auf.
 
 	\subsection{Datamodel Werte nicht definiert}
 		\begin{itemize}
 			\item
-			Symptom: Error: "topic is undefined" bei erstellen eines Datenmodells
+			Symptom: Error: "topic is undefined" beim Erstellen eines Datenmodells
 			\item
 			Grund: Bei einem undefinierten Signalname versucht der PostalBus auf null zu subscriben. Dies warf natürlich einen Error.
 			\item
-			Behebung: Übeprüfe vor subscribe auf 'undefined'
+			Behebung: Überprüfe vor subscribe auf 'undefined'
 		\end{itemize}
 		
 	\subsection{Grid nicht zerstörbar}
 		\begin{itemize}
 			\item
-			Symptom: Bei löschen des HTML-Elements und erneuten erzeugen treten Fehler im Hinzufügen von Widgets auf. 
+			Symptom: Beim Löschen des HTML-Elements und erneuten erzeugen treten Fehler im Hinzufügen von Widgets auf. 
 			\item
 			Grund: Das Grid selbst wird nicht gelöscht. Nur die Stelle an der es angezeigt wird, wird gelöscht.
 			\item
@@ -30,7 +30,7 @@
 	\subsection{Gauge Widget highlights fehlen}
 	\begin{itemize}
 		\item
-		Symptom: Beim erzeugen von verschiedenen Gauges gibt es einen Fehler, dass "high" nicht definiert sei.
+		Symptom: Beim Erzeugen von verschiedenen Gauges gibt es einen Fehler, dass "high" nicht definiert sei.
 		\item
 		Grund: Manchmal fehlen die highlights in der signals.xml. Dort fehlen dann auch die ticks.
 		\item

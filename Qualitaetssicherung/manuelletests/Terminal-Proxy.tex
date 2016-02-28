@@ -11,7 +11,7 @@
 			man durch ein Browser den Server anfragt und schaut, ob die
 			Startkonfiguration erfolgreich angezeigt werden kann.
 			\item
-			Vorbedingung: Der Server ist Startet. Ein Endgerät ist durch WLAN mit der
+			Vorbedingung: Der Server ist gestartet. Ein Endgerät ist durch WLAN mit dem
 			Server verbunden.
 			\item
 			Nachbedingung (Erfolg): Die Startkonfiguration der Dashboards werden im
@@ -23,12 +23,12 @@
 			Beschreibung/Testschritte:
 			\begin{itemize}
 				\item
-				Schritt eins: Der Benutzer startet den Server im Rasberry-PI.
+				Schritt eins: Der Benutzer startet den Server im Raspberry-PI.
 				\item
 				Schritt zwei: Der Benutzer verbindet sein Endgerät durch WLAN mit dem
 				Server.
 				\item  
-				Schritt drei: Der Benutzer öffnet den Browser und geht zur Addresse des
+				Schritt drei: Der Benutzer öffnet den Browser und geht zur Adresse des
 				Servers.
 			\end{itemize}
 		\end{itemize}
@@ -38,11 +38,11 @@
 			\item
 			Es ist die Fähigkeit, dass die Software mit mehreren Benutzern laufen kann.
 			\item
-			Vorbedingung: Der Server ist Startet und kann die Daten über ein Auto
-			einsammlen durch OBD-Bluetooth-Adapter. Mehrere Endgeräte sind durch WLAN
-			mit der Server verbunden. Der Fahrer fährt mit dem Auto.
+			Vorbedingung: Der Server ist gestartet und kann die Daten über ein Auto
+			einsammeln durch OBD-Bluetooth-Adapter. Mehrere Endgeräte sind durch WLAN
+			mit dem Server verbunden. Der Fahrer fährt mit dem Auto.
 			\item
-			Nachbedingung (Erfolg): Die Endgeräte können die echtzeitige Daten über das
+			Nachbedingung (Erfolg): Die Endgeräte können die Echtzeitdaten über das
 			Auto nach Wunsch anzeigen.
 			\item
 			Nachbedingung (Fehlschlag): Die Endgeräte können die Daten nicht richtig
@@ -54,23 +54,23 @@
 				Schritt eins: Der Fahrer steckt das OBD-Bluetooth-Adapter in das Auto
 				ein und lässt das Auto anzünden.
 				\item
-				Schritt zwei: Der Fahrer startet den Server auf dem Rasberry PI.
+				Schritt zwei: Der Fahrer startet den Server auf dem Raspberry PI.
 				\item
-				Schritt zwei: Der Benutzer verbindet seine Endgeräte mit dem Server.
+				Schritt drei: Der Benutzer verbindet seine Endgeräte mit dem Server.
 				\item 
-				Schritt Drei: Der Benutzer öffnet die Browser in verschiedenen Geräte
-				und geht die Addresse zur Server.
+				Schritt vier: Der Benutzer öffnet den Browser auf verschiedenen Geräten
+				und geht zur Adresse des Servers.
 				\item 
-				Schritt Vier: Der Benutzer fordert unterschiedliche Widgets in
-				Endgeräte und überprüfen, ob die angekommenen Daten mit Realität
+				Schritt fünf: Der Benutzer fordert unterschiedliche Widgets auf den
+				Endgeräten und überprüft, ob die angekommene Daten mit der Realität
 				übereinstimmen.
 			\end{itemize}
 		\end{itemize}
 			\subsection{Client Value Subscriptions}
 		\begin{itemize}
 			\item Lässt sich der User einen bislang nicht gezeigten Wert anzeigen, wird dieser auch auf Server Seite (vom Proxy des entsprechenden Clients) subscribed.
-			\item Wenn der Client die Verbindung trennt, soll der Proxy auf Server-Seite gelöscht werden. Davor sollen aber alle Subscriptions des Proxy gelöscht werden. Die Methode \code{unsubscribeAll(): void} der Klasse Buss wird in den Unit-Tests abgedeckt.  ~\ref{}
-			\item Vorbedingung: Es ist mindestens ein Client mit dem Server verbunden sein, der mindestens einen Wert anzeigen.
+			\item Wenn der Client die Verbindung trennt, soll der Proxy auf Server-Seite gelöscht werden. Davor sollen aber alle Subscriptions des Proxy gelöscht werden. Die Methode \code{unsubscribeAll(): void} der Klasse Bus wird in den Unit-Tests abgedeckt.  ~\ref{}
+			\item Vorbedingung: Es muss mindestens ein Client mit dem Server verbunden sein und mindestens einen Wert anzeigen.
 			\item
 			Nachbedingung (Erfolg): Für kein \code{Topic topic} ist Der Proxy im Array \code{Broker.get().subscribers[topic]} enthalten
 			\item
