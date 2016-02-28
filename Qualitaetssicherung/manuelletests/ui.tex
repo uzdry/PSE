@@ -4,23 +4,37 @@
 
 \section{UI}
 
-	\subsection{Beispiel - Testname 1}
+	\subsection{Allgemeine Widget-Funktion}
 		\begin{itemize}
 			\item
-			Eine kurze Zusammenfassung. Was wird getestet, warum... usw.
+			Teste das Erzeugen von verschiedenen Widgets auf dem Dashboard. Der Test wird über den localhost also nicht über den Raspberry Pi durchgeführt, da der komplette Test nur auf dem Client läuft und der Pi dem Browser dieselben Dateien anbietet.
 			\item
-			Vorbedingung: (Beispiel: manche UI Elemente müssen schon geöffnet sein)
+			Vorbedingung: Der Server muss laufen.(Optional: Internetverbingung für GoogleMaps)
 			\item
-			Nachbedingung (Erfolg): (Beispiel: dies und das wird angezeigt)
+			Nachbedingung (Erfolg): Alle Widgets lassen sich mit verschiedenen Signalen erzeugen. Ihre Größe ist änderbar. Sie lassen sich verschieben und auch löschen. 
 			\item
-			Nachbedingung (Fehlschlag): (Beispiel: wird nicht angezeigt, stürzt ab...)
+			Nachbedingung (Fehlschlag): Ein Widget lässt sich nicht erzeugen, verschieben, oder transformieren. Oder eine Fehlermeldung wird geworfen.
 			\item
 			Beschreibung/Testschritte:
 			\begin{itemize}
 				\item
-				Schritt eins...
+				Öffne im Browser 10.10.0.1:8000
 				\item
-				Schritt zwei
+				Wechsle in den Edit-Modus über den passenden Button.
+				\item
+				Wähle zufällig ein Signal über das obere Dropdown Menü
+				\item
+				Wähle zufällig ein Widget im unteren Dropdown Menü
+				\item
+				Klicke auf den "Add"-Button
+				\item
+				Verschiebe das Widget an eine zufällige Stelle
+				\item
+				Wiederhole die letzten 4 Schritte einige male
+				\item
+				Zuletzt aktiviere den Löschen-Modus über die Checkbox
+				\item
+				Lösche alle erzeugten Widgets
 			\end{itemize}
 		\end{itemize}
 		
