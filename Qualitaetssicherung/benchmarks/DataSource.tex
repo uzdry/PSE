@@ -11,4 +11,7 @@ Antwort des letzten Befehles ankommt. Durchschnittlich ist es 80ms zwischen zwei
 Befehle. Das heißt, pro Sekunde werden durchschnittlich 12.5 Befehle erforgreich
 nach OBD geschickt.
 
+\subsection{Server-Side Bus}
+	Der Bus auf der Serverseite arbeitet synchrone Methodenaufrufe (\code{handleMessage(m: Message): void}) von allen \code{BusDevice} Instanzen ab, die auf das \code{Topic} von \code{m} subscriben. Man kann kontinuierlich Nachrichten auf den Bus legen. Auf den Referenzgeräten wurden dadurch circa 2/3 der CPU leistung in Anspruch genommen.
+
 \end{document}
