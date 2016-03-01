@@ -11,7 +11,6 @@
 		Man kann sich die Berechnung des Time-Weighted Average als das Integral des Wertes $v$ über ein Zeitintervall geteilt durch die Länge des Zeitintervalls vorstellen. Die Berechnnung erfolgt Diskret mit folgender Formel für n Werte $v_i$ gilt für den Durchschnitt.
 		\begin{equation} \label{EQAVG}
 			avg = \frac{1}{t_n - t_0} \sum_{i = 1}^{n} (t_i - t_{i-1}) * v_{i-1}
-		}
 		\end{equation}
 		 wobei $t_i$ jeweils die aktuelle Systemzeit ist. Das geht für Werte jedes Topics. Ein vereinfachter Spezialfall ist die Distanzberechnung. Für den $i$-ten Wert $s_i$ wird folgende inkrementelle Berechnung durchgeführt.
 		 \begin{equation} \label{EQDIST}
