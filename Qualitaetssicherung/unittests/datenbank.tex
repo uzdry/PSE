@@ -4,24 +4,24 @@
 
 \section{Datenbank}
 
-	\subsection{Fehlername}
+	\subsection{Ausreißer im Replay-Modus}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: Im Replay-Modus treten vereinzelte ``Ausreißer'' auf, die Sprünge in den virtuellen Nadeln der Anzeigedashes verursachen und in Text-Widgets direkt sichtbar sind
 			\item
-			Grund:
+			Grund: Die Asynchronität von Funktionsaufrufen und Callbacks lässt in Kombination mit der Latenz der Datenbank und Eventbasiertem Aufruf des Busses keine Garantie der Reihenfolge des Schreibens zu. Die Einträge für ein Replay werden in der Reihenfolge des Schreibens in die Datenbank ausgelesen und auf den Bus gelegt.
 			\item
-			Behebung:
+			Behebung: - 
 		\end{itemize}
 		
-	\subsection{Fehlername}
+	\subsection{Replay im Zeitraffer}
 		\begin{itemize}
 			\item
-			Symptom:
+			Symptom: Ein begonnenes Replay ist deutlich schneller als die ursprüngliche Fahrt 
 			\item
-			Grund:
+			Grund: Ein Fehler in der Inkompatibilität von Datentypen: number und ValueEntryKey. Anstatt den time-Wert der ValueEntryKeys im Replay voneinander zu subtrahieren wurden die Objekte selbst voneinander subtrahiert.
 			\item
-			Behebung:
+			Behebung: Die Datentypen werden nun richtig interpretiert und die time-Werte der Objekte miteinander verrechnet.
 		\end{itemize}
 		
 \end{document}

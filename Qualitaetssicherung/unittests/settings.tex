@@ -7,7 +7,7 @@
 	\subsection{Settings directory append child/set parent Problem}
 		\begin{itemize}
 			\item
-			Symptom: The set parent Funktion arbeitete nicht, wie gewünscht, beim Elternknoten wurde das Kind nicht hinzugefügt, wenn die Funktion set parent beim Kindknoten aufgerufen wurde. 
+			Symptom: The set parent Funktion arbeitete nicht wie gewünscht, beim Elternknoten wurde das Kind nicht hinzugefügt, wenn die Funktion set parent beim Kindknoten aufgerufen wurde. 
 			\item
 			Grund: Fehlerhafte Implementierung, kein Aufruf der Funktion append child des Elternknotens.
 			\item
@@ -19,7 +19,7 @@
 			\item
 			Symptom: Settings List und Numeric (L/N) Parameter SetValue Funktion stürzt ab, wenn die Klasse SettingsLParameter mit ClientSideBuffer == null initialisiert wurde.
 			\item
-			Grund: Es wird nicht im Constructor und auch nicht in der Funktion geprüft, ob ClientSideBuffer undeclared oder null ist.
+			Grund: Es wird nicht im Konstruktor und auch nicht in der Funktion geprüft, ob ClientSideBuffer undeclared oder null ist.
 			\item
 			Behebung: Codezeile, die prüft ob ClientSideBuffer null ist wurde hinzugefügt.
 		\end{itemize}
@@ -51,7 +51,7 @@
 			\item
 			Grund: Die Funktion greift auf this.parent zu, was in diesem Fall noch nicht auf einen Wert != null gesetzt wurde, weil man früher die Funktion setParent() nicht aufgerufen hat.
 			\item
-			Behebung: Es wird in getFullUid() geprüft ob man den Elternknoten schon auf einen gültigen Wert gesetzt hat. Wenn nicht dann wird 
+			Behebung: Es wird in getFullUid() geprüft ob man den Elternknoten schon auf einen gültigen Wert gesetzt hat. Wenn nicht dann wird getRUid() zurückgegeben.
 		\end{itemize}
 		
 	\subsection{Settings Parameter Elternknoten ist nicht definiert}

@@ -4,23 +4,23 @@
 
 \section{UI}
 
-	\subsection{Allgemeine Schwierigkeiten}
+	\subsection*{Allgemeine Schwierigkeiten}
 		Mehrere der genutzten Bibliotheken stellen eine Erweiterung von JQuery dar. Diese Erweiterung scheint jedoch nicht mit Karma zu funktionieren. Ohne Karma treten diese Probleme nicht auf.
 
 	\subsection{Datamodel Werte nicht definiert}
 		\begin{itemize}
 			\item
-			Symptom: Error: "topic is undefined" bei erstellen eines Datenmodells
+			Symptom: Error: "topic is undefined" beim Erstellen eines Datenmodells
 			\item
 			Grund: Bei einem undefinierten Signalname versucht der PostalBus auf null zu subscriben. Dies warf natürlich einen Error.
 			\item
-			Behebung: Übeprüfe vor subscribe auf 'undefined'
+			Behebung: Überprüfe vor subscribe auf 'undefined'
 		\end{itemize}
 		
 	\subsection{Grid nicht zerstörbar}
 		\begin{itemize}
 			\item
-			Symptom: Bei löschen des HTML-Elements und erneuten erzeugen treten Fehler im Hinzufügen von Widgets auf. 
+			Symptom: Beim Löschen des HTML-Elements und erneuten erzeugen treten Fehler im Hinzufügen von Widgets auf. 
 			\item
 			Grund: Das Grid selbst wird nicht gelöscht. Nur die Stelle an der es angezeigt wird, wird gelöscht.
 			\item
@@ -30,7 +30,7 @@
 	\subsection{Gauge Widget highlights fehlen}
 	\begin{itemize}
 		\item
-		Symptom: Beim erzeugen von verschiedenen Gauges gibt es einen Fehler, dass "high" nicht definiert sei.
+		Symptom: Beim Erzeugen von verschiedenen Gauges gibt es einen Fehler, dass "high" nicht definiert sei.
 		\item
 		Grund: Manchmal fehlen die highlights in der signals.xml. Dort fehlen dann auch die ticks.
 		\item
@@ -82,20 +82,20 @@
 	Man muss beachten, dass dies wirklich nur die Unit-Tests beinhaltet. Die Coverage von Manuellen Tests ist dabei nicht mitinbegriffen. Diese sind vor allem bei den UserInterface-Tests jedoch ein maßgeblicher Teil.
 	Ein weiteres Problem ist, dass durch das Compilen von Typescript-Code in Javascript-Code am Anfang der Datei nötige jedoch nicht von Jasmine genutzte Zeilen stehen die im Coverage auch nicht berücksichtigt werden.
 	\begin{center}
-		\begin{tabular}{| l | l | l | l | l |}
+		\begin{tabular}{| l | l |}
 			\hline
-			Dateiname & Abdeckung & Jasmine Expects & Code LOC & Spec LOC\\ \hline
-			Map 			&  60\% & 24 & 160 & 162\\ \hline
-			dashboard 		&  50\% & 265 & 397 & 612 \\ \hline
-			dataCollection 	&  74\% & 61 & 107 & 137\\ \hline
-			dataModel    	&  79\% & 61 & 107 & 137\\ \hline
-			grid		 	&  47\% & 61 & 107 & 137\\ \hline
-			widget		 	&  81\% & 61 & 107 & 137\\ \hline
-			widgetFactory 	&  93\% & 61 & 107 & 137\\ \hline
-			lineChartWidget &  89\% & 61 & 107 & 137\\ \hline
-			percentGaugeWidget 	&  90\% & 61 & 107 & 137\\ \hline
-			speedGaugeWidget 	&  90\% & 61 & 107 & 137\\ \hline
-			textWidget  	& 100\% & 61 & 107 & 137\\ \hline
+			Dateiname & Abdeckung \\ \hline
+			Map 			&  60\% \\ \hline
+			dashboard 		&  50\% \\ \hline
+			dataCollection 	&  74\% \\ \hline
+			dataModel    	&  79\% \\ \hline
+			grid		 	&  47\% \\ \hline
+			widget		 	&  81\% \\ \hline
+			widgetFactory 	&  93\% \\ \hline
+			lineChartWidget &  89\% \\ \hline
+			percentGaugeWidget 	&  90\% \\ \hline
+			speedGaugeWidget 	&  90\% \\ \hline
+			textWidget  	& 100\% \\ \hline
 			\hline
 		\end{tabular}
 	\end{center}

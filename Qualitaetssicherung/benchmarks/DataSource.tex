@@ -5,8 +5,8 @@
 \section{Data Source}
 Die Geschwindigkeit der Aktualisierung der Daten über Auto hängt von dem CAN-Bus
 im Auto, dem Bluetooth-Adapter, und der Frequenz des Abschicken der Befehle ab.
-Um alle Befehle eine sinvolle Antwort zu haben, hat das Programm ein
-Machanismus genutzt, dass jeder Befehl erst abgeschickt werden kann, wenn der
+Um alle Befehle eine sinnvolle Antwort zu haben, hat das Programm ein
+Mechanismus genutzt, dass jeder Befehl erst dann abgeschickt werden kann, wenn der
 Antwort des letzten Befehles ankommt. Durchschnittlich ist es 80ms zwischen zwei
 Befehle. Das heißt, pro Sekunde werden durchschnittlich 12.5 Befehle erforgreich
 nach OBD geschickt.

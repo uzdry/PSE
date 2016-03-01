@@ -2,11 +2,11 @@
 
 \begin{document}
 
-\section{Ziele}
-Welche Ziele wir uns gesetzt haben (z.B. wir wollen max. 0.01 Warnung pro Code-zeile haben... usw.)
+\section{Ziele und Resultate}
+Wir haben die statische Code-Analyse durchgeführt und versucht dabei die Anzahl der Warnungen zu minimieren. Es ist aber zu beachten, dass wir die statische Code-Analyse nur als Hilfe betrachten und es gehört nicht zu unseren Zielen alle Warnungen zu unterdrücken. In vielen Fällen machen die Warnungen keinen Sinn und obwohl man die unterdrücken kann, wäre das Endergebnis schlechter. In solchen Situationen haben wir nichts unternommen.
 
 \section{Resultate}
-Statistiken, haben wir unsere Ziele erreicht? ... usw.
+Hier sieht man eine kurze Zusammenfassung, welche und wie viele Fehler wir behoben haben.
 
 \subsection{Einparkhilfe}
 			Die häufigste Fehler waren:
@@ -33,7 +33,7 @@ Statistiken, haben wir unsere Ziele erreicht? ... usw.
 			Die häufigste Fehler waren:
 			\begin{itemize}
 				\item Typo, myvariable wurde statt myVariable verwendet.
-				\item Typos in String konstanten und in HTML eingaben (z.B. tbody in document.createElement('tbody');)
+				\item Typos in String Konstanten und in HTML-Parametern (z.B. tbody in document.createElement('tbody');)
 			\end{itemize}
 			\begin{center}
 					\begin{tabular}{| l | l | l | l | l |}
@@ -46,4 +46,82 @@ Statistiken, haben wir unsere Ziele erreicht? ... usw.
 					\hline
 					\end{tabular}
 			\end{center}
+			
+		
+			
+\subsection{BluetoothOBD}
+			Die häufigste Fehler waren:
+			\begin{itemize}
+				\item Der Inspektor kann viele Befehle nicht erkennen. Deswegen sind keine
+				Warnungen behoben worden.
+			\end{itemize}
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Modul & Warnungen & Davon behoben & LOC & Hinweis\\ \hline
+					BluetoothOBD & 11 & 0 & 141 & - \\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
+			
+			
+			
+\subsection{Proxy}
+			Die häufigste Fehler waren:
+			\begin{itemize}
+				\item Die Namen der Funktionen werden mit Abkürzung geschrieben.
+			\end{itemize}
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Modul & Warnungen & Davon behoben & LOC & Hinweis\\ \hline
+					Proxy & 2 & 0 & 76 & - \\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
+			
+\subsection{Terminal}
+			Die häufigste Fehler waren:
+			\begin{itemize}
+				\item Die Namen der Funktionen werden mit Abkürzung geschrieben.
+			\end{itemize}
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Modul & Warnungen & Davon behoben & LOC & Hinweis\\ \hline
+					Terminal & 12 & 0 & 95 & - \\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
+
+\subsection{Server}
+			Die häufigste Fehler waren:
+			\begin{itemize}
+				\item Der Code Inspektor kennt kein Deutsch. Die deutsche Wörte werden als
+				"falsch buchstabiert" gezeichnet.
+			\end{itemize}
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Modul & Warnungen & Davon behoben & LOC & Hinweis\\ \hline
+					Server & 3 & 0 & 101 & - \\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
+			
+			
+\subsection{Server Starter}
+			Die häufigste Fehler waren:
+			\begin{itemize}
+				\item Der Name der Datenbank LevelUp wird vom Code Inspektor nicht erkannt.
+			\end{itemize}
+			\begin{center}
+					\begin{tabular}{| l | l | l | l | l |}
+					\hline
+					Modul & Warnungen & Davon behoben & LOC & Hinweis\\ \hline
+					ServerStarter & 5 & 0 & 50 & - \\ \hline
+					\hline
+					\end{tabular}
+			\end{center}
+
 \end{document}
