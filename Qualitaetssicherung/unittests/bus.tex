@@ -9,7 +9,14 @@
 
 		\subsubsection{Durchschnittsberechnung} 
 		Man kann sich die Berechnung des Time-Weighted Average als das Integral des Wertes $v$ über ein Zeitintervall geteilt durch die Länge des Zeitintervalls vorstellen. Die Berechnnung erfolgt Diskret mit folgender Formel für n Werte $v_i$ gilt für den Durchschnitt.
-		$$avg = \frac{1}{t_n - t_0} \sum_{i = 1}^{n} (t_i - t_{i-1}) * v_{i-1}$$ wobei $t_i$ jeweils die aktuelle Systemzeit ist. Das geht für Werte jedes Topics. Ein vereinfachter Spezialfall ist die Distanzberechnung. Für den $i$-ten Wert $s_i$ wird folgende inkrementelle Berechnung durchgeführt $$s_{i} = s_{i-1} + v_{i-1} * (t_i - t_{i-1})$$
+		\begin{equation} \label{EQAVG}
+			avg = \frac{1}{t_n - t_0} \sum_{i = 1}^{n} (t_i - t_{i-1}) * v_{i-1}
+		}
+		\end{equation}
+		 wobei $t_i$ jeweils die aktuelle Systemzeit ist. Das geht für Werte jedes Topics. Ein vereinfachter Spezialfall ist die Distanzberechnung. Für den $i$-ten Wert $s_i$ wird folgende inkrementelle Berechnung durchgeführt.
+		 \begin{equation} \label{EQDIST}
+		 	s_{i} = s_{i-1} + v_{i-1} * (t_i - t_{i-1})	
+		 \end{equation}
 
 		\subsubsection{Distanzberechnung} 
 
@@ -44,7 +51,7 @@
 			\item
 			Symptom: Bei der Berechnung des Durchschnitts wird ein Fehler gemacht.
 			\item
-			Grund: Für die Berechnung im Programm wurde die obige Formel mit $v_i$ anstelle von $v_{i-1}$ verwendet.
+			Grund: Für die Berechnung im Programm wurde die obige Formel \eqref{EQAVG} mit $v_i$ anstelle von $v_{i-1}$ verwendet.
 			\item
 			Behebung: Berechnung in der Methode \code{handleMessage(m: Message): void} der Klasse \code{AverageComputation} angepasst.
 
