@@ -12,14 +12,15 @@
 		\begin{equation} \label{EQAVG}
 			avg = \frac{1}{t_n - t_0} \sum_{i = 1}^{n} (t_i - t_{i-1}) * v_{i-1}
 		\end{equation}
-		 wobei $t_i$ jeweils die aktuelle Systemzeit ist. Das geht für Werte jedes Topics. Ein vereinfachter Spezialfall ist die Distanzberechnung. Für den $i$-ten Wert $s_i$ wird folgende inkrementelle Berechnung durchgeführt.
+		 wobei $t_i$ jeweils die aktuelle Systemzeit ist. Das geht für Werte jedes Topic.
+
+		\subsubsection{Distanzberechnung} 
+		Ein vereinfachter Spezialfall ist die Distanzberechnung. Für den $i$-ten Wert $s_i$ wird folgende inkrementelle Berechnung durchgeführt. Allgemein ist die Distanz das Integral der Geschwindigkeit über die Zeit. $dist = \int_{t_0}^{t_n} v(t) dt$ Mit diskreten Werten wird linear interpoliert und folgende inkrementelle Berechnung durchgeführt.
 		 \begin{equation} \label{EQDIST}
 		 	s_{i} = s_{i-1} + v_{i-1} * (t_i - t_{i-1})	
 		 \end{equation}
 
-		\subsubsection{Distanzberechnung} 
 
-		Allgemein ist die Distanz das Integral der Geschwindigkeit über die Zeit. $dist = \int_{t_0}^{t_n} v(t) dt$ Mit diskreten Werten wird linear interpoliert und folgende inkrementelle Berechnung durchgeführt.
 
 
 
